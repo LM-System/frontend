@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
 import CourseBar from "@/app/components/courses/CourseBar";
+import {MdEdit} from 'react-icons/md'
+import {GrAdd} from 'react-icons/gr'
+import {BsTrash,BsFillChatSquareTextFill} from 'react-icons/bs'
 
 function Assignment({ params }) {
   const courseId = params.courseId;
@@ -10,7 +13,7 @@ function Assignment({ params }) {
     <div className="h-full overflow-hidden bg-gray-200">
       <CourseBar courseId={courseId} />
       <div className="flex justify-between h-full bg-gray-200 mt-4">
-        <div className=" w-8/12 bg-white h-full drop-shadow-xl p-4 h-eighty overflow-y-auto">
+        <div className=" w-8/12 bg-white h-full drop-shadow-xl p-7 h-eighty overflow-y-auto">
           <ol class="relative border-l border-gray-200 dark:border-gray-700">
             {content.map((chapter)=>{
               return(

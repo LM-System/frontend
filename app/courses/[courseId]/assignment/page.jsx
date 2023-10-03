@@ -15,7 +15,7 @@ function Assignment({ params }) {
         <div className=" w-8/12 bg-white h-full drop-shadow-xl p-4 pt-6 h-eighty overflow-y-auto">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             {role == 'teacher' &&<Link href={'dfd'}>
-            <MdOutlineLibraryAdd className=" absolute right-2 top-3"/></Link>}
+            <MdOutlineLibraryAdd className="absolute right-2 top-3 text-lg"/></Link>}
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>

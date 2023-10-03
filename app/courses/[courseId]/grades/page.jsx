@@ -28,10 +28,10 @@ function Grades({params}) {
 <div class="relative overflow-x-auto">
   {role =='teacher' &&!ischanging&&<MdEdit onClick={()=>{
     setIschanging(true)
-  }} className='absolute top-3 right-3 cursor-pointer'/>}
+  }} className='absolute top-3 right-3 cursor-pointer text-lg'/>}
   {role =='teacher' &&ischanging&&<AiOutlineClose onClick={()=>{
     setIschanging(false)
-  }} className='absolute top-3 right-3 cursor-pointer'/>}
+  }} className='absolute top-3 right-3 cursor-pointer text-lg'/>}
     {!ischanging &&<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
