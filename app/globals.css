@@ -47,3 +47,30 @@ nav {
 .card {
   @apply bg-lightbg text-lighttxt flex flex-col items-center  border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-white dark:border-gray-700
 }
+.h-half{
+  height: 50vh;
+}
+.h-eighty{
+  height: 80vh;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e2e2e2;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #7a7a7a;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #e2e2e2;
+}

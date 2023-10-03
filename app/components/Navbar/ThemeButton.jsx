@@ -29,7 +29,7 @@ export default function ThemeButton() {
 
   if(!mounted) return null;
 
-  const SVG = icons[theme || 'light'];
+  // const SVG = icons[theme || 'light'];
 
   return (
     <>
@@ -37,7 +37,7 @@ export default function ThemeButton() {
         className="flex items-center justify-center rounded-full bg-white dark:bg-darkbg w-8 h-8 hover:cursor-pointer p-2 shadow-lg"
         onClick={toggleTheme}
       >
-        <SVG className={`dark:text-white text-yellow-400  w-4 h-4`}/>
+        {/* <SVG className={`dark:text-white text-yellow-400  w-4 h-4`}/> */}
       </button>
     </>
   )

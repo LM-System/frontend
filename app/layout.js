@@ -10,10 +10,12 @@ import { Inter } from "next/font/google";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-        <body className="flex flex-col-reverse md:flex-row w-">
+        <body className="flex flex-col-reverse md:flex-row">
             <Navbar />
-            <section>
-              {children}
+            <section className="w-full flex justify-center bg-gray-200">
+              <section className="w-10/12 mt-10">
+                {children}
+              </section>
             </section>
         </body>
     </html>
