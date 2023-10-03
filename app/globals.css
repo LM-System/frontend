@@ -1,27 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap');
+
+*{
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito Sans' !important;
+}
+
+p {
+  @apply text-secondarytxt
+}
+h1,h2,h3,h4,h5,h6 {
+  @apply text-headtxt dark:text-white
+}
+
+div {
+  @apply bg-white dark:bg-darkcomp
+}
+
+nav {
+  @apply bg-primary dark:bg-darkcomp
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+.nav {
+  @apply flex flex-col flex-wrap items-center justify-between p-4 gap-2 w-screen h-24 md:w-24 md:h-screen
+}
+.navlink {
+  @apply flex flex-col items-center justify-center w-16 h-16 p-2 rounded-lg transition duration-500 ease-in-out text-white hover:text-gray-700 hover:bg-white hover:shadow-lg
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.logout {
+  @apply flex flex-col items-center justify-center w-16 h-16 p-2 rounded-lg transition duration-500 ease-in-out text-white hover:text-red-600 hover:bg-white
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.active {
+  @apply bg-white text-secondary hover:text-primary
+}
+
+.card {
+  @apply bg-lightbg text-lighttxt flex flex-col items-center  border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-white dark:border-gray-700
 }
