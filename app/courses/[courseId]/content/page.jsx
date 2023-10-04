@@ -1,17 +1,30 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import CourseBar from "@/app/components/Course/Bar";
 import Navbar from "@/app/components/Navbar/Navbar";
+import AddContentCard from "@/app/components/Course/Content/AddContentCard";
+import EditContentCard from "@/app/components/Course/Content/EditContentCard";
 import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
-import {BsTrash,BsFillChatSquareTextFill} from 'react-icons/bs'
+import {BsTrash} from 'react-icons/bs'
+
 
 function Assignment({ params }) {
+  const role = 'teacher'
+  const [isAdding,setIsAdding]=useState(false)
+  const [isEditing,setIsEditing]=useState(true)
+
+  const handleAdd = ()=>{
+    setIsAdding(true)
+  }
+
   const courseId = params.courseId;
   const content = [{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''}]
 
   return (
     <div className="page">
+      {role=='teacher'&&isAdding&&<AddContentCard setIsAdding={setIsAdding} /> }
+      {role=='teacher'&&isEditing&&<EditContentCard setIsEditing={setIsEditing} /> }
       <Navbar/>
       <main className="main bg-gray-200">
       <section className="w-full flex justify-center bg-gray-200">
@@ -20,7 +33,8 @@ function Assignment({ params }) {
       <CourseBar courseId={courseId} />
       <div className="flex justify-between h-full bg-gray-200 mt-4">
         <div className=" w-8/12 bg-white h-full drop-shadow-xl p-7 h-eighty overflow-y-auto">
-          <ol class="relative border-l border-gray-200 dark:border-gray-700">
+            {role == 'teacher'&& <GrAdd onClick={handleAdd} className="absolute right-2 top-2 cursor-pointer text-lg"/>}
+          <ol class="relative border-l border-gray-200 dark:border-gray-700 mt-5">
             {content.map((chapter)=>{
               return(
                 <li class="mb-10 ml-6">
@@ -36,10 +50,12 @@ function Assignment({ params }) {
                     </svg>
                   </span>
                   <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
-                    {chapter.title}{" "}
+                    {chapter.title}
                     <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">
                       Latest
                     </span>
+                    {role == 'teacher'&& <MdEdit className="ml-6 cursor-pointer text-lg"/>}
+                    {role == 'teacher'&& <BsTrash className="ml-4 cursor-pointer text-lg"/>}
                   </h3>
                   <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                     {chapter.date}

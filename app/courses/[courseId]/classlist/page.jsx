@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import CourseBar from "@/app/components/Course/Bar";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Image from "next/image";
+import AddStudent from "@/app/components/Course/ClassList/AddStudent";
 import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
 import {BsTrash,BsFillChatSquareTextFill} from 'react-icons/bs'
 
 function Classlist({ params }) {
   const [isEditing,setIsEditing]=useState(false)
+  const [isAdding,setIsAdding]=useState(true)
 
   const handleSave = ()=>{
     setIsEditing(false)
@@ -19,17 +21,19 @@ function Classlist({ params }) {
   const courseId = params.courseId;
   return (
     <div className="page">
+      {role =='teacher' &&isAdding&& <AddStudent setIsAdding={setIsAdding}/>}
       <Navbar/>
       <main className="main bg-gray-200">
       <section className="w-full flex justify-center bg-gray-200">
-          <section className="w-11/12 mt-10 bg-gray-200">
+          <section className="w-full bg-gray-200">
     <div className="h-full overflow-hidden bg-gray-200">
       <CourseBar courseId={courseId} />
-      <div className="flex justify-between h-full bg-gray-200 mt-4">
+      <div className="flex gap-4 h-full bg-gray-200 mt-4">
         <div className=" w-8/12 bg-white h-eighty overflow-y-auto drop-shadow-xl p-4">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          {role == 'teacher' && !isEditing &&<MdEdit onClick={()=>{setIsEditing(true)}} className="absolute right-3 top-3 cursor-pointer text-lg"/>}
-            {role == 'teacher' && isEditing &&<GrAdd className="absolute right-3 top-3 cursor-pointer text-lg"/>}
+            {role == 'teacher' &&<GrAdd onClick={()=>{
+              setIsAdding(true)
+            }} className="absolute right-3 top-3 cursor-pointer text-lg"/>}
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -82,8 +86,8 @@ function Classlist({ params }) {
                       <BsFillChatSquareTextFill className="w-20 text-lg"/>
                     </a>
                   </td>
-                  {role=='teacher'&&isEditing&&<BsTrash className="absolute right-2 mt-4 cursor-pointer text-lg"/>}
-                  {role=='teacher'&&isEditing&&<MdEdit className="absolute right-2 mt-11 cursor-pointer text-lg"/>}
+                  {role=='teacher'&&<BsTrash className="absolute right-2 mt-4 cursor-pointer text-lg"/>}
+                  {role=='teacher'&&<MdEdit className="absolute right-2 mt-11 cursor-pointer text-lg"/>}
                 </tr>
                     )
                   })
@@ -91,12 +95,12 @@ function Classlist({ params }) {
               </tbody>
             </table>
           </div>
-            {role=='teacher'&&isEditing&&<button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-sm rounded-sm text-sm px-2 py-1.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-right mt-2 mr-2" onClick={handleSave}>Save Changes</button>}
-              {role=='teacher'&&isEditing&&<button type="button" onClick={()=>{
+            {/* {role=='teacher'&&<button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-sm rounded-sm text-sm px-2 py-1.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-right mt-2 mr-2" onClick={handleSave}>Save Changes</button>} */}
+              {/* {role=='teacher'&&<button type="button" onClick={()=>{
                 setIsEditing(false)
-              }} class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-sm rounded-sm text-sm px-2 py-1.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 float-right mt-2 mr-2">cancel</button>}
+              }} class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-sm rounded-sm text-sm px-2 py-1.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 float-right mt-2 mr-2">cancel</button>} */}
         </div>
-        <div className="w-3/12 bg-white h-full drop-shadow-xl"></div>
+        <div className="w-4/12 bg-white h-full drop-shadow-xl"></div>
       </div>
     </div>
     </section>
