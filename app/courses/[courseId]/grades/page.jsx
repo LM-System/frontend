@@ -24,12 +24,10 @@ function Grades({params}) {
     <div className="page">
       <Navbar/>
       <main className="main bg-gray-200">
-      <section className="w-full flex justify-center bg-gray-200">
-              <section className="w-11/12 mt-10 bg-gray-200">
-    <div className='h-full overflow-hidden bg-gray-200'>
+    <div className='courseComponent'>
     <CourseBar courseId={courseId}/>
-    <div className='flex justify-between h-full bg-gray-200 mt-4'>
-      <div className=' w-8/12 bg-white h-full drop-shadow-xl p-4 pt-8 h-eighty overflow-y-auto'>
+    <div className='courseFlex'>
+      <div className='courseLeft'>
         
 <div class="relative overflow-x-auto">
   {role =='teacher' &&!ischanging&&<MdEdit onClick={()=>{
@@ -133,13 +131,12 @@ function Grades({params}) {
 
 
       </div>
-      <div className='w-3/12 bg-white h-full drop-shadow-xl'>
+      <div className='courseRight'>
 
       </div>
     </div>
 </div>
-</section>
-    </section>
+
     </main>
     </div>
    )

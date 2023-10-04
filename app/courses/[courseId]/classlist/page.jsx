@@ -6,6 +6,7 @@ import Image from "next/image";
 import AddStudent from "@/app/components/Course/ClassList/AddStudent";
 import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
+import {AiOutlineMinus} from 'react-icons/ai'
 import {BsTrash,BsFillChatSquareTextFill} from 'react-icons/bs'
 
 function Classlist({ params }) {
@@ -24,12 +25,10 @@ function Classlist({ params }) {
       {role =='teacher' &&isAdding&& <AddStudent setIsAdding={setIsAdding}/>}
       <Navbar/>
       <main className="main bg-gray-200">
-      <section className="w-full flex justify-center bg-gray-200">
-          <section className="w-full bg-gray-200">
-    <div className="h-full overflow-hidden bg-gray-200">
+    <div className="courseComponent">
       <CourseBar courseId={courseId} />
-      <div className="flex gap-4 h-full bg-gray-200 mt-4">
-        <div className=" w-8/12 bg-white h-eighty overflow-y-auto drop-shadow-xl p-4">
+      <div className="courseFlex">
+        <div className='courseLeft'>
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             {role == 'teacher' &&<GrAdd onClick={()=>{
               setIsAdding(true)
@@ -86,8 +85,7 @@ function Classlist({ params }) {
                       <BsFillChatSquareTextFill className="w-20 text-lg"/>
                     </a>
                   </td>
-                  {role=='teacher'&&<BsTrash className="absolute right-2 mt-4 cursor-pointer text-lg"/>}
-                  {role=='teacher'&&<MdEdit className="absolute right-2 mt-11 cursor-pointer text-lg"/>}
+                  {role=='teacher'&&<AiOutlineMinus className="absolute right-3 mt-4 cursor-pointer text-lg text-black"/>}
                 </tr>
                     )
                   })
@@ -100,11 +98,9 @@ function Classlist({ params }) {
                 setIsEditing(false)
               }} class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-sm rounded-sm text-sm px-2 py-1.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 float-right mt-2 mr-2">cancel</button>} */}
         </div>
-        <div className="w-4/12 bg-white h-full drop-shadow-xl"></div>
+        <div className="courseRight"></div>
       </div>
     </div>
-    </section>
-    </section>
     </main>
     </div>
   );

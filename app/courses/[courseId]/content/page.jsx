@@ -27,12 +27,10 @@ function Assignment({ params }) {
       {role=='teacher'&&isEditing&&<EditContentCard setIsEditing={setIsEditing} /> }
       <Navbar/>
       <main className="main bg-gray-200">
-      <section className="w-full flex justify-center bg-gray-200">
-              <section className="w-11/12 mt-10 bg-gray-200">
-    <div className="h-full overflow-hidden bg-gray-200">
+    <div className="courseComponent">
       <CourseBar courseId={courseId} />
-      <div className="flex justify-between h-full bg-gray-200 mt-4">
-        <div className=" w-8/12 bg-white h-full drop-shadow-xl p-7 h-eighty overflow-y-auto">
+      <div className="courseFlex">
+        <div className="courseLeft">
             {role == 'teacher'&& <GrAdd onClick={handleAdd} className="absolute right-2 top-2 cursor-pointer text-lg"/>}
           <ol class="relative border-l border-gray-200 dark:border-gray-700 mt-5">
             {content.map((chapter)=>{
@@ -84,11 +82,9 @@ function Assignment({ params }) {
             })}
           </ol>
         </div>
-        <div className="w-3/12 bg-white h-full drop-shadow-xl"></div>
+        <div className="courseRight"></div>
       </div>
     </div>
-    </section>
-    </section>
     </main>
     </div>
   );

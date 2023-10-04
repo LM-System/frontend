@@ -10,7 +10,7 @@ function AddStudent({setIsAdding}) {
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
       <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-5/12 h-3/5 bg-white z-10 p-8">
         <AiOutlineClose
-          className=" float-right text-xl m-2 cursor-pointer"
+          className="absolute right-3 top-3 text-xl cursor-pointer"
           onClick={() => {
             setIsAdding(false);
           }}
@@ -44,7 +44,7 @@ function AddStudent({setIsAdding}) {
                         </p>
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $320
+                        <GrAdd/>
                     </div>
                 </div>
             </li>
