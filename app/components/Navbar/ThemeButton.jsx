@@ -1,15 +1,10 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import icons from '@/public/icons.jsx'
 import { useTheme } from "next-themes";
 
 export default function ThemeButton() {
-  const [mounted, setMounted] = useState(false)
   const { systemTheme, theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     if(localStorage.getItem('theme')) {
@@ -21,13 +16,9 @@ export default function ThemeButton() {
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
-    console.log(theme)
-    console.log(systemTheme)
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   }
-
-  if(!mounted) return null;
 
   const SVG = icons[theme || 'light'];
 

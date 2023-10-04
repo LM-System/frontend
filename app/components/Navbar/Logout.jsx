@@ -3,8 +3,8 @@ import Link from 'next/link'
 import Option from './Option'
 import icons from '@/public/icons.jsx'
 
-export default function Logout() {
+export default function Logout({route}) {
   return (
-    <Option route="/login" title="logout" className="logout"/>
+    <Option route={route} title="logout" type='logout' className="logout"/>
   )
 }

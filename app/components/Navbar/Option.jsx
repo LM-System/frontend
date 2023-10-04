@@ -1,27 +1,20 @@
 'use client'
 import Link from 'next/link'
-// import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import icons from '@/public/icons.jsx'
 import { useEffect, useState } from 'react'
 
-export default function Option({ id, route, title, icon }) {
-  const {pathname} = window.location
-  useEffect(() => {
-    
-  },[pathname])
-  console.log(pathname, route)
-  const active = pathname === route
-  const classType = title === 'logout' ? 'logout' : 'navlink'
+export default function Option({ id, route, title, icon, type }) {
+  const pathname = usePathname().split('/')[1]
+  const active = `/${pathname}` === route
   const SVG = icons[title];
   return (
-      <li className={`${classType} ${active ? 'active shadow-lg' : ''}`}>
         <Link
           href={route}
-          className={'flex flex-col items-center justify-center gap-2'}
+          className={`${type} ${active ? 'active' : ''}`}
           >
           <SVG />
-          <span className="capitalize font-bold text-xs">{title}</span>
+          <span className="capitalize font-bold text-xs hidden md:inline-block">{title}</span>
         </Link>
-      </li>
   )
 }

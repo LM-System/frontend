@@ -1,10 +1,13 @@
 
+import Navbar from "./components/Navbar/Navbar"
+
 export default function Home() {
   return (
-    <main
-     className="h-screen">
-      <div>hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-      <p>Hi</p></div>
-    </main>
+    <div className='page'>
+      <Navbar/>
+      <main className='main'>
+        Home
+      </main>
+    </div>
   )
 }
