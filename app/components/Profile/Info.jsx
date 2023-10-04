@@ -42,12 +42,7 @@ export default function UserProfile ({ userId }) {
           <div className="relative flex flex-col mb-7">
             <div className="flex flex-col justify-center items-center">
               <Avatar
-                style={{
-                  width: "75px",
-                  height: "75px",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                }}
-                sx={{ bgcolor: deepPurple[500] }}
+                className="w-[75px] h-[75px] shadow-lg bg-primary"
               >
                 {user.instructor.fullname.slice(0, 1)}
               </Avatar>
@@ -59,9 +54,9 @@ export default function UserProfile ({ userId }) {
           </div>
         </div>
       </div>
-      <div class="container mx-auto my-8 flex">
-        <div class="w-1/2 p-6">
-          <div class="bg-white rounded-lg shadow-lg p-8">
+      <div className="container mx-auto my-8 flex">
+        <div className="w-1/2 p-6">
+          <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="user-email">
               <h4>Email</h4>
               <div className="details">
@@ -78,8 +73,8 @@ export default function UserProfile ({ userId }) {
             </div>
           </div>
         </div>
-        <div class="w-1/2 p-6">
-          <div class="bg-white rounded-lg shadow-lg p-8">
+        <div className="w-1/2 p-6">
+          <div className="bg-white rounded-lg shadow-lg p-8">
             <p>This is the content of the right column.</p>
           </div>
         </div>
