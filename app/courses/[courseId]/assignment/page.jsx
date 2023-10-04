@@ -14,7 +14,7 @@ function Assignment({ params }) {
       <Navbar/>
       <main className="main bg-gray-200">
       <section className="w-full flex justify-center bg-gray-200">
-              <section className="w-10/12 mt-10 bg-gray-200">
+              <section className="w-11/12 mt-10 bg-gray-200">
     <div className="h-full overflow-hidden bg-gray-200">
       <CourseBar courseId={courseId} />
       <div className="flex justify-between h-full bg-gray-200 mt-4 ">
