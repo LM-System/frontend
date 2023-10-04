@@ -11,17 +11,18 @@ const NavLinks = [
   {
     title: 'home',
     route: '/',
-    type: 'navlink'
   },
   {
     title: 'courses',
     route: '/courses',
-    type: 'navlink'
   },
   {
     title: 'profile',
     route: '/profile',
-    type: 'navlink'
+  },
+  {
+    title: 'aboutus',
+    route: '/aboutus',
   },
 ]
 
