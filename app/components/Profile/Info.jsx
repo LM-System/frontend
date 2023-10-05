@@ -118,8 +118,8 @@ export default function UserProfile() {
       </div>
       <div className="grid-2d ml-5 ">
         {/* Card 1 Start*/}
-        <div className="details mx-auto   md:cols-2 border-b  rounded-lg shadow-lg p-8 w-1/2 p-6">
-          <div className="flex-col">
+        <div className="details mx-auto p-4  md:col-span-2 border-b  rounded-lg shadow-lg p-8 w-1/2 p-6">
+          <div className="flex flex-col w-full p-4 gap-4 font-bold">
             <div className="user-email ">
               <h4>Email</h4>
               <div className="details">
