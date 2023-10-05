@@ -7,6 +7,7 @@ import {GrAdd,GrClose} from 'react-icons/gr'
 
 function Page({ params }) {
   const [isEditing,setIsEditing]=useState(false)
+  const [isEditingSubmission,setIsEditingSubmission]=useState(false)
   const role = "teacher";
   const assignment = {
     id: 1,
@@ -111,7 +112,10 @@ function Page({ params }) {
                   <textarea value={assignment.submissionInstruction} className="w-full h-ten p-3" />
                   <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-sm rounded-sm text-sm px-2 py-1.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-right mt-2 mr-2" onClick={()=>{setIsEditing(false)}}>Save Changes</button>
                   </div>}
-                  {!isEditing&&<div>
+                  {!isEditingSubmission&&<div>
+                    {role == 'teacher'&& <MdEdit onClick={()=>{
+                      setIsEditingSubmission(true)
+                    }} className=" absolute right-4 mt-3 cursor-pointer text-lg"/>}
                   <h2 className="p-3 text-xl font-bold mt-8"> Submissions:</h2>
                   <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -147,10 +151,10 @@ function Page({ params }) {
                     </table>
                   </div>
                   </div>}
-                  {isEditing&&<div>
-                    <MdEdit onClick={()=>{
-                        setIsEditing(false)
-                    }} className="absolute top-4 right-4 cursor-pointer text-lg"/>
+                  {isEditingSubmission&&<div>
+                    <GrClose onClick={()=>{
+                        setIsEditingSubmission(false)
+                    }} className="absolute mt-3 right-4 cursor-pointer text-lg"/>
                   <h2 className="p-3 text-xl font-bold mt-8"> Submissions:</h2>
                   <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -176,15 +180,16 @@ function Page({ params }) {
                             scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
-                            Apple MacBook Pro 17"
+                            <input value={'Apple MacBook Pro 17"'} className=""/>
                           </th>
-                          <td class="px-6 py-4">Silver</td>
-                          <td class="px-6 py-4">Laptop</td>
-                          <td class="px-6 py-4">$2999</td>
+                          <td class="px-6 py-4"><input value={'Silver'} className=""/></td>
+                          <td class="px-6 py-4"><input value={'Laptop'} className=""/></td>
+                          <td class="px-6 py-4"><input value={'$2999'} className=""/></td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
+                  <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-sm rounded-sm text-sm px-2 py-1.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-right mt-2 mr-2" onClick={()=>{setIsEditingSubmission(false)}}>Save Changes</button>
                   </div>}
                 </div>
               )}

@@ -66,10 +66,10 @@ nav {
 }
 
 .h-half{
-  height: 60vh;
+  height: 55vh;
 }
 .h-eighty{
-  height: 90vh;
+  height: 85vh;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -102,5 +102,5 @@ nav {
   @apply  w-8/12 bg-white h-eighty overflow-y-auto drop-shadow-xl p-6
 }
 .courseRight{
-  @apply w-4/12 bg-white h-full drop-shadow-xl
+  @apply w-4/12 bg-white h-full drop-shadow-xl h-eighty
 }
