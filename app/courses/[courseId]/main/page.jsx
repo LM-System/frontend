@@ -5,8 +5,12 @@ import CourseBar from "@/app/components/Course/Bar";
 import {MdEdit} from 'react-icons/md'
 import {GrAdd,GrClose} from 'react-icons/gr'
 import {BsTrash} from 'react-icons/bs'
+import { axiosHandler } from "@/public/Utilities/axiosHandler";
 
 function Main({ params }) {
+  const courseId = params.courseId;
+  const announcements1 = axiosHandler('GET',`announcements/${courseId}`)
+  console.log(announcements1.data);
   const [isEditingAnnouncement,setIsEditingAnnouncement]=useState(false)
   const [isEditingDes,setIsEditingDes]=useState(false)
 
@@ -20,7 +24,6 @@ function Main({ params }) {
   const role = 'teacher'
   const description ='Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam,excepturi! Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem! Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate.'
   const announcements = [{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'},{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'},{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'},{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'}]
-  const courseId = params.courseId;
   return (
     <div className="page">
       <Navbar/>
