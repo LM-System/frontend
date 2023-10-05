@@ -7,7 +7,7 @@ export default function AboutCard({ name, major, link, image }) {
   const GithubIcon = icons['github']
   const LinkedinIcon = icons['linkedin']
   return (
-    <div className='flex flex-col sm:flex-row gap-6 p-6 shadow-md bg-gray-50 dark:bg-darkcomp rounded-lg '>
+    <div className='flex flex-col sm:flex-row gap-6 p-6 shadow-md bg-gray-50 dark:bg-darkcomp rounded-lg hover:-translate-y-1 hover:shadow-xl transition duration-500'>
         <Image
           src={image}
           alt={name}
