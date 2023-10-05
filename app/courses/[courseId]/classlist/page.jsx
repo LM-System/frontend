@@ -17,7 +17,7 @@ function Classlist({ params }) {
     setIsEditing(false)
   }
 
-  const role = 'teacher'
+  const role = 'student'
   const classList = [{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'},{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'},{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'},{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'}]
   const courseId = params.courseId;
   return (
