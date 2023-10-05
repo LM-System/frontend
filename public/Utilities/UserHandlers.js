@@ -1,24 +1,29 @@
-import Cookies from 'js-cookie'
-import axios from 'axios'
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export async function LoginHandler(formData, setIsLoading, router) {
   const url = "https://lms-j2h1.onrender.com";
-  setIsLoading(true)
-  const {email, password} = formData;
+  setIsLoading(true);
+  const { email, password } = formData;
   const encodedData = btoa(`${email}:${password}`);
-  const {data} = await axios({
-    method: 'POST',
-    url: url + '/signin',
+  const response = await axios({
+    method: "POST",
+    url: url + "/signin",
     headers: {
-      authorization: `Basic ${encodedData}`
-    }
+      authorization: `Basic ${encodedData}`,
+    },
   });
-  if(data.status === 200) {
-      Cookies.set('user_token', data.token);
-      // Cookies.set()
-      router.push('/');
-  }
-  else {
+  console.log(response);
+  if (response.status === 200) {
+    Cookies.set("user_token", response.data.token);
+    if (response.data.student) Cookies.set("user_info",  JSON.stringify(response.data.student));
+    if (response.data.instructor)
+      Cookies.set("user_info", JSON.stringify(response.data.instructor));
+    if (response.data.admin) Cookies.set("user_info", JSON.stringify(response.data.admin));
+
+    // Cookies.set()
+    router.push("/");
+  } else {
     setIsLoading(false);
   }
 }
