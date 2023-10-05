@@ -13,8 +13,16 @@ import Loading from "../Loading/Loading";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
-export default function UserProfile({ userId }) {
+export default function UserProfile() {
+  const router = useRouter();
+  const userDataCookie = Cookies.get("user_info");
+  const userData = userDataCookie ? JSON.parse(userDataCookie) : null;
+  if (!userData) {
+    router.push("/login");
+  }
   const [user, setUser] = useState(null);
   const [passVisOne, setPassVisOne] = useState(false);
   const [passVisTwo, setPassVisTwo] = useState(false);
@@ -34,18 +42,17 @@ export default function UserProfile({ userId }) {
     const resultString = wordsArray ? wordsArray.join(" ") : "";
     return resultString;
   };
-  const userData = JSON.parse(localStorage.getItem("user_data"));
+
+  console.log(userData);
   const [isEdit, setIsEdit] = useState(false);
-  const [textArea, setTextArea] = useState(
-    JSON.parse(localStorage.getItem("user_data")).bio
-  );
+  const [textArea, setTextArea] = useState(userData.bio);
   function changeHandler(event) {
     setTextArea((prevText) => event.target.value);
   }
 
   async function saveHandlerBio() {
     setIsLoading(true);
-    const user = JSON.parse(localStorage.getItem("user_data"));
+    const user = userData;
     const body = { ...user, bio: textArea };
     await axios.put(
       `${process.env.REACT_APP_SERVER_URL}userinformtion/${user.id}`,
@@ -61,23 +68,6 @@ export default function UserProfile({ userId }) {
     setIsEdit(false);
   }
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/users/${userId}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const userData = await response.json();
-        setUser(userData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, [userId]);
-
   useEffect(() => {}, [user]);
   function cancleHandler() {
     document.querySelector(".new-password").textContent = "";
@@ -86,10 +76,8 @@ export default function UserProfile({ userId }) {
     setPassVisTwo(false);
     setPassVisThree(false);
   }
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-  const separatedRole = separateWords(user.role);
+
+  // const separatedRole = separateWords(userData.role);
 
   async function saveHandler() {
     setIsLoading(true);
@@ -136,41 +124,41 @@ export default function UserProfile({ userId }) {
               <h4>Email</h4>
               <div className="details">
                 <AlternateEmailRoundedIcon />
-                <p>{`${user.email}`}</p>
+                <p>{userData.userEmail}</p>
               </div>
             </div>
             <div className="user-gender">
               <h4>Gender</h4>
               <div className="details">
-                {user.instructor.gender === "male" ? (
+                {userData.gender === "male" ? (
                   <MaleRoundedIcon />
                 ) : (
                   <FemaleRoundedIcon />
                 )}
-                <p>{user.instructor.gender}</p>
+                <p>{userData.gender}</p>
               </div>
             </div>
             <div className="user-birthDate">
               <h4>Birth date</h4>
               <div className="details">
                 <CalendarTodayIcon />
-                <p>{`${user.instructor.birth_date.slice(0, 10)}`}</p>
+                <p>{`${userData.birth_date.slice(0, 10)}`}</p>
               </div>
             </div>
             <div className="user-phoneNumber">
               <h4>Phone Number</h4>
               <div className="details">
                 <SmartphoneIcon />
-                <p>{`0${user.instructor.phone_number}`}</p>
+                <p>{`0${userData.phone_number}`}</p>
               </div>
             </div>
             <div className="user-password ">
               <h4>Password</h4>
               <div className="details">
                 <KeyRoundedIcon />
-                <p
-                  style={passVisOne ? passwordShowStyle : passwordHideStyle}
-                >{`${user.password}`}</p>
+                <p style={passVisOne ? passwordShowStyle : passwordHideStyle}>
+                  {"user.password"}`
+                </p>
                 <span onClick={() => setPassVisOne((prevState) => !prevState)}>
                   {passVisOne ? (
                     <VisibilityRoundedIcon />
@@ -281,11 +269,11 @@ export default function UserProfile({ userId }) {
             }}
             sx={{ bgcolor: deepPurple[500] }}
           >
-            {user.instructor.fullname.slice(0, 1)}
+            {userData.fullname.slice(0, 1)}
           </Avatar>
           <div className=" flex-col items-center">
-            <h1 className="font-bold  text-3xl  mt-2">{"AbuEssa"}</h1>
-            <div className="text-xl  mt-1">{"Admin"}</div>
+            <h1 className="font-bold  text-3xl  mt-2">{userData.fullname}</h1>
+            <div className="text-xl  mt-1">{userData.role}</div>
             <div className="bio">
               <h3>Bio</h3>
               <BorderColorRoundedIcon
@@ -294,7 +282,7 @@ export default function UserProfile({ userId }) {
                 }}
               />
             </div>
-            {!isEdit && <div className="bio">{"Bio to be Changed"}</div>}
+            {!isEdit && <div className="bio">{userData.bio}</div>}
             {isEdit && (
               <>
                 <textarea
