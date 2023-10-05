@@ -5,15 +5,15 @@ function AddContentCard({setIsAdding}) {
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-4/12 h-3/5 bg-white z-10 ">
+      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-4/12 h-4/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
             setIsAdding(false);
           }}
         />
-
-        <form className="m-10">
+        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Content</h1> 
+        <form className="mx-10 mt-5">
           <div class="mb-6">
             <label
               for="title"

@@ -11,7 +11,7 @@ import {BsTrash,BsFillChatSquareTextFill} from 'react-icons/bs'
 
 function Classlist({ params }) {
   const [isEditing,setIsEditing]=useState(false)
-  const [isAdding,setIsAdding]=useState(true)
+  const [isAdding,setIsAdding]=useState(false)
 
   const handleSave = ()=>{
     setIsEditing(false)

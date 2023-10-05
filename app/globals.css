@@ -104,10 +104,10 @@ nav {
  @apply flex gap-4 h-full bg-gray-200 mt-4
 }
 .courseLeft{
-  @apply  w-8/12 bg-white h-eighty overflow-y-auto drop-shadow-xl p-6
+  @apply  w-8/12 rounded-md bg-white h-eighty overflow-y-auto drop-shadow-xl p-6
 }
 .courseRight{
-  @apply w-4/12 bg-white h-full drop-shadow-xl h-eighty
+  @apply w-4/12 rounded-md bg-white h-full drop-shadow-xl h-eighty
 }
 
 .details {
