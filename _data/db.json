@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhQGhhLmNvbSIsInJvbGUiOiJpbnN0cnVjdG9yRGVwYXJ0bWVudEhlYWQiLCJpYXQiOjE2OTYzMzI3NzZ9.fH9pEr5Y7V9A7sgEEAZj5RS18wE0nLN9kngHA42HVtw",
+      "email": "ha@ha.com",
+      "password": "$2b$12$",
+      "role": "instructorDepartmentHead",
+      "createdAt": "2023-10-03T10:44:26.143Z",
+      "updatedAt": "2023-10-03T10:44:26.143Z",
+      "student": null,
+      "instructor": {
+        "id": 2,
+        "fullname": "Helmi Qatqat",
+        "gender": "female",
+        "birth_date": "1970-01-01T00:00:36.806Z",
+        "phone_number": "789999999",
+        "image": null,
+        "department_id": null,
+        "bio": null,
+        "address": null,
+        "createdAt": "2023-10-03T10:44:26.154Z",
+        "updatedAt": "2023-10-03T10:44:26.154Z",
+        "userEmail": "ha@ha.com",
+        "sections": [],
+        "departmentHead": null
+      },
+      "admin": null
+    },
+    {
+      "id": "2",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hQG1hLmNvbSIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjk2MzMyODY4fQ.hbNRwzHVp5hLrQxlvGVaQ51L7zbQNkSXgpu6_MpbZlw",
+      "email": "ma@ma.com",
+      "password": "$2b$12$VK8yw9/PNGcVrQp9Ji0UiO1jQXjUnNIlDrctBWRY9eaOsDVudFHAu",
+      "role": "student",
+      "createdAt": "2023-10-03T10:43:22.922Z",
+      "updatedAt": "2023-10-03T10:43:22.922Z",
+      "student": {
+        "id": 1,
+        "fullname": "Malek Hasan",
+        "gender": "male",
+        "birth_date": "1970-01-01T00:00:36.806Z",
+        "phone_number": "789999999",
+        "image": null,
+        "department_id": null,
+        "bio": null,
+        "address": null,
+        "createdAt": "2023-10-03T10:43:22.938Z",
+        "updatedAt": "2023-10-03T10:43:22.938Z",
+        "userEmail": "ma@ma.com",
+        "sections": []
+      },
+      "instructor": null,
+      "admin": null
+    },
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hQG1hLmNvbSIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjk2MzMyODY4fQ.hbNRwzHVp5hLrQxlvGVaQ51L7zbQNkSXgpu6_MpbZlw",
+      "email": "ma@ma.com",
+      "password": "$2b$12$VK8yw9/PNGcVrQp9Ji0UiO1jQXjUnNIlDrctBWRY9eaOsDVudFHAu",
+      "role": "student",
+      "createdAt": "2023-10-03T10:43:22.922Z",
+      "updatedAt": "2023-10-03T10:43:22.922Z",
+      "student": null
+    }
+  ]
+}
