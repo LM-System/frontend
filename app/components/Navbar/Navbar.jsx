@@ -27,6 +27,11 @@ export default function Navbar() {
       route: `/profile/${user}`,
       type: "navlink",
     },
+    {
+      title: "aboutus",
+      route: `/aboutus`,
+      type: "navlink",
+    }
   ];
 
   function toggleDropDown() {

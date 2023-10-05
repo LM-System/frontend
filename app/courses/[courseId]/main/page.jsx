@@ -25,12 +25,10 @@ function Main({ params }) {
     <div className="page">
       <Navbar/>
       <main className="main bg-gray-200">
-      <section className="w-full flex justify-center bg-gray-200">
-              <section className="w-11/12 mt-10 bg-gray-200">
-    <div className="h-full overflow-hidden bg-gray-200">
+    <div className="courseComponent">
       <CourseBar courseId={courseId} />
-      <div className="flex justify-between h-full bg-gray-200 mt-4">
-        <div className=" w-8/12 h-full bg-gray-200 ">
+      <div className="courseFlex">
+        <div className="w-8/12 bg-gray-200 h-eighty overflow-y-auto ">
           <div className="bg-white drop-shadow-xl p-5 overflow-y-auto">
             {role=='teacher'&& !isEditingDes&&<MdEdit onClick={()=>{setIsEditingDes(true)}} className="absolute text-lg top-4 right-4 cursor-pointer"/>}
             {role=='teacher'&& isEditingDes&&<GrClose onClick={()=>{setIsEditingDes(false)}} className="absolute top-4 right-4 cursor-pointer text-lg"/>}
@@ -69,13 +67,11 @@ function Main({ params }) {
             </div>
           </div>
         </div>
-        <div className="w-3/12 bg-white h-full drop-shadow-xl">
+        <div className="courseRight">
 
         </div>
       </div>
     </div>
-    </section>
-    </section>
     </main>
     </div>
   );
