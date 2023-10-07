@@ -23,7 +23,7 @@ function Page() {
 
   return (
     <div className='page'>
-        {isAdding && <AddInstitution setIsAdding={setIsAdding}/>}
+        {isAdding && <AddInstitution fetchData={fetchData} setIsAdding={setIsAdding}/>}
         <Navbar/>
         <main className='main'>
                 {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}

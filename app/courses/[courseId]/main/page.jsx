@@ -1,18 +1,22 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "@/app/components/Navbar/Navbar";
 import CourseBar from "@/app/components/Course/Bar";
 import {MdEdit} from 'react-icons/md'
 import {GrAdd,GrClose} from 'react-icons/gr'
 import {BsTrash} from 'react-icons/bs'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
+import Cookies from "js-cookie";
+
 
 function Main({ params }) {
+  const role = Cookies.get("user_info").role;
+  const description ='dfsafsd'
   const courseId = params.courseId;
-  const announcements1 = axiosHandler('GET',`announcements/${courseId}`)
-  console.log(announcements1.data);
   const [isEditingAnnouncement,setIsEditingAnnouncement]=useState(false)
   const [isEditingDes,setIsEditingDes]=useState(false)
+  const [announcements,setAnnouncements]=useState([])
+  const [section,setSection]=useState({})
 
   const handleSave = ()=>{
     setIsEditingAnnouncement(false)
@@ -20,10 +24,17 @@ function Main({ params }) {
   const handleSaveDes = ()=>{
     setIsEditingDes(false)
   }
-
-  const role = 'teacher'
-  const description ='Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam,excepturi! Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem! Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate.'
-  const announcements = [{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'},{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'},{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'},{title:'announcement1',body:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam excepturi Ipsa corporis incidunt nemo placeat qui delectus,laudantium dolorum harum rem Sint aspernatur esse facere doloremque deserunt natus distinctio cupiditate'}]
+  const fetchData = async ()=>{
+    try{
+        const data=await axiosHandler('GET',`/sectionAnnouncements/${courseId}`)
+        setAnnouncements(data)
+        const data2=await axiosHandler('GET',`/course/${courseId}`)
+        setSection(data2)
+    }catch(e){setFetchingError(e.message)}
+}
+useEffect(()=>{
+    fetchData()
+},[])
   return (
     <div className="page">
       <Navbar/>
@@ -51,7 +62,7 @@ function Main({ params }) {
             </h2>
             <hr className="mx-5 my-3"/>
             <div className="p-5 overflow-y-auto h-half">
-            {announcements.map((item)=>{
+            {announcements?.map((item)=>{
             return <div class="w-full relative text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 opacity-80 dark:border-gray-700 hover:opacity-100  transition-all mb-5 ">
               {role=='teacher'&&isEditingAnnouncement&&<BsTrash className="absolute top-2 right-2 cursor-pointer text-lg"/>}
               {role=='teacher'&&isEditingAnnouncement&&<MdEdit className="absolute top-2 right-8 cursor-pointer text-lg"/>}

@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
 
-function AddInstitution({setIsAdding}) {
+function AddInstitution({setIsAdding,fetchData}) {
     const [error,setError]=useState('')
     const [institutionData,setInstitutionData]=useState({})
     const handleSubmit = async (e)=>{
         e.preventDefault()
         try{
+            console.log(JSON.stringify(institutionData))
             const data =await axiosHandler('POST',`/institution`,institutionData)
             if(data){
                 setIsAdding(false)
+                fetchData()
             }
         }catch(e){setError(e.message)}
     }

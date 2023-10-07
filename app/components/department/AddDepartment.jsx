@@ -3,7 +3,7 @@ import {AiOutlineClose} from 'react-icons/ai'
 import {GrAdd} from 'react-icons/gr'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
 
-function AddDepartment({setIsAdding,institutionId}) {
+function AddDepartment({setIsAdding,institutionId,fetchData}) {
     const [error,setError]=useState('')
     const [departmentData,setDepartmentData]=useState({})
     const handleSubmit = async ()=>{
@@ -12,6 +12,7 @@ function AddDepartment({setIsAdding,institutionId}) {
             const data =await axiosHandler('POST',`/department`,departmentData)
             if(data){
                 setIsAdding(false)
+                fetchData()
             }
         }catch(e){setError(e.message)}
     }
