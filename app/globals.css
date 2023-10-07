@@ -112,7 +112,6 @@ nav {
 
 .details {
   @apply flex gap-5 bg-[#99999910] w-full p-2.5;
-  flex-flow: row !important;
 }
 
 .change-password {
@@ -157,12 +156,7 @@ nav {
   @apply cursor-pointer font-[bold] text-[white] transition-[0.5s] min-w-[60px] px-2.5 py-[7px] rounded-[5px] border-0 hover:transition-[0.5s] hover:scale-105 first:bg-[#1fae51] last:bg-[gray];
 }
 
-.bio p {
-  @apply text-[black];
-}
-.bio-text {
-  @apply break-words mx-0 my-2.5;
-}
-.textarea-container {
-  @apply flex;
+.flex-container {
+  display: flex;
+  align-items: center;
 }
