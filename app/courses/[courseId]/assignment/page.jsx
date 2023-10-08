@@ -4,12 +4,20 @@ import CourseBar from "@/app/components/Course/Bar";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Link from "next/link";
 import {MdOutlineLibraryAdd} from 'react-icons/md'
+import { axiosHandler } from "@/public/Utilities/axiosHandler";
+import Cookies from "js-cookie";
+
 
 function Assignment({ params }) {
+  var token = Cookies.get("user_token");
+  var token2 = Cookies.get("user_info");
+  
   const sectionStudent =[{},{},{}]
   const role = 'student'
   const assignments= [{id:1,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:2,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:3,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:4,name:'JavaScript fundemental',url:'',completionStatus:'incompleted',score:0,evaluationURL:''}]
   const courseId = params.courseId;
+  const assignment= axiosHandler('GET',`/sectionAssignment/${courseId}`)
+  console.log(assignment.data);
   return (
     <div className="page">
       <Navbar/>

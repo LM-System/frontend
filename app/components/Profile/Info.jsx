@@ -13,39 +13,44 @@ import Loading from "../Loading/Loading";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
 
-export default function UserProfile({ userId }) {
+export default function UserProfile() {
+  const router = useRouter();
+  const userDataCookie = Cookies.get("user_info");
+  const userData = userDataCookie ? JSON.parse(userDataCookie) : null;
+  if (!userData) {
+    router.push("/login");
+  }
+  const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
   const [passVisOne, setPassVisOne] = useState(false);
   const [passVisTwo, setPassVisTwo] = useState(false);
   const [passVisThree, setPassVisThree] = useState(false);
-  const [changePassword, setChangePassword] = useState(false);
   const [isNotMatch, setIsNotMatch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   const passwordShowStyle = {
     WebkitTextSecurity: "none",
   };
   const passwordHideStyle = {
     WebkitTextSecurity: "disc",
   };
-  const separateWords = (inputString) => {
-    const wordsArray = inputString.match(/[A-Z][a-z]*/g);
-    const resultString = wordsArray ? wordsArray.join(" ") : "";
-    return resultString;
-  };
-  const userData = JSON.parse(localStorage.getItem("user_data"));
+  console.log(userData);
   const [isEdit, setIsEdit] = useState(false);
-  const [textArea, setTextArea] = useState(
-    JSON.parse(localStorage.getItem("user_data")).bio
-  );
+  const [textArea, setTextArea] = useState(userData.bio);
   function changeHandler(event) {
     setTextArea((prevText) => event.target.value);
   }
 
   async function saveHandlerBio() {
     setIsLoading(true);
-    const user = JSON.parse(localStorage.getItem("user_data"));
+    const user = userData;
     const body = { ...user, bio: textArea };
     await axios.put(
       `${process.env.REACT_APP_SERVER_URL}userinformtion/${user.id}`,
@@ -57,26 +62,9 @@ export default function UserProfile({ userId }) {
   }
 
   function cancleHandlerBio() {
-    setTextArea(JSON.parse(localStorage.getItem("user_data")).bio);
+    setTextArea(userData.bio);
     setIsEdit(false);
   }
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/users/${userId}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const userData = await response.json();
-        setUser(userData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, [userId]);
 
   useEffect(() => {}, [user]);
   function cancleHandler() {
@@ -86,10 +74,6 @@ export default function UserProfile({ userId }) {
     setPassVisTwo(false);
     setPassVisThree(false);
   }
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-  const separatedRole = separateWords(user.role);
 
   async function saveHandler() {
     setIsLoading(true);
@@ -123,6 +107,36 @@ export default function UserProfile({ userId }) {
     }
   }
 
+  const handleChangePassword = async ({ oldPassword, newPassword }) => {
+    try {
+      const response = await fetch(
+        "https://lms-j2h1.onrender.com/changepassword",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userData.userEmail,
+            oldPassword,
+            newPassword,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessage(data.message);
+      } else {
+        const errorData = await response.json();
+        setMessage(`Error: ${errorData.error}`);
+      }
+    } catch (error) {
+      console.error("Error changing password:", error);
+      setMessage("Error: Something went wrong");
+    }
+  };
+
   return (
     <>
       <div className="font-bold text-2xl mb-4 ">
@@ -130,178 +144,87 @@ export default function UserProfile({ userId }) {
       </div>
       <div className="grid-2d ml-5 ">
         {/* Card 1 Start*/}
-        <div className="details mx-auto   md:cols-2 border-b  rounded-lg shadow-lg p-8 w-1/2 p-6">
-          <div className="flex-col">
+        <div className="details mx-auto p-4  md:col-span-2 border-b  rounded-lg shadow-lg p-8 w-1/2 p-6">
+          <div className="flex flex-col w-full p-4 gap-4 font-bold">
             <div className="user-email ">
               <h4>Email</h4>
               <div className="details">
                 <AlternateEmailRoundedIcon />
-                <p>{`${user.email}`}</p>
+                <p>{userData.userEmail}</p>
               </div>
             </div>
             <div className="user-gender">
               <h4>Gender</h4>
               <div className="details">
-                {user.instructor.gender === "male" ? (
+                {userData.gender === "male" ? (
                   <MaleRoundedIcon />
                 ) : (
                   <FemaleRoundedIcon />
                 )}
-                <p>{user.instructor.gender}</p>
+                <p>{userData.gender}</p>
               </div>
             </div>
             <div className="user-birthDate">
               <h4>Birth date</h4>
               <div className="details">
                 <CalendarTodayIcon />
-                <p>{`${user.instructor.birth_date.slice(0, 10)}`}</p>
+                <p>{`${userData.birth_date.slice(0, 10)}`}</p>
               </div>
             </div>
             <div className="user-phoneNumber">
               <h4>Phone Number</h4>
               <div className="details">
                 <SmartphoneIcon />
-                <p>{`0${user.instructor.phone_number}`}</p>
+                <p>{`0${userData.phone_number}`}</p>
               </div>
             </div>
-            <div className="user-password ">
-              <h4>Password</h4>
-              <div className="details">
-                <KeyRoundedIcon />
-                <p
-                  style={passVisOne ? passwordShowStyle : passwordHideStyle}
-                >{`${user.password}`}</p>
-                <span onClick={() => setPassVisOne((prevState) => !prevState)}>
-                  {passVisOne ? (
-                    <VisibilityRoundedIcon />
-                  ) : (
-                    <VisibilityOffRoundedIcon />
-                  )}
-                </span>
-              </div>
-            </div>
-            <div className="change-container">
-              <button
-                className="bg-primary text-white  mt-4 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-                onClick={() => setChangePassword(true)}
-              >
-                Change Password
-              </button>
-              {changePassword && (
-                <div>
-                  <div>
-                    <h4>New Password</h4>
-
-                    <div
-                      contentEditable="true"
-                      suppressContentEditableWarning={true}
-                      className="details"
-                      style={
-                        isNotMatch ? { borderBottom: "1px solid red" } : {}
-                      }
-                    >
-                      <KeyRoundedIcon />
-                      <p
-                        className="new-password"
-                        style={
-                          passVisTwo ? passwordShowStyle : passwordHideStyle
-                        }
-                      ></p>
-                      <span
-                        onClick={() => setPassVisTwo((prevState) => !prevState)}
-                      >
-                        {passVisTwo ? (
-                          <VisibilityRoundedIcon />
-                        ) : (
-                          <VisibilityOffRoundedIcon />
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <h4>Confirm Password</h4>
-                    <div
-                      contentEditable="true"
-                      suppressContentEditableWarning={true}
-                      className="details"
-                      style={
-                        isNotMatch ? { borderBottom: "1px solid red" } : {}
-                      }
-                    >
-                      <KeyRoundedIcon />
-                      <p
-                        className="confirm-password"
-                        style={
-                          passVisThree ? passwordShowStyle : passwordHideStyle
-                        }
-                      ></p>
-                      <span
-                        onClick={() =>
-                          setPassVisThree((prevState) => !prevState)
-                        }
-                      >
-                        {passVisThree ? (
-                          <VisibilityRoundedIcon />
-                        ) : (
-                          <VisibilityOffRoundedIcon />
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="card-buttons-container">
-                    <button
-                      onClick={() => {
-                        saveHandler();
-                      }}
-                    >
-                      {isLoading ? <Loading /> : "Save"}
-                    </button>
-                    <button
-                      onClick={() => {
-                        cancleHandler();
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              )}
+            <div>
+              <h1>Change Password</h1>
+              <ChangePasswordForm onSubmit={handleChangePassword} />
+              {message && <p>{message}</p>}
             </div>
           </div>
         </div>
         {/* Card 1 End*/}
 
         {/* Card 2 Start*/}
-        <div className="details cols-1 border-b  rounded-lg shadow-lg p-8">
-          <Avatar
-            style={{
-              width: "75px",
-              height: "75px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            }}
-            sx={{ bgcolor: deepPurple[500] }}
-          >
-            {user.instructor.fullname.slice(0, 1)}
-          </Avatar>
-          <div className=" flex-col items-center">
-            <h1 className="font-bold  text-3xl  mt-2">{"AbuEssa"}</h1>
-            <div className="text-xl  mt-1">{"Admin"}</div>
-            <div className="bio">
-              <h3>Bio</h3>
-              <BorderColorRoundedIcon
-                onClick={() => {
-                  setIsEdit(true);
-                }}
-              />
+        <div className="  gap-5 bg-[#99999910]   cols-1 border-b rounded-lg shadow-lg ">
+          <div className="flex p-2.5 mr-10 avatar-and-details  ">
+            <Avatar
+              style={{
+                width: "75px",
+                height: "75px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              }}
+              sx={{ bgcolor: deepPurple[500] }}
+            >
+              {userData.fullname.slice(0, 1)}
+            </Avatar>
+            <div className="flex-col items-center ml-2">
+              <h1 className="font-bold text-3xl">
+                {capitalizeFirstLetter(userData.fullname)}
+              </h1>
+              <div className="text-xl mt-1">
+                {capitalizeFirstLetter(userData.role)}
+              </div>
             </div>
-            {!isEdit && <div className="bio">{"Bio to be Changed"}</div>}
+          </div>
+          <div className=" flex flex-col items-center">
+            <h3 className="">Bio</h3>
+            <BorderColorRoundedIcon
+              className=" justify-end"
+              onClick={() => {
+                setIsEdit(true);
+              }}
+            />
+            {!isEdit && <div className="bio">{userData.bio}</div>}
             {isEdit && (
               <>
                 <textarea
                   className=""
                   value={textArea}
                   name="textarea"
-                  maxlength="300"
+                  maxLength="300"
                   onChange={(event) => {
                     changeHandler(event);
                   }}
@@ -326,8 +249,9 @@ export default function UserProfile({ userId }) {
             )}
           </div>
         </div>
-        {/* Card 2 End*/}
       </div>
+
+      {/* Card 2 End*/}
     </>
   );
 }

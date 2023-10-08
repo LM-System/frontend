@@ -12,7 +12,7 @@ import {BsTrash} from 'react-icons/bs'
 function Assignment({ params }) {
   const role = 'teacher'
   const [isAdding,setIsAdding]=useState(false)
-  const [isEditing,setIsEditing]=useState(true)
+  const [isEditing,setIsEditing]=useState(false)
 
   const handleAdd = ()=>{
     setIsAdding(true)
@@ -52,7 +52,7 @@ function Assignment({ params }) {
                     <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">
                       Latest
                     </span>
-                    {role == 'teacher'&& <MdEdit className="ml-6 cursor-pointer text-lg"/>}
+                    {role == 'teacher'&& <MdEdit onClick={()=>{setIsEditing(true)}} className="ml-6 cursor-pointer text-lg"/>}
                     {role == 'teacher'&& <BsTrash className="ml-4 cursor-pointer text-lg"/>}
                   </h3>
                   <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">

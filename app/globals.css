@@ -30,7 +30,7 @@ nav {
 @tailwind utilities;
 
 .page {
-  @apply flex flex-col-reverse md:flex-row h-screen w-screen overflow-y-scroll
+  @apply flex flex-col-reverse md:flex-row h-screen w-screen overflow-y-scroll;
 }
 
 .main {
@@ -66,14 +66,14 @@ nav {
   @apply bg-lightbg text-lighttxt flex flex-col items-center  border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-white dark:border-gray-700;
 }
 
-.h-ten{
+.h-ten {
   height: 11vh;
 }
 
-.h-half{
+.h-half {
   height: 55vh;
 }
-.h-eighty{
+.h-eighty {
   height: 85vh;
 }
 /* width */
@@ -97,22 +97,21 @@ nav {
 ::-webkit-scrollbar-thumb:hover {
   background: #e2e2e2;
 }
-.courseComponent{
- @apply  h-full overflow-hidden bg-gray-200
+.courseComponent {
+  @apply h-full overflow-hidden bg-gray-200;
 }
-.courseFlex{
- @apply flex gap-4 h-full bg-gray-200 mt-4
+.courseFlex {
+  @apply flex gap-4 h-full bg-gray-200 mt-4;
 }
-.courseLeft{
-  @apply  w-8/12 bg-white h-eighty overflow-y-auto drop-shadow-xl p-6
+.courseLeft {
+  @apply w-8/12 rounded-md bg-white h-eighty overflow-y-auto drop-shadow-xl p-6;
 }
-.courseRight{
-  @apply w-4/12 bg-white h-full drop-shadow-xl h-eighty
+.courseRight {
+  @apply w-4/12 rounded-md bg-white h-full drop-shadow-xl h-eighty;
 }
 
 .details {
   @apply flex gap-5 bg-[#99999910] w-full p-2.5;
-  flex-flow: row !important;
 }
 
 .change-password {
@@ -146,7 +145,7 @@ nav {
 }
 
 .grid-2d {
-  @apply grid grid-cols-1 grid-rows-2 md:grid-cols-3  md:grid-rows-1  gap-16;
+  @apply grid grid-cols-1 grid-rows-2 md:grid-cols-3  md:grid-rows-1  gap-4;
 }
 
 .card-buttons-container {
@@ -157,12 +156,7 @@ nav {
   @apply cursor-pointer font-[bold] text-[white] transition-[0.5s] min-w-[60px] px-2.5 py-[7px] rounded-[5px] border-0 hover:transition-[0.5s] hover:scale-105 first:bg-[#1fae51] last:bg-[gray];
 }
 
-.bio p {
-  @apply text-[black];
-}
-.bio-text {
-  @apply break-words mx-0 my-2.5;
-}
-.textarea-container {
-  @apply flex;
+.flex-container {
+  display: flex;
+  align-items: center;
 }

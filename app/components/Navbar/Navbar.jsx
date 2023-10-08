@@ -9,7 +9,7 @@ import Logout from "./Logout";
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [user, setUser] = useState(1);
+
 
   const NavLinks = [
     {
@@ -24,7 +24,7 @@ export default function Navbar() {
     },
     {
       title: "profile",
-      route: `/profile/${user}`,
+      route: `/profile/`,
       type: "navlink",
     },
     {
