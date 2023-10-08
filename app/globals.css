@@ -98,13 +98,13 @@ nav {
   background: #e2e2e2;
 }
 .courseComponent {
-  @apply h-full overflow-hidden bg-gray-200;
+  @apply h-full overflow-hidden dark:bg-transparent bg-gray-200 rounded-lg;
 }
 .courseFlex {
-  @apply flex gap-4 h-full bg-gray-200 mt-4;
+  @apply flex gap-4 h-full bg-gray-200 mt-4 rounded-lg dark:bg-darkbg;
 }
 .courseLeft {
-  @apply w-8/12 rounded-md bg-white h-eighty overflow-y-auto drop-shadow-xl p-6;
+  @apply w-full rounded-md bg-white h-eighty overflow-y-auto drop-shadow-xl p-6 dark:bg-darkcomp;
 }
 .courseRight {
   @apply w-4/12 rounded-md bg-white h-full drop-shadow-xl h-eighty;

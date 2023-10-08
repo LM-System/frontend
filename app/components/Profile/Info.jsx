@@ -131,6 +131,7 @@ export default function UserProfile() {
       <div className="grid-2d ml-5 ">
         {/* Card 1 Start*/}
         <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2">
+        <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2 ">
           <div className="flex flex-col w-full p-4 gap-4 font-bold">
             <div className="user-email ">
               <h4>Email</h4>
@@ -220,9 +221,10 @@ export default function UserProfile() {
             {isEdit && (
               <>
                 <textarea
-                  className=""
+                  className="rounded-lg"
                   value={textArea}
                   name="textarea"
+                  rows="10"
                   maxLength="300"
                   rows="10"
                   onChange={(event) => {
