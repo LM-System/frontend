@@ -8,7 +8,7 @@ import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddSection from '@/app/components/section/AddSection'
 
 function page({params}) {
-  const {instituteId,departmentId,courseId,sectionID} = params
+  const {instituteId,departmentId,courseId,sectionId} = params
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
     const [announcements,setAnnouncements]=useState([])
@@ -22,7 +22,7 @@ function page({params}) {
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/sectionAnnouncements/${sectionID}`)
+            const data=await axiosHandler('GET',`/sectionAnnouncements/${sectionId}`)
             setAnnouncements(data)
         }catch(e){setFetchingError(e.message)}
     }

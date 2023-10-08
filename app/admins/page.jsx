@@ -6,15 +6,25 @@ import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineMinus} from 'react-icons/ai'
-import AddInstitution from '../components/institution/AddInstitution'
+import AddAdmin from '../components/admin/AddAdmin'
+
 function Page() {
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
     const [admins,setAdmins]=useState([])
+
+    const handleDelete =  (id)=>{
+        try{
+            axiosHandler('DELETE',`/deleteadmin/${id}`)
+            .then((result)=>{
+                fetchData()
+            })
+        }catch(e){setFetchingError(e.message)}
+    }
     const fetchData = async ()=>{
         try{
             const data=await axiosHandler('GET',`/getadmins`)
-                setAdmins(data.rows)
+                setAdmins(data)
         }catch(e){setFetchingError(e.message)}
     }
     useEffect(()=>{
@@ -23,7 +33,7 @@ function Page() {
 
   return (
     <div className='page'>
-        {isAdding && <AddInstitution fetchData={fetchData} setIsAdding={setIsAdding}/>}
+        {isAdding && <AddAdmin fetchData={fetchData} setIsAdding={setIsAdding}/>}
         <Navbar/>
         <main className='main'>
                 {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
@@ -85,7 +95,7 @@ function Page() {
                 <Link href={`/institutions/${instituteId}/departments/${departmentId}/instructors/${course.id}`}>Sections</Link>
                 </td> */}
                 <AiOutlineMinus onClick={()=>{
-                    handleDelete(instructor.id)
+                    handleDelete(admin.id)
                 }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
             </tr>
                 )

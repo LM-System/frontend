@@ -81,7 +81,7 @@ function AddSection({setIsAdding,courseId,departmentId,refreshData}) {
         </div>  
         <div>
             <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">instructor</label>
-            <select name="instructorId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <select name="instructorId" onChange={changeHandler} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option></option>
                 {instructors.map((instructor)=>{
 
@@ -139,7 +139,7 @@ function AddSection({setIsAdding,courseId,departmentId,refreshData}) {
         </div> 
         <div>
             <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-            <select id="countries" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <select id="countries" onChange={changeHandler} name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value=""></option>
                 <option value="Online">Online</option>
                 <option value="Offline">Offline</option>

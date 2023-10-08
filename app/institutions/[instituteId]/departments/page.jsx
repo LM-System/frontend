@@ -15,15 +15,18 @@ function Page({params}) {
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
     const [departments,setDepartments]=useState([])
-    const handleDelete = async (id)=>{
+    const handleDelete =  (id)=>{
         try{
-            const data =await axiosHandler('DELETE',`/department/${id}`)
+            axiosHandler('DELETE',`/department/${id}`)
+            .then((result)=>{
+                fetchData()
+            })
         }catch(e){setFetchingError(e.message)}
     }
     const fetchData = async ()=>{
         try{
             const data=await axiosHandler('GET',`/institutiondepartments/${instituteId}`)
-            setDepartments(data.rows)
+            setDepartments(data)
         }catch(e){setFetchingError(e.message)}
     }
     useEffect(()=>{
@@ -32,7 +35,7 @@ function Page({params}) {
   return (
     <div className='page'>
         <Navbar/>
-        {isAdding && <AddDepartment institutionId={instituteId} fetchData={fetchData} setIsAdding={setIsAdding}/>}
+        {isAdding && <AddDepartment institutionId={instituteId} refreshData={fetchData} setIsAdding={setIsAdding}/>}
         <main className='main'>
         {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
@@ -70,11 +73,11 @@ function Page({params}) {
                 <th class="px-6 py-4">
                 {department.id}
                 </th>
-                <td scope="row" class="px-6 py-4  text-blue-700">
+                <td scope="row" class="px-6 py-4 ">
                   {department.name}
                 </td>
-                <td scope="row" class="px-6 py-4  text-blue-700">
-                  {department.departmentHead.fullname}
+                <td scope="row" class="px-6 py-4 ">
+                  {department.departmentHead?.fullname}
                 </td>
                 <td scope="row" class="px-6 py-4  text-blue-700">
                    <Link href={`/institutions/${instituteId}/departments/${department.id}/courses`}>courses</Link>

@@ -11,6 +11,15 @@ function Page() {
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
     const [institutions,setInstitutions]=useState([])
+
+    const handleDelete =  (id)=>{
+        try{
+            axiosHandler('DELETE',`/institution/${id}`)
+            .then((result)=>{
+                fetchData()
+            })
+        }catch(e){setFetchingError(e.message)}
+    }
     const fetchData = async ()=>{
         try{
             const data=await axiosHandler('GET',`/institutions`)
@@ -69,6 +78,9 @@ function Page() {
                 <td class="px-6 py-4">
                     <Link className='text-blue-600' href={`/institutions/${institute.id}/departments`}>Departments</Link>
                 </td>
+                <AiOutlineMinus onClick={()=>{
+                    handleDelete(institute.id)
+                }} className='text-lg absolute right-4 mt-4 text-black cursor-pointer'/>
             </tr>
                 )
             })}

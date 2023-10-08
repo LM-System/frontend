@@ -84,7 +84,7 @@ function Department({params}) {
                     {section.name}
                 </td>
                 <td class="px-6 py-4">
-                    {section.instructor?.name}
+                    {section.instructor?.fullname}
                 </td>
                 <td class="px-6 py-4">
                     {section.year}
@@ -106,7 +106,7 @@ function Department({params}) {
                 </td>
                 <AiOutlineMinus onClick={()=>{
                     handleDelete(section.id)
-                }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
+                }} className='text-lg absolute right-4 mt-4 text-black cursor-pointer'/>
             </tr>
                 )
             })}
