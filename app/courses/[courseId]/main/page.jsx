@@ -27,12 +27,12 @@ function Main({ params }) {
   return (
     <div className="page">
       <Navbar/>
-      <main className="main bg-gray-200">
-    <div className="courseComponent">
+      <main className="main dark:bg-darkbg bg-gray-200">
+    <div className="courseComponent rounded-lg">
       <CourseBar courseId={courseId} />
-      <div className="courseFlex">
-        <div className="w-8/12 bg-gray-200 h-eighty overflow-y-auto ">
-          <div className="bg-white drop-shadow-xl p-5 overflow-y-auto rounded-lg">
+      <div className="courseFlex bg-transparent">
+        <div className="h-eighty overflow-y-auto ">
+          <div className="bg-white drop-shadow-xl dark:bg-darkcomp p-5 overflow-y-auto rounded-lg">
             {role=='teacher'&& !isEditingDes&&<MdEdit onClick={()=>{setIsEditingDes(true)}} className="absolute text-lg top-4 right-4 cursor-pointer"/>}
             {role=='teacher'&& isEditingDes&&<GrClose onClick={()=>{setIsEditingDes(false)}} className="absolute top-4 right-4 cursor-pointer text-lg"/>}
             <h2 className="text-xl mb-2">Description</h2>
@@ -43,7 +43,7 @@ function Main({ params }) {
             {role=='teacher'&& isEditingDes&&<textarea className="w-full" value={description}></textarea>}
             {role=='teacher'&&isEditingDes&&<button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-sm rounded-sm text-sm px-2 py-1.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-right mt-2 mr-2" onClick={handleSaveDes}>Save Changes</button>}
           </div>
-          <div className=" mt-8 bg-white drop-shadow-xl rounded-lg">
+          <div className=" mt-8 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
             {role == 'teacher' && !isEditingAnnouncement &&<MdEdit onClick={()=>{setIsEditingAnnouncement(true)}} className="absolute right-4 top-4 cursor-pointer text-lg"/>}
             {role == 'teacher' && isEditingAnnouncement &&<GrAdd className="absolute right-4 top-4 cursor-pointer text-lg"/>}
             <h2 id="announcements" className=" px-5 pt-5 text-xl mb-4">
@@ -51,8 +51,8 @@ function Main({ params }) {
             </h2>
             <hr className="mx-5 my-3"/>
             <div className="p-5 overflow-y-auto h-half">
-            {announcements.map((item)=>{
-            return <div class="w-full relative text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 opacity-80 dark:border-gray-700 hover:opacity-100  transition-all mb-5 ">
+            {announcements.map((item ,i)=>{
+            return <div key={i} class="w-full relative text-center bg-gray-50 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 opacity-80 dark:border-gray-700 hover:opacity-100  transition-all mb-5 ">
               {role=='teacher'&&isEditingAnnouncement&&<BsTrash className="absolute top-2 right-2 cursor-pointer text-lg"/>}
               {role=='teacher'&&isEditingAnnouncement&&<MdEdit className="absolute top-2 right-8 cursor-pointer text-lg"/>}
               <h5 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
@@ -69,9 +69,6 @@ function Main({ params }) {
               }} class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-sm rounded-sm text-sm px-2 py-1.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 float-right mt-2 mr-2">cancel</button>}
             </div>
           </div>
-        </div>
-        <div className="courseRight">
-
         </div>
       </div>
     </div>

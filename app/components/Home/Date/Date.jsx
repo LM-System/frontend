@@ -19,7 +19,7 @@ export default function Calendar() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DateCalendar']}>
       <DemoItem label="Date">
-        <DateCalendar defaultValue={dayjs(date)} readOnly className='bg-gray-200 rounded-lg'/>
+        <DateCalendar defaultValue={dayjs(date)} readOnly className='bg-gray-200 rounded-lg dark:text-gray-900'/>
       </DemoItem>
     </DemoContainer>
   </LocalizationProvider>
