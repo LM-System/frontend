@@ -3,7 +3,6 @@ import axios from "axios";
 
 export async function LoginHandler(formData, setIsLoading, router) {
   const url = "https://lms-j2h1.onrender.com";
-  setIsLoading(true);
   const { email, password } = formData;
   const encodedData = btoa(`${email}:${password}`);
   const response = await axios({
@@ -20,8 +19,6 @@ export async function LoginHandler(formData, setIsLoading, router) {
     if (response.data.instructor)
       Cookies.set("user_info", JSON.stringify(response.data.instructor));
     if (response.data.admin) Cookies.set("user_info", JSON.stringify(response.data.admin));
-
-    // Cookies.set()
     router.push("/");
   } else {
     setIsLoading(false);
