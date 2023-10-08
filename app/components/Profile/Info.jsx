@@ -6,9 +6,6 @@ import { deepPurple } from "@mui/material/colors";
 import AlternateEmailRoundedIcon from "@mui/icons-material/AlternateEmailRounded";
 import MaleRoundedIcon from "@mui/icons-material/MaleRounded";
 import FemaleRoundedIcon from "@mui/icons-material/FemaleRounded";
-import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
-import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
-import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import Loading from "../Loading/Loading";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
@@ -20,96 +17,74 @@ import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
 export default function UserProfile() {
   const router = useRouter();
   const userDataCookie = Cookies.get("user_info");
-  const userData = userDataCookie ? JSON.parse(userDataCookie) : null;
+  const [userData, setUserData] = useState(
+    userDataCookie ? JSON.parse(userDataCookie) : null
+  );
+  const token = Cookies.get("user_token");
   if (!userData) {
     router.push("/login");
   }
   const [message, setMessage] = useState("");
-  const [user, setUser] = useState(null);
-  const [passVisOne, setPassVisOne] = useState(false);
-  const [passVisTwo, setPassVisTwo] = useState(false);
-  const [passVisThree, setPassVisThree] = useState(false);
-  const [isNotMatch, setIsNotMatch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isChangeForm, setIsChangeForm] = useState(false)
-
+  const [isChangeForm, setIsChangeForm] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [textArea, setTextArea] = useState(userData.bio);
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
-  const passwordShowStyle = {
-    WebkitTextSecurity: "none",
-  };
-  const passwordHideStyle = {
-    WebkitTextSecurity: "disc",
-  };
+
   console.log(userData);
-  const [isEdit, setIsEdit] = useState(false);
-  const [textArea, setTextArea] = useState(userData.bio);
+
+  const showMessage = (text) => {
+    setMessage(text);
+
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
+  };
+
   function changeHandler(event) {
     setTextArea((prevText) => event.target.value);
   }
 
-  async function saveHandlerBio() {
+  const handleBioUpdate = async () => {
     setIsLoading(true);
-    const user = userData;
-    const body = { ...user, bio: textArea };
-    await axios.put(
-      `${process.env.NEXT_SERVER_URL}userinformtion/${user.id}`,
-      body
-    );
-    localStorage.setItem("user_data", JSON.stringify(body));
-    setIsEdit(false);
-    setIsLoading(false);
-  }
+    try {
+      const response = await axios.put(
+        `https://lms-j2h1.onrender.com/update${userData.role.toLowerCase()}/${
+          userData.id
+        }`,
+        { bio: textArea },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        showMessage("Bio updated successfully");
+      } else {
+        setMessage(`Error: ${response.data.error}`);
+      }
+    } catch (error) {
+      console.error("Error updating bio:", error);
+      showMessage("Error: Something went wrong");
+    } finally {
+      setIsLoading(false);
+      setIsEdit(false);
+    }
+  };
 
   function cancleHandlerBio() {
     setTextArea(userData.bio);
     setIsEdit(false);
   }
 
-  useEffect(() => {}, [user]);
-  function cancleHandler() {
-    document.querySelector(".new-password").textContent = "";
-    document.querySelector(".confirm-password").textContent = "";
-    setChangePassword(false);
-    setPassVisTwo(false);
-    setPassVisThree(false);
-  }
-
-  async function saveHandler() {
-    setIsLoading(true);
-
-    const newPassword = document.querySelector(".new-password").textContent;
-    const confirmPassword =
-      document.querySelector(".confirm-password").textContent;
-
-    if (newPassword === confirmPassword) {
-      try {
-        const response = await axios.put(
-          `${process.env.REACT_APP_SERVER_URL}users/${userId}/change-password`,
-          { password: newPassword }
-        );
-
-        const updatedUser = response.data;
-
-        localStorage.setItem("user_data", JSON.stringify(updatedUser));
-        setUser(updatedUser);
-        setIsNotMatch(false);
-        setIsLoading(false);
-        cancleHandler();
-      } catch (error) {
-        console.error("Error updating password:", error);
-        setIsNotMatch(true);
-        setIsLoading(false);
-      }
-    } else {
-      setIsNotMatch(true);
-      setIsLoading(false);
-    }
-  }
-
   const handleChangePassword = async ({ oldPassword, newPassword }) => {
     try {
+      setIsLoading(true);
+
       const response = await fetch(
         "https://lms-j2h1.onrender.com/changepassword",
         {
@@ -118,25 +93,35 @@ export default function UserProfile() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: userData.userEmail,
+            email: userData.userEmail,
             oldPassword,
             newPassword,
           }),
         }
       );
 
-      if (response.ok) {
-        const data = await response.json();
-        setMessage(data.message);
+      if (response.status === 200) {
+        showMessage("Password updated successfully");
       } else {
-        const errorData = await response.json();
-        setMessage(`Error: ${errorData.error}`);
+        setMessage(`Error: ${response.data.error}`);
       }
     } catch (error) {
-      console.error("Error changing password:", error);
-      setMessage("Error: Something went wrong");
+      console.error("Error updating bio:", error);
+      showMessage("Error: Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      bio: textArea,
+    }));
+    Cookies.set("user_info", JSON.stringify(userData));
+
+    console.log(userData);
+  }, [textArea]);
 
   return (
     <>
@@ -145,6 +130,7 @@ export default function UserProfile() {
       </div>
       <div className="grid-2d ml-5 ">
         {/* Card 1 Start*/}
+        <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2">
         <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2 ">
           <div className="flex flex-col w-full p-4 gap-4 font-bold">
             <div className="user-email ">
@@ -179,12 +165,20 @@ export default function UserProfile() {
                 <p>{`0${userData.phone_number}`}</p>
               </div>
             </div>
+
             <div className="flex flex-col gap-2">
               <span
                 className="text-primary cursor-pointer dark:text-gray-400"
                 onClick={() => setIsChangeForm(true)}
-              >Change Password</span>
-              {isChangeForm && <ChangePasswordForm setIsChangeForm={setIsChangeForm} onSubmit={handleChangePassword} />}
+              >
+                Change Password
+              </span>
+              {isChangeForm && (
+                <ChangePasswordForm
+                  setIsChangeForm={setIsChangeForm}
+                  onSubmit={handleChangePassword}
+                />
+              )}
               {message && <p>{message}</p>}
             </div>
           </div>
@@ -192,8 +186,8 @@ export default function UserProfile() {
         {/* Card 1 End*/}
 
         {/* Card 2 Start*/}
-        <div className=" flex flex-col gap-4 bg-[#99999910] p-4 cols-1 rounded-lg shadow-lg ">
-          <div className="flex mr-10 avatar-and-details gap-4">
+        <div className="flex flex-col gap-4 bg-[#99999910] p-4 cols-1 rounded-lg shadow-lg">
+          <div className="flex mr-10 avatar-and-details gap-4 ">
             <Avatar
               style={{
                 width: "75px",
@@ -204,7 +198,7 @@ export default function UserProfile() {
             >
               {userData.fullname.slice(0, 1)}
             </Avatar>
-            <div className="flex-col items-center">
+            <div className="flex-col items-center ">
               <h1 className="font-bold text-2xl">
                 {capitalizeFirstLetter(userData.fullname)}
               </h1>
@@ -213,7 +207,7 @@ export default function UserProfile() {
               </div>
             </div>
           </div>
-          <div className=" flex flex-col gap-4">
+          <div className="flex flex-col gap-4 ">
             <div className="flex justify-between w-full">
               <h3 className="font-bold">Bio</h3>
               <BorderColorRoundedIcon
@@ -223,7 +217,7 @@ export default function UserProfile() {
                 }}
               />
             </div>
-            {!isEdit && <div className="bio">{userData.bio}</div>}
+            {!isEdit && <div className="bio mt-2  text-lg">{userData.bio}</div>}
             {isEdit && (
               <>
                 <textarea
@@ -232,6 +226,7 @@ export default function UserProfile() {
                   name="textarea"
                   rows="10"
                   maxLength="300"
+                  rows="10"
                   onChange={(event) => {
                     changeHandler(event);
                   }}
@@ -239,7 +234,7 @@ export default function UserProfile() {
                 <div className="card-buttons-container">
                   <button
                     onClick={() => {
-                      saveHandlerBio();
+                      handleBioUpdate();
                     }}
                   >
                     {isLoading ? <Loading /> : "Save"}
