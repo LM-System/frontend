@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ChangePasswordForm = ({ onSubmit }) => {
+const ChangePasswordForm = ({ onSubmit, setIsChangeForm }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
@@ -33,12 +33,21 @@ const ChangePasswordForm = ({ onSubmit }) => {
         />
       </label>
       <br />
-      <button
-        className="w-60 bg-primary text-white  mt-4 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-        type="submit"
-      >
-        Change Password
-      </button>
+      <div className="flex gap-4">
+        <button
+          className=" py-3 px-6 transition duration-300 hover:bg-primary bg-secondary text-white mt-4  font-bold rounded-lg focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Change Password
+        </button>
+        <span
+          className="py-3 px-6 cursor-pointer flex justify-center items-center transition duration-300 bg-gray-500 hover:bg-gray-600  mt-4 text-white font-bold rounded-lg focus:outline-none focus:shadow-outline"
+          type="submit"
+          onClick={() => setIsChangeForm(false)}
+        >
+          Cancel
+        </span>
+      </div>
     </form>
   );
 };

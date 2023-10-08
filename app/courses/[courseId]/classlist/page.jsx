@@ -25,7 +25,7 @@ function Classlist({ params }) {
       {role =='teacher' &&isAdding&& <AddStudent setIsAdding={setIsAdding}/>}
       <Navbar/>
       <main className="main bg-gray-200">
-    <div className="courseComponent">
+    <div className="courseComponent rounded-lg">
       <CourseBar courseId={courseId} />
       <div className="courseFlex">
         <div className='courseLeft'>
@@ -52,27 +52,27 @@ function Classlist({ params }) {
               </thead>
               <tbody>
                 {
-                  classList.map((student)=>{
+                  classList.map((student, i)=>{
                     return(
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr key={i} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th
                     scope="row"
                     class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {/* <Image class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image"/> */}
-                    <div class="pl-3">
-                      <div class="text-base font-semibold">{student.name}</div>
-                      <div class="font-normal text-gray-500">
+                    <span class="flex flex-col gap pl-3">
+                      <span class="text-base font-semibold">{student.name}</span>
+                      <span class="font-normal text-gray-500">
                         {student.email}
-                      </div>
-                    </div>
+                      </span>
+                    </span>
                   </th>
                   <td class="px-6 py-4">{student.role}</td>
                   <td class="px-6 py-4">
-                    <div class="flex items-center">
-                      <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>{" "}
+                    <span class="flex items-center">
+                      <span class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></span>{" "}
                       {student.status}
-                    </div>
+                    </span>
                   </td>
                   <td class="px-6 py-4 w-20">
                     <a
@@ -98,7 +98,6 @@ function Classlist({ params }) {
                 setIsEditing(false)
               }} class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-sm rounded-sm text-sm px-2 py-1.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 float-right mt-2 mr-2">cancel</button>} */}
         </div>
-        <div className="courseRight"></div>
       </div>
     </div>
     </main>

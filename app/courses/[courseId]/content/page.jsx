@@ -33,9 +33,9 @@ function Assignment({ params }) {
         <div className="courseLeft">
             {role == 'teacher'&& <GrAdd onClick={handleAdd} className="absolute right-2 top-2 cursor-pointer text-lg"/>}
           <ol class="relative border-l border-gray-200 dark:border-gray-700 mt-5">
-            {content.map((chapter)=>{
+            {content.map((chapter, i)=>{
               return(
-                <li class="mb-10 ml-6">
+                <li key={i}class="mb-10 ml-6">
                   <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                     <svg
                       class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
@@ -82,7 +82,6 @@ function Assignment({ params }) {
             })}
           </ol>
         </div>
-        <div className="courseRight"></div>
       </div>
     </div>
     </main>

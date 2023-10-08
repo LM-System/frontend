@@ -22,7 +22,7 @@ function Assignment({ params }) {
     <div className="page">
       <Navbar/>
       <main className="main bg-gray-200">
-    <div className="courseComponent">
+    <div className="courseComponent rounded-lg">
       <CourseBar courseId={courseId} />
       <div className="courseFlex">
         <div className="courseLeft">
@@ -51,9 +51,9 @@ function Assignment({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {assignments.map((assignment)=>{
+                {assignments.map((assignment, i)=>{
                   return(
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr key={i} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -88,9 +88,9 @@ function Assignment({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {assignments.map((assignment)=>{
+                {assignments.map((assignment, i)=>{
                   return(
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr key={i} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
                     class="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -108,7 +108,6 @@ function Assignment({ params }) {
             </table>}
           </div>
         </div>
-        <div className="courseRight"></div>
       </div>
     </div>
     </main>

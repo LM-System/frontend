@@ -31,6 +31,7 @@ export default function UserProfile() {
   const [passVisThree, setPassVisThree] = useState(false);
   const [isNotMatch, setIsNotMatch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isChangeForm, setIsChangeForm] = useState(false)
 
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -53,7 +54,7 @@ export default function UserProfile() {
     const user = userData;
     const body = { ...user, bio: textArea };
     await axios.put(
-      `${process.env.REACT_APP_SERVER_URL}userinformtion/${user.id}`,
+      `${process.env.NEXT_SERVER_URL}userinformtion/${user.id}`,
       body
     );
     localStorage.setItem("user_data", JSON.stringify(body));
@@ -144,7 +145,7 @@ export default function UserProfile() {
       </div>
       <div className="grid-2d ml-5 ">
         {/* Card 1 Start*/}
-        <div className="details mx-auto p-4  md:col-span-2 border-b  rounded-lg shadow-lg p-8 w-1/2 p-6">
+        <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2 ">
           <div className="flex flex-col w-full p-4 gap-4 font-bold">
             <div className="user-email ">
               <h4>Email</h4>
@@ -178,9 +179,12 @@ export default function UserProfile() {
                 <p>{`0${userData.phone_number}`}</p>
               </div>
             </div>
-            <div>
-              <h1>Change Password</h1>
-              <ChangePasswordForm onSubmit={handleChangePassword} />
+            <div className="flex flex-col gap-2">
+              <span
+                className="text-primary cursor-pointer dark:text-gray-400"
+                onClick={() => setIsChangeForm(true)}
+              >Change Password</span>
+              {isChangeForm && <ChangePasswordForm setIsChangeForm={setIsChangeForm} onSubmit={handleChangePassword} />}
               {message && <p>{message}</p>}
             </div>
           </div>
@@ -188,8 +192,8 @@ export default function UserProfile() {
         {/* Card 1 End*/}
 
         {/* Card 2 Start*/}
-        <div className="  gap-5 bg-[#99999910]   cols-1 border-b rounded-lg shadow-lg ">
-          <div className="flex p-2.5 mr-10 avatar-and-details  ">
+        <div className=" flex flex-col gap-4 bg-[#99999910] p-4 cols-1 rounded-lg shadow-lg ">
+          <div className="flex mr-10 avatar-and-details gap-4">
             <Avatar
               style={{
                 width: "75px",
@@ -200,8 +204,8 @@ export default function UserProfile() {
             >
               {userData.fullname.slice(0, 1)}
             </Avatar>
-            <div className="flex-col items-center ml-2">
-              <h1 className="font-bold text-3xl">
+            <div className="flex-col items-center">
+              <h1 className="font-bold text-2xl">
                 {capitalizeFirstLetter(userData.fullname)}
               </h1>
               <div className="text-xl mt-1">
@@ -209,21 +213,24 @@ export default function UserProfile() {
               </div>
             </div>
           </div>
-          <div className=" flex flex-col items-center">
-            <h3 className="">Bio</h3>
-            <BorderColorRoundedIcon
-              className=" justify-end"
-              onClick={() => {
-                setIsEdit(true);
-              }}
-            />
+          <div className=" flex flex-col gap-4">
+            <div className="flex justify-between w-full">
+              <h3 className="font-bold">Bio</h3>
+              <BorderColorRoundedIcon
+                className="cursor-pointer"
+                onClick={() => {
+                  setIsEdit(true);
+                }}
+              />
+            </div>
             {!isEdit && <div className="bio">{userData.bio}</div>}
             {isEdit && (
               <>
                 <textarea
-                  className=""
+                  className="rounded-lg"
                   value={textArea}
                   name="textarea"
+                  rows="10"
                   maxLength="300"
                   onChange={(event) => {
                     changeHandler(event);
