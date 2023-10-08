@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
+import axios from "axios";
 
-function AddInstructors({setIsAdding}) {
+function AddInstructors({setIsAdding,fetchData}) {
     const [error,setError]=useState('')
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -11,17 +12,19 @@ function AddInstructors({setIsAdding}) {
     setSelectedFile(file);
   };
 
-  const handleFileUpload = async () => {
-    if (selectedFile) {
-      try{
-        const formData = new FormData();
-        formData.append('file', selectedFile);
-        await axiosHandler('POST',`/instructor`,formData)
-      }catch(e){
-        setError(e.message)
-      }
-        
-    }
+  const handleFileUpload =  () => {
+    const formData = new FormData();
+    formData.append('excel', selectedFile);
+    axiosHandler('POST','/instructor',formData)
+      .then((response) => {
+        console.log(response);
+        setIsAdding(false)
+        fetchData()
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error)
+      });
   };    
   return (
     <div>

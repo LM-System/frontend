@@ -15,7 +15,10 @@ function students({params}) {
 
     const handleDelete = async (id)=>{
         try{
-            const data =await axiosHandler('DELETE',`/department/${id}`)
+            const data =await axiosHandler('DELETE',`/deletestudent/${id}`)
+            if(data){
+                fetchData()
+            }
         }catch(e){setFetchingError(e.message)}
     }
     
@@ -30,44 +33,71 @@ function students({params}) {
     },[])
   return (
     <div className='page'>
-    {isAdding&&<AddStudents departmentId={departmentId} setIsAdding={setIsAdding}/>}
+    {isAdding&&<AddStudents departmentId={departmentId} fetchData={fetchData} setIsAdding={setIsAdding}/>}
         <Navbar/>
         <main className='main'>
         {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
                 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     {!isAdding&&<GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>}
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Student Name
+                <th scope="col" className="px-6 py-3">
+                    Student ID
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Description
+                <th scope="col" className="px-6 py-3">
+                    Name
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Sections
+                <th scope="col" className="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Gender
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Birth Date
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Phone Number
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Address
                 </th>
             </tr>
         </thead>
         <tbody>
-            {students?.map((course)=>{
+            {students?.map((student)=>{
                 return(
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">
-                   {course.name}
+            <tr key={student.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                   {student.id}
                 </th>
-                <td class="px-6 py-4">
-                    {course.description}
+                <td className="px-6 py-4">
+                    {student.fullname}
                 </td>
-                <td class="px-6 py-4">
-                <Link href={`/institutions/${instituteId}/departments/${departmentId}/students/${course.id}`}>Sections</Link>
+                <td className="px-6 py-4">
+                    {student.userEmail}
                 </td>
-                {/* <AiOutlineMinus onClick={()=>{
-                    handleDelete(department.id)
-                }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/> */}
+                <td className="px-6 py-4">
+                    {student.gender}
+                </td>
+                <td className="px-6 py-4">
+                    {student.birth_date.split('T')[0]}
+                </td>
+                <td className="px-6 py-4">
+                    {student.phone_number}
+                </td>
+                <td className="px-6 py-4">
+                    {student.adderss}
+                </td>
+                {/* <td className="px-6 py-4">
+                <Link href={`/institutions/${instituteId}/departments/${departmentId}/students/${student.id}`}>Sections</Link>
+                </td> */}
+                <AiOutlineMinus onClick={()=>{
+                    handleDelete(student.id)
+                }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
             </tr>
                 )
             })}

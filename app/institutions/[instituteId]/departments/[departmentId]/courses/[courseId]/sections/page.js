@@ -40,12 +40,18 @@ function Department({params}) {
             <div>
                 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     {!isAdding&&<GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>}
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Section Name
+                    Section ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Instructor
                 </th>
                 <th scope="col" class="px-6 py-3">
                     year
@@ -72,8 +78,14 @@ function Department({params}) {
                 return(
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
-                   {section.name}
+                   {section.id}
                 </th>
+                <td class="px-6 py-4">
+                    {section.name}
+                </td>
+                <td class="px-6 py-4">
+                    {section.instructor?.name}
+                </td>
                 <td class="px-6 py-4">
                     {section.year}
                 </td>

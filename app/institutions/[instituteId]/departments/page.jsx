@@ -38,13 +38,19 @@ function Page({params}) {
             <div>
                 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     {!isAdding&&<GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>}
     {isAdding&&<AiOutlineClose onClick={()=>{setIsAdding(false)}} className='absolute right-3 top-3 text-lg cursor-pointer text-black'/>}
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Departments Name
+                    Departments ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Department Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Department Head
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Courses
@@ -62,8 +68,14 @@ function Page({params}) {
                 return(
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th class="px-6 py-4">
-                {department.name}
+                {department.id}
                 </th>
+                <td scope="row" class="px-6 py-4  text-blue-700">
+                  {department.name}
+                </td>
+                <td scope="row" class="px-6 py-4  text-blue-700">
+                  {department.departmentHead.fullname}
+                </td>
                 <td scope="row" class="px-6 py-4  text-blue-700">
                    <Link href={`/institutions/${instituteId}/departments/${department.id}/courses`}>courses</Link>
                 </td>
@@ -73,9 +85,9 @@ function Page({params}) {
                 <td class="px-6 py-4 text-blue-700">
                     <Link href={`${pathname}/${department.id}/instructors`}>instructors</Link>
                 </td>
-                {/* <AiOutlineMinus onClick={()=>{
+                <AiOutlineMinus onClick={()=>{
                     handleDelete(department.id)
-                }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/> */}
+                }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
             </tr>
                 )
             })}

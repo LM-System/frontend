@@ -14,9 +14,13 @@ function Department({params}) {
     const [isAdding,setIsAdding] = useState(false)
     const [courses,setCourses]=useState([])
 
-    const handleDelete = async (id)=>{
+    const handleDelete =  (id)=>{
         try{
-            const data =await axiosHandler('DELETE',`/department/${id}`)
+            axiosHandler('DELETE',`/course/${id}`)
+            .then((result)=>{
+                fetchData()
+            })
+            
         }catch(e){setFetchingError(e.message)}
     }
     
@@ -31,7 +35,7 @@ function Department({params}) {
     },[])
   return (
     <div className='page'>
-    {isAdding&&<AddCourse departmentId={departmentId} setIsAdding={setIsAdding}/>}
+    {isAdding&&<AddCourse fetchData={fetchData} departmentId={departmentId} setIsAdding={setIsAdding}/>}
         <Navbar/>
         <main className='main'>
         {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
@@ -43,7 +47,10 @@ function Department({params}) {
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Course Name
+                    Course ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Name
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Description
@@ -57,18 +64,21 @@ function Department({params}) {
             {courses?.map((course)=>{
                 return(
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">
-                   {course.name}
+                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap dark:text-white">
+                   {course.id}
                 </th>
+                <td class="px-6 py-4">
+                    {course.name}
+                </td>
                 <td class="px-6 py-4">
                     {course.description}
                 </td>
-                <td class="px-6 py-4">
-                <Link href={`/institutions/${instituteId}/departments/${departmentId}/courses/${course.id}`}>Sections</Link>
+                <td class="px-6 py-4 text-blue-700">
+                <Link  href={`/institutions/${instituteId}/departments/${departmentId}/courses/${course.id}/sections`}>Sections</Link>
                 </td>
-                {/* <AiOutlineMinus onClick={()=>{
-                    handleDelete(department.id)
-                }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/> */}
+                <AiOutlineMinus onClick={()=>{
+                    handleDelete(course.id)
+                }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
             </tr>
                 )
             })}

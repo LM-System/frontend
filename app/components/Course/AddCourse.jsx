@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
 
-function AddCourse({setIsAdding,departmentId}) {
+function AddCourse({setIsAdding,departmentId,fetchData}) {
     const [error,setError]=useState('')
     const [courseData,setCourseData]=useState({})
     const handleSubmit = async (e)=>{
@@ -11,6 +11,7 @@ function AddCourse({setIsAdding,departmentId}) {
             const data =await axiosHandler('POST',`/course`,{...courseData,departmentId:departmentId})
             if(data){
                 setIsAdding(false)
+                fetchData()
             }
         }catch(e){setError(e.message)}
     }
