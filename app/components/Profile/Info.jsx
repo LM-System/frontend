@@ -130,7 +130,7 @@ export default function UserProfile() {
       </div>
       <div className="grid-2d ml-5 ">
         {/* Card 1 Start*/}
-        <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2">
+
         <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2 ">
           <div className="flex flex-col w-full p-4 gap-4 font-bold">
             <div className="user-email ">
@@ -226,7 +226,6 @@ export default function UserProfile() {
                   name="textarea"
                   rows="10"
                   maxLength="300"
-                  rows="10"
                   onChange={(event) => {
                     changeHandler(event);
                   }}
