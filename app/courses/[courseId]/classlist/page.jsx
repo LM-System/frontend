@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CourseBar from "@/app/components/Course/Bar";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Image from "next/image";
@@ -8,18 +8,27 @@ import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineMinus} from 'react-icons/ai'
 import {BsTrash,BsFillChatSquareTextFill} from 'react-icons/bs'
+import { axiosHandler } from "@/public/Utilities/axiosHandler";
 
-function Classlist({ params }) {
-  const [isEditing,setIsEditing]=useState(false)
-  const [isAdding,setIsAdding]=useState(false)
+export default function Classlist({ params }) {
+  const courseId = params.courseId;
+  const [classlist, setClasslist] = useState(null);
+  const [isEditing,setIsEditing]= useState(false)
+  const [isAdding,setIsAdding]= useState(false)
 
   const handleSave = ()=>{
     setIsEditing(false)
   }
-
+  useEffect(() => {
+    const fetchClassList = async () => {
+      const {data} = await axiosHandler('GET', `/classlist/${courseId}`)
+      setClasslist(data)
+      console.log(data)
+    }
+    fetchClassList()
+  }, [courseId])
   const role = 'student'
-  const classList = [{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'},{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'},{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'},{name:'Ahmad Salem',email:'Ahmad@gmail.com',role:'student',status:'online',chat:'chatLink'}]
-  const courseId = params.courseId;
+  
   return (
     <div className="page">
       {role =='teacher' &&isAdding&& <AddStudent setIsAdding={setIsAdding}/>}
@@ -51,8 +60,8 @@ function Classlist({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {
-                  classList.map((student, i)=>{
+                { classlist &&
+                  classlist.map((student, i)=>{
                     return(
                 <tr key={i} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th
@@ -104,5 +113,3 @@ function Classlist({ params }) {
     </div>
   );
 }
-
-export default Classlist;
