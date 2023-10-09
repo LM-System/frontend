@@ -5,10 +5,9 @@ import Cookies from 'js-cookie'
 import { MdEdit } from "react-icons/md";
 import {GrClose} from "react-icons/gr"
 
-export default function Announcements({courseId}) {
+export default function Announcements({sectionId}) {
   const { role } = JSON.parse(Cookies.get("user_info"))
   const [wantToEdit, setWantToEdit] = useState(false)
-  console.log(role)
   return (
     <div className=" mt-8 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
     {role === 'instructor' &&
@@ -26,7 +25,7 @@ export default function Announcements({courseId}) {
     </h2>
     <hr className="mx-5 my-3" />
     <div className="p-5 overflow-y-auto h-half">
-      <AnnouncementContainer courseId={courseId} wantToEdit={wantToEdit}/>
+      <AnnouncementContainer sectionId={sectionId} wantToEdit={wantToEdit}/>
     </div>
   </div>
   )

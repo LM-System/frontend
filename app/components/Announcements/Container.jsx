@@ -2,19 +2,19 @@
 import AnnouncementCard from "./Card";
 import {useState, useEffect, Suspense} from "react";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
-import Loading from "../Loading/Loading";
+import Skelton from "../Loading/Skelton";
 
-export default function AnnouncementContainer({ courseId, wantToEdit }) {
+export default function AnnouncementContainer({ sectionId, wantToEdit }) {
   const [announcements, setAnnouncements] = useState(null)
   useEffect(() => {
-    const fetchAnnounements = async (courseId) => {
+    const fetchAnnounements = async (sectionId) => {
       const { data } = await axiosHandler(
         "GET",
-        `/sectionAnnouncements/${courseId}`
+        `/sectionAnnouncements/${sectionId}`
       );
       setAnnouncements(data);
     };
-    fetchAnnounements(courseId);
+    fetchAnnounements(sectionId);
   })
 
   return (
@@ -23,7 +23,9 @@ export default function AnnouncementContainer({ courseId, wantToEdit }) {
         <AnnouncementCard key={e.id} {...e} wantToEdit={wantToEdit}/>
       ))
       :
-      <Loading />
+      <>
+        <Skelton count={0}/>
+      </>
       }
     </div>
   );
