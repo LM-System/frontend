@@ -54,9 +54,9 @@ function Page() {
                 <th scope="col" class="px-6 py-3">
                    address
                 </th>
-                <th scope="col" class="px-6 py-3">
+                {/* <th scope="col" class="px-6 py-3">
                     Departments 
-                </th>
+                </th> */}
             </tr>
         </thead>
         <tbody>
@@ -75,9 +75,9 @@ function Page() {
                 <td class="px-6 py-4">
                     {institute.address}
                 </td>
-                <td class="px-6 py-4">
+                {/* <td class="px-6 py-4">
                     <Link className='text-blue-600' href={`/institutions/${institute.id}/departments`}>Departments</Link>
-                </td>
+                </td> */}
                 <AiOutlineMinus onClick={()=>{
                     handleDelete(institute.id)
                 }} className='text-lg absolute right-4 mt-4 text-black cursor-pointer'/>
