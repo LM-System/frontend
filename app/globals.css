@@ -160,3 +160,7 @@ nav {
   display: flex;
   align-items: center;
 }
+
+.courseComponentMain {
+  @apply h-full  dark:bg-transparent bg-gray-200 rounded-lg;
+}

@@ -1,8 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
+import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
+import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 
-const ChangePasswordForm = ({ onSubmit, setIsChangeForm }) => {
+const ChangePasswordForm = ({ onSubmit, isLoading, setIsChangeForm }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [oldPasswordVisibility, setOldPasswordVisibility] = useState(false);
+  const [newPasswordVisibility, setNewPasswordVisibility] = useState(false);
+
+  const handleToggleOldPasswordVisibility = () => {
+    setOldPasswordVisibility(!oldPasswordVisibility);
+  };
+
+  const handleToggleNewPasswordVisibility = () => {
+    setNewPasswordVisibility(!newPasswordVisibility);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,27 +23,54 @@ const ChangePasswordForm = ({ onSubmit, setIsChangeForm }) => {
   };
 
   return (
-    <form className=" flex flex-col" onSubmit={handleSubmit}>
-      <label>
+    <form className="flex flex-col" onSubmit={handleSubmit}>
+      <label className="text-headtxt dark:text-white">
         Old Password:
-        <input
-          className="details"
-          type="password"
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
-          required
-        />
+        <div className="relative">
+          <input
+            className="details"
+            type={oldPasswordVisibility ? "text" : "password"}
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+            required
+          />
+
+          <button
+            type="button"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            onClick={handleToggleOldPasswordVisibility}
+          >
+            {oldPasswordVisibility ? (
+              <VisibilityRoundedIcon fontSize="small" />
+            ) : (
+              <VisibilityOffRoundedIcon fontSize="small" />
+            )}
+          </button>
+        </div>
       </label>
       <br />
-      <label>
+      <label className="text-headtxt dark:text-white">
         New Password:
-        <input
-          type="password"
-          className="details"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
+        <div className="relative">
+          <input
+            type={newPasswordVisibility ? "text" : "password"}
+            className="details"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            onClick={handleToggleNewPasswordVisibility}
+          >
+            {newPasswordVisibility ? (
+              <VisibilityRoundedIcon fontSize="small" />
+            ) : (
+              <VisibilityOffRoundedIcon fontSize="small" />
+            )}
+          </button>
+        </div>
       </label>
       <br />
       <div className="flex gap-4">

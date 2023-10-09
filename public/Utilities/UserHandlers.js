@@ -51,7 +51,6 @@ export async function LoginHandler(formData, setIsLoading, router) {
   }
 }
 
-
 // "{
 //   "id": 1,
 //   "fullname": "malek",
