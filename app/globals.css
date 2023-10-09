@@ -76,7 +76,12 @@ nav {
 .h-eighty {
   /* height: 85vh; */
 }
+
+/* width */
+::-webkit-scrollbar {
+
 /* ::-webkit-scrollbar {
+
   width: 10px;
 }
 
