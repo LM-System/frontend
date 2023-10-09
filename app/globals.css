@@ -78,7 +78,7 @@ nav {
 }
 
 /* width */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar { */
 
 /* ::-webkit-scrollbar {
 
@@ -99,20 +99,20 @@ nav {
   background: #e2e2e2;
 } */
 .courseComponent {
-  @apply h-full overflow-hidden dark:bg-transparent bg-gray-200 rounded-lg w-full
+  @apply h-full overflow-hidden dark:bg-transparent bg-gray-200 rounded-lg w-full;
 }
 .courseFlex {
-  @apply flex w-full gap-4 h-full bg-gray-200 mt-4 rounded-lg dark:bg-darkbg
+  @apply flex w-full gap-4 h-full bg-gray-200 mt-4 rounded-lg dark:bg-darkbg;
 }
 .courseLeft {
   @apply w-full rounded-md bg-white h-eighty overflow-y-auto drop-shadow-xl p-6 dark:bg-darkcomp;
 }
 .courseRight {
-  @apply w-4/12 rounded-md bg-white h-full drop-shadow-xl h-eighty
+  @apply w-4/12 rounded-md bg-white h-full drop-shadow-xl h-eighty;
 }
 
 .details {
-  @apply flex gap-5 bg-[#99999910] w-full p-2.5
+  @apply flex gap-5 bg-[#99999910] w-full p-2.5;
 }
 
 .change-password {
