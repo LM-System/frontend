@@ -112,7 +112,7 @@ export default function Announcment() {
       <div className="courseComponent rounded-lg">
         <div className="courseFlex bg-transparent">
           <div className="h-eighty overflow-y-auto ">
-            <div className="  bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
+            <div className=" w-full bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
               {role == "admin" && !isEditingAnnouncement && (
                 <MdEdit
                   onClick={() => {

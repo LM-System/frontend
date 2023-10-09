@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
 import { deepPurple } from "@mui/material/colors";
 import AlternateEmailRoundedIcon from "@mui/icons-material/AlternateEmailRounded";
 import MaleRoundedIcon from "@mui/icons-material/MaleRounded";
@@ -190,17 +189,10 @@ export default function UserProfile() {
 
         {/* Card 2 Start*/}
         <div className="flex flex-col gap-4 bg-[#99999910] p-4 cols-1 rounded-lg shadow-lg">
-          <div className="flex mr-10 avatar-and-details gap-4 ">
-            <Avatar
-              style={{
-                width: "75px",
-                height: "75px",
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              }}
-              sx={{ bgcolor: deepPurple[500] }}
-            >
-              {userData.fullname.slice(0, 1)}
-            </Avatar>
+          <div className="flex items-center mr-10 avatar-and-details gap-4 ">
+            <span className="flex justify-center text-2xl items-center w-20 h-20 bg-secondary text-white rounded-full shadow-lg">
+                {userData.fullname.slice(0, 1).toUpperCase()}
+              </span>
             <div className="flex-col items-center ">
               <h1 className="font-bold text-2xl">
                 {capitalizeFirstLetter(userData.fullname)}
