@@ -14,3 +14,4 @@ export async function axiosHandler(method,path,data){
       });
       return response.data
 }
+

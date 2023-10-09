@@ -3,14 +3,17 @@ import React,{useState} from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from "axios";
 
-function AddContentCard({setIsAdding,courseId}) {
+function AddAssignmentModal({setIsAdding,courseId}) {
   const [form,setForm]=useState({
     title:"",
     description:"",
-    file:"",
-    courseId:courseId
+    attachment:"",
+    sectionId:courseId,
+    due_date:""
   })
 function handelChange(e) {
+    console.log({[e.target.name]:e.target.value});
+
 setForm({...form,[e.target.name]:e.target.value})
 }
 function handelChangefiles(e) {
@@ -19,19 +22,21 @@ setForm({...form,[e.target.name]:e.target.files[0]})
 async function handelSubmit(e) {
   e.preventDefault();
   const formData=new FormData();
-  formData.append('contentFile',form.file)
   formData.append('title',form.title)
   formData.append('description',form.description)
-  formData.append('courseId',form.courseId)
+  formData.append('assignmentFile',form.attachment)
+  formData.append('sectionId',form.sectionId)
+  formData.append('due_date',form.due_date)
   console.log(formData);
- await axios.post('https://lms-j2h1.onrender.com/content', formData, {
+// https://lms-j2h1.onrender.com/assignment
+// http://localhost:4000/assignment
+ await axios.post('http://localhost:4000/assignment', formData, {
     headers: {
       'Content-Type': 'multipart/form-data', // Important for sending files
     },
   })
   setIsAdding(false);
 }
-
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
@@ -42,7 +47,7 @@ async function handelSubmit(e) {
             setIsAdding(false);
           }}
         />
-        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Content</h1> 
+        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Assignment</h1> 
         <form className="mx-10 mt-5" onSubmit={handelSubmit}>
           <div className="mb-6">
             <label
@@ -75,6 +80,22 @@ async function handelSubmit(e) {
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             ></textarea>
           </div>
+          <div class="mb-6">
+            <label
+              for="Date"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Date on timeline
+            </label>
+            <input
+              name="due_date"
+              type="Date"
+              id="Date"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              required
+              onChange={handelChange}
+            />
+          </div>
           <div className="mb-6">
             <label
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -86,7 +107,7 @@ async function handelSubmit(e) {
               className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
               id="multiple_files"
               onChange={handelChangefiles}
-              name="file"
+              name="attachment"
               type="file"
               multiple
             />
@@ -103,4 +124,4 @@ async function handelSubmit(e) {
   );
 }
 
-export default AddContentCard;
+export default AddAssignmentModal;

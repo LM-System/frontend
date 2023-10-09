@@ -67,52 +67,47 @@ nav {
 }
 
 .h-ten {
-  height: 11vh;
+  /* height: 11vh; */
 }
 
 .h-half {
-  height: 55vh;
+  /* height: 55vh; */
 }
 .h-eighty {
-  height: 85vh;
+  /* height: 85vh; */
 }
-/* width */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #e2e2e2;
   border-radius: 5px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #7a7a7a;
   border-radius: 5px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #e2e2e2;
-}
+} */
 .courseComponent {
-  @apply h-full overflow-hidden bg-gray-200;
+  @apply h-full overflow-hidden dark:bg-transparent bg-gray-200 rounded-lg w-full
 }
 .courseFlex {
-  @apply flex gap-4 h-full bg-gray-200 mt-4;
+  @apply flex w-full gap-4 h-full bg-gray-200 mt-4 rounded-lg dark:bg-darkbg
 }
 .courseLeft {
-  @apply w-8/12 rounded-md bg-white h-eighty overflow-y-auto drop-shadow-xl p-6;
+  @apply w-full rounded-md bg-white h-eighty overflow-y-auto drop-shadow-xl p-6 dark:bg-darkcomp;
 }
 .courseRight {
-  @apply w-4/12 rounded-md bg-white h-full drop-shadow-xl h-eighty;
+  @apply w-4/12 rounded-md bg-white h-full drop-shadow-xl h-eighty
 }
 
 .details {
-  @apply flex gap-5 bg-[#99999910] w-full p-2.5;
-  flex-flow: row !important;
+  @apply flex gap-5 bg-[#99999910] w-full p-2.5
 }
 
 .change-password {
@@ -157,12 +152,11 @@ nav {
   @apply cursor-pointer font-[bold] text-[white] transition-[0.5s] min-w-[60px] px-2.5 py-[7px] rounded-[5px] border-0 hover:transition-[0.5s] hover:scale-105 first:bg-[#1fae51] last:bg-[gray];
 }
 
-.bio p {
-  @apply text-[black];
+.flex-container {
+  display: flex;
+  align-items: center;
 }
-.bio-text {
-  @apply break-words mx-0 my-2.5;
-}
-.textarea-container {
-  @apply flex;
+
+.courseComponentMain {
+  @apply h-full  dark:bg-transparent bg-gray-200 rounded-lg;
 }

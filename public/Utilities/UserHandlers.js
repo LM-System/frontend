@@ -3,7 +3,6 @@ import axios from "axios";
 
 export async function LoginHandler(formData, setIsLoading, router) {
   const url = "https://lms-j2h1.onrender.com";
-  setIsLoading(true);
   const { email, password } = formData;
   const encodedData = btoa(`${email}:${password}`);
 
@@ -52,7 +51,6 @@ export async function LoginHandler(formData, setIsLoading, router) {
     setIsLoading(false);
   }
 }
-
 
 // "{
 //   "id": 1,
