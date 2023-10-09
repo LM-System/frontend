@@ -13,7 +13,7 @@ function Assignment({ params }) {
   const role = 'teacher'
   const [isAdding,setIsAdding]=useState(false)
   const [isEditing,setIsEditing]=useState(false)
-
+console.log(params);
   const handleAdd = ()=>{
     setIsAdding(true)
   }
@@ -23,8 +23,8 @@ function Assignment({ params }) {
 
   return (
     <div className="page">
-      {role=='teacher'&&isAdding&&<AddContentCard setIsAdding={setIsAdding} /> }
-      {role=='teacher'&&isEditing&&<EditContentCard setIsEditing={setIsEditing} /> }
+      {role=='teacher'&&isAdding&&<AddContentCard courseId={courseId} setIsAdding={setIsAdding} /> }
+      {role=='teacher'&&isEditing&&<EditContentCard courseId={courseId} setIsEditing={setIsEditing} /> }
       <Navbar/>
       <main className="main bg-gray-200">
     <div className="courseComponent">

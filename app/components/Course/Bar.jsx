@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 export default function CourseBar({courseId}) {
     const pathname = usePathname()
     const selected = pathname.split('/').pop()
-    console.log(pathname,selected)
+    // console.log(pathname,selected)
     // const [selected,setSelected] = useState('')
     const upperNavContent = ['Main', 'Content', 'ClassList', 'Assignment', 'grades']
     return (

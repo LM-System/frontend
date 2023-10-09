@@ -4,6 +4,7 @@ import React from 'react'
 import images from '@/public/images/index'
 
 export default function Card({ id, title, semester, instructor}) {
+  console.log(id, title, semester, instructor);
   return (
     <Link href={'/courses/' + id + '/main'}>
       <div className='p-4 shadow-md bg-gray-50 dark:bg-darkcomp rounded-lg'>
