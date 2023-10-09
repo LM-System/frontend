@@ -10,7 +10,6 @@ import Cookies from "js-cookie";
 
 
 function Assignment({ params }) {
-  var token = Cookies.get("user_token");
   var token2 = Cookies.get("user_info");
   const [isAdding,setIsAdding]=useState(false)
 

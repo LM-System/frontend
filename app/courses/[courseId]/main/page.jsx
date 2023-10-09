@@ -1,3 +1,4 @@
+
 import React, { Suspense } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import Navbar from "@/app/components/Navbar/Navbar";
