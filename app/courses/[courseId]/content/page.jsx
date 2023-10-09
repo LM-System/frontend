@@ -7,19 +7,145 @@ import EditContentCard from "@/app/components/Course/Content/EditContentCard";
 import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
 import {BsTrash} from 'react-icons/bs'
+import { axiosHandler } from "@/public/Utilities/axiosHandler";
 
 
-function Assignment({ params }) {
+
+function Content({ params }) {
   const role = 'teacher'
   const [isAdding,setIsAdding]=useState(false)
   const [isEditing,setIsEditing]=useState(false)
-console.log(params);
+  let contentList= [
+    {
+        "id": 1,
+        "title": null,
+        "file": null,
+        "description": null,
+        "createdAt": "2023-10-08T13:40:11.006Z",
+        "updatedAt": "2023-10-08T13:40:11.006Z",
+        "courseId": 4
+    },
+    {
+        "id": 2,
+        "title": null,
+        "file": null,
+        "description": null,
+        "createdAt": "2023-10-08T13:41:09.522Z",
+        "updatedAt": "2023-10-08T13:41:09.522Z",
+        "courseId": 4
+    },
+    {
+        "id": 3,
+        "title": null,
+        "file": "assets/contentFile-1696773197013-638352128.docx",
+        "description": null,
+        "createdAt": "2023-10-08T13:53:17.021Z",
+        "updatedAt": "2023-10-08T13:53:17.021Z",
+        "courseId": 4
+    },
+    {
+        "id": 4,
+        "title": "malek",
+        "file": null,
+        "description": "hasan",
+        "createdAt": "2023-10-08T18:58:52.058Z",
+        "updatedAt": "2023-10-08T18:58:52.058Z",
+        "courseId": 4
+    },
+    {
+        "id": 5,
+        "title": "musa",
+        "file": null,
+        "description": "musa",
+        "createdAt": "2023-10-08T19:00:10.424Z",
+        "updatedAt": "2023-10-08T19:00:10.424Z",
+        "courseId": 4
+    },
+    {
+        "id": 6,
+        "title": "musa",
+        "file": null,
+        "description": "musa",
+        "createdAt": "2023-10-08T19:04:24.275Z",
+        "updatedAt": "2023-10-08T19:04:24.275Z",
+        "courseId": 4
+    },
+    {
+        "id": 7,
+        "title": "musa",
+        "file": null,
+        "description": "musa",
+        "createdAt": "2023-10-08T19:05:10.917Z",
+        "updatedAt": "2023-10-08T19:05:10.917Z",
+        "courseId": 4
+    },
+    {
+        "id": 8,
+        "title": null,
+        "file": "assets/contentFile-1696791955994-423399953.docx",
+        "description": null,
+        "createdAt": "2023-10-08T19:05:56.001Z",
+        "updatedAt": "2023-10-08T19:05:56.001Z",
+        "courseId": 4
+    },
+    {
+        "id": 9,
+        "title": "musa",
+        "file": null,
+        "description": "musa",
+        "createdAt": "2023-10-08T19:07:34.883Z",
+        "updatedAt": "2023-10-08T19:07:34.883Z",
+        "courseId": 4
+    },
+    {
+        "id": 10,
+        "title": "musa",
+        "file": null,
+        "description": "musa",
+        "createdAt": "2023-10-08T19:11:28.928Z",
+        "updatedAt": "2023-10-08T19:11:28.928Z",
+        "courseId": 4
+    },
+    {
+        "id": 11,
+        "title": "hiiiiiiiiiiiiiiiiiiiiiiii",
+        "file": null,
+        "description": "hiiiiiiiiiiiiiiiiiiiiiiiii",
+        "createdAt": "2023-10-08T19:12:02.310Z",
+        "updatedAt": "2023-10-08T19:12:02.310Z",
+        "courseId": 4
+    },
+    {
+        "id": 12,
+        "title": "hiiiiiiiiiiiiiiiiiiiiiiii",
+        "file": "assets/contentFile-1696792374942-729158687.docx",
+        "description": "hiiiiiiiiiiiiiiiiiiiiiiiii",
+        "createdAt": "2023-10-08T19:12:54.944Z",
+        "updatedAt": "2023-10-08T19:12:54.944Z",
+        "courseId": 4
+    },
+    {
+        "id": 13,
+        "title": "hiiiiiiiiiiiiiiiiiiiiiiii",
+        "file": "assets/contentFile-1696792400525-856939413.pdf",
+        "description": "hiiiiiiiiiiiiiiiiiiiiiiiii",
+        "createdAt": "2023-10-08T19:13:20.532Z",
+        "updatedAt": "2023-10-08T19:13:20.532Z",
+        "courseId": 4
+    }
+]
+const courseId = params.courseId;
+  // axiosHandler('GET',`/sectioncontents/${courseId}`).then(res=>console.log(res.contents))
+  
   const handleAdd = ()=>{
     setIsAdding(true)
   }
-
-  const courseId = params.courseId;
-  const content = [{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''}]
+  async function handelDelete(id) {
+    // axiosHandler('DELETE',`/content/${id}`).then(res=>console.log(res.contents))
+  }
+  
+  // const contentList = [{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''}]
+  console.log(contentList.contents);
 
   return (
     <div className="page">
@@ -33,7 +159,7 @@ console.log(params);
         <div className="courseLeft">
             {role == 'teacher'&& <GrAdd onClick={handleAdd} className="absolute right-2 top-2 cursor-pointer text-lg"/>}
           <ol class="relative border-l border-gray-200 dark:border-gray-700 mt-5">
-            {content.map((chapter, i)=>{
+            {contentList.reverse().map((chapter, i)=>{
               return(
                 <li key={i}class="mb-10 ml-6">
                   <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
@@ -53,10 +179,10 @@ console.log(params);
                       Latest
                     </span>
                     {role == 'teacher'&& <MdEdit onClick={()=>{setIsEditing(true)}} className="ml-6 cursor-pointer text-lg"/>}
-                    {role == 'teacher'&& <BsTrash className="ml-4 cursor-pointer text-lg"/>}
+                    {role == 'teacher'&& <BsTrash className="ml-4 cursor-pointer text-lg" onClick={()=>handelDelete(chapter.id)}/>}
                   </h3>
                   <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    {chapter.date}
+                    {chapter.due_date}
                   </time>
                   <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
                     {chapter.description}
@@ -89,4 +215,4 @@ console.log(params);
   );
 }
 
-export default Assignment;
+export default Content;
