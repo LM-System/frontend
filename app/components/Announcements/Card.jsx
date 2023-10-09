@@ -22,7 +22,7 @@ export default function AnnouncementCard({ title, body, id, wantToEdit }) {
         authorization: `Bearer ${token}`,
       },
     });
-    showToastify(200, "deleted")
+    showToastify("deleted")
   }
   async function updateAnnouncement(id) {
     const token = Cookies.get("user_token");
@@ -35,7 +35,7 @@ export default function AnnouncementCard({ title, body, id, wantToEdit }) {
       data: announcementObj
     });
     setIsEdit(false)
-    showToastify(200, "updated")
+    showToastify("updated")
   }
   function changeHandler(e) {
     e.preventDefault;
