@@ -5,7 +5,7 @@ import Announcements from "@/app/components/Announcements/Announcements";
 import DescriptionCard from "@/app/components/Description/Card"
 
 export default function Main({ params }) {
-  const sectionId = params.id;
+  const sectionId = params.sectionId;
 
   return (
     <div className="page">

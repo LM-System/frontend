@@ -76,7 +76,12 @@ nav {
 .h-eighty {
   /* height: 85vh; */
 }
+
+/* width */
+/* ::-webkit-scrollbar {} */
+
 /* ::-webkit-scrollbar {
+
   width: 10px;
 }
 
@@ -155,4 +160,8 @@ nav {
 .flex-container {
   display: flex;
   align-items: center;
+}
+
+.courseComponentMain {
+  @apply h-full  dark:bg-transparent bg-gray-200 rounded-lg;
 }

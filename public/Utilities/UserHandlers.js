@@ -38,6 +38,7 @@ export async function LoginHandler(formData, setIsLoading, router) {
 
       if (Object.keys(userObject).length > 0) {
         Cookies.set("user_info", JSON.stringify(userObject));
+        console.log(userObject)
       }
 
       router.push("/");
@@ -49,7 +50,6 @@ export async function LoginHandler(formData, setIsLoading, router) {
     setIsLoading(false);
   }
 }
-
 
 // "{
 //   "id": 1,
