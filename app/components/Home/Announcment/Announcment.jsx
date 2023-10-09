@@ -63,7 +63,7 @@ export default function Announcment() {
     const fetchAnnouncements = async () => {
       try {
         const response = await fetch(
-          `https://lms-j2h1.onrender.com/announcements`,
+          `https://lms-j2h1.onrender.com/announcements`, // AbuEssa if we need to add the institutionId we add it here
           {
             method: "GET",
             headers: { authorization: `Bearer ${token}` },
@@ -77,6 +77,7 @@ export default function Announcment() {
         }
 
         const data = await response.json();
+        data.reverse();
         setAnnouncements(data);
       } catch (error) {
         console.error("Error fetching announcements:", error.message);
@@ -84,7 +85,7 @@ export default function Announcment() {
     };
 
     fetchAnnouncements();
-  }, []);
+  });
 
   const role = userData.role;
 
@@ -111,7 +112,7 @@ export default function Announcment() {
       <div className="courseComponent rounded-lg">
         <div className="courseFlex bg-transparent">
           <div className="h-eighty overflow-y-auto ">
-            <div className=" mt-8 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
+            <div className="  bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
               {role == "admin" && !isEditingAnnouncement && (
                 <MdEdit
                   onClick={() => {
@@ -128,7 +129,7 @@ export default function Announcment() {
               </h2>
               <hr className="mx-5 my-3" />
               <div className="p-5 overflow-y-auto h-half">
-                {announcementsEx.map((item, i) => {
+                {announcements.map((item, i) => {
                   return (
                     <div
                       key={i}
