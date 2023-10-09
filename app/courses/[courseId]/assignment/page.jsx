@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React ,{useState}from "react";
 import CourseBar from "@/app/components/Course/Bar";
 import Navbar from "@/app/components/Navbar/Navbar";
+import AddAssignmentModal from "@/app/components/Assignment/AddAssignmentModal";
 import Link from "next/link";
 import {MdOutlineLibraryAdd} from 'react-icons/md'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
@@ -9,17 +10,42 @@ import Cookies from "js-cookie";
 
 
 function Assignment({ params }) {
-  var token = Cookies.get("user_token");
   var token2 = Cookies.get("user_info");
+  const [isAdding,setIsAdding]=useState(false)
+
   
   const sectionStudent =[{},{},{}]
-  const role = 'student'
-  const assignments= [{id:1,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:2,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:3,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:4,name:'JavaScript fundemental',url:'',completionStatus:'incompleted',score:0,evaluationURL:''}]
+  const role = 'teacher'
+  // const assignments= [{id:1,title:'JavaScript fundemental',url:'',description:'completed',score:10,evaluationURL:'fgsdgs'},{id:2,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:3,name:'JavaScript fundemental',url:'',completionStatus:'completed',score:10,evaluationURL:'fgsdgs'},{id:4,name:'JavaScript fundemental',url:'',completionStatus:'incompleted',score:0,evaluationURL:''}]
+  const assignments= [
+{
+      "id": 2,
+      "title": "malek",
+      "description": "hiiiii",
+      "due_date": "2023-10-10T00:00:00.000Z",
+      "attachment": null,
+      "createdAt": "2023-10-09T06:14:21.565Z",
+      "updatedAt": "2023-10-09T06:14:21.565Z",
+      "sectionId": 4,
+      "studentAssignmentSubmissions": []
+  },
+  {
+      "id": 4,
+      "title": "hiiiiiiiiiiiiiii",
+      "description": "hiiiiiiiiiiiiiiii",
+      "due_date": "+020032-10-06T21:00:00.000Z",
+      "attachment": "assets/assignmentFile-1696832305567-937960002.pdf",
+      "createdAt": "2023-10-09T06:18:25.584Z",
+      "updatedAt": "2023-10-09T06:18:25.584Z",
+      "sectionId": 4,
+      "studentAssignmentSubmissions": []
+  }
+]
   const courseId = params.courseId;
-  const assignment= axiosHandler('GET',`/sectionAssignment/${courseId}`)
-  console.log(assignment.data);
+  // const assignments= axiosHandler('GET',`/sectionAssignment/${courseId}`)
   return (
     <div className="page">
+    {role=='teacher'&&isAdding&&<AddAssignmentModal courseId={courseId} setIsAdding={setIsAdding} /> }
       <Navbar/>
       <main className="main bg-gray-200">
     <div className="courseComponent rounded-lg">
@@ -27,8 +53,7 @@ function Assignment({ params }) {
       <div className="courseFlex">
         <div className="courseLeft">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            {role == 'teacher' &&<Link href={'dfd'}>
-            <MdOutlineLibraryAdd className="absolute right-2 top-3 text-lg"/></Link>}
+            {role == 'teacher' && <MdOutlineLibraryAdd onClick={()=>{setIsAdding(true)}} className="absolute right-2 top-3 text-lg"/>}
             {role == 'student' &&<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -95,12 +120,12 @@ function Assignment({ params }) {
                     scope="row"
                     class="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   > <Link className="text-blue-300" href={`/courses/${courseId}/assignment/${assignment.id}`}>
-                    {assignment.name}
+                    {assignment.title}
                     </Link>
                   </th>
-                  <td class="px-6 text-center py-4">{assignment.no}/{sectionStudent.length}</td>
+                  <td class="px-6 text-center py-4">{assignment.no}/{assignment.studentAssignmentSubmissions.length}</td>
                   <td class="px-6 text-center py-4">{assignment.evaluated} / {assignment.no}</td>
-                  <td class="px-6 text-center py-4">{assignment.deadline}</td>
+                  <td class="px-6 text-center py-4">{new Date(assignment.due_date).toDateString()}</td>
                 </tr>
                   )
                 })}

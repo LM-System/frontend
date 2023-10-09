@@ -4,7 +4,7 @@ import Option from "./Option";
 import Listbox from "./Listbox";
 import icons from "@/public/icons";
 import { ThemeProvider } from "next-themes";
-import ThemeButton from "./ThemeButton";
+// import ThemeButton from "./ThemeButton";
 import Logout from "./Logout";
 
 export default function Navbar() {
@@ -47,7 +47,7 @@ export default function Navbar() {
           ))}
         </div>
         <div className="md:flex hidden flex-col items-center gap-4 justify-center">
-          <ThemeButton />
+          {/* <ThemeButton /> */}
           <Logout route={"/login"} />
         </div>
         <div className="absolute right-2 md:hidden bg-transparent">
