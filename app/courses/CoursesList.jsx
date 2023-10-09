@@ -3,7 +3,7 @@ import Card from '../components/Course/Card'
 import { axiosHandler } from '@/public/Utilities/axiosHandler';
 
 const mockCourses = [
-  { id: 1, title: 'javascript', instructor: 'John Doe', semester: 'winter 2022/2023' },
+  { id: 8, title: 'javascript', instructor: 'John Doe', semester: 'winter 2022/2023' },
   { id: 2, title: 'html', instructor: 'John Doe', semester: 'winter 2022/2023' },
   { id: 3, title: 'react', instructor: 'John Doe', semester: 'winter 2022/2023' },
   { id: 4, title: 'css', instructor: 'John Doe', semester: 'winter 2022/2023' }
