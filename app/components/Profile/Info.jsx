@@ -15,7 +15,6 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
 import Loading from "@/app/components/Loading/Spinner"
-import showToastify from "@/public/Utilities/Toastify";
 
 export default function UserProfile() {
   const router = useRouter();

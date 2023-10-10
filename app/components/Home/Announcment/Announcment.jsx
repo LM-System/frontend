@@ -26,7 +26,7 @@ export default function Announcements() {
     setIsAdding(true);
   };
   return (
-    <div className=" mt-8 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
+    <div className="col-span-2 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
       {userInfo.role === "admin" && isAdding && (
         <AddAnnouncement setIsAdding={setIsAdding} />
       )}

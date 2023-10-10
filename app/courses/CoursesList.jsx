@@ -17,7 +17,7 @@ export default function CoursesList({id}) {
         if(data){
           setCourseList(data[0].sections)
         }
-    }catch(e){setFetchingError(e.message)}
+    }catch(e){console.log(e.message)}
 }
 useEffect(()=>{
     fetchData()
