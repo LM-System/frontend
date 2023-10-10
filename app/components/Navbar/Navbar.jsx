@@ -9,8 +9,10 @@ import ThemeButton from "./ThemeButton";
 import Logout from "./Logout";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router = useRouter();
   // const { fullname } = JSON.parse(Cookies.get("user_info"));
   const userDataCookie = Cookies.get("user_info");
   const [userData, setUserData] = useState(
