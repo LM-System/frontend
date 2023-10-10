@@ -14,8 +14,7 @@ import showToastify from "@/public/Utilities/Toastify";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
-import Loading from "@/app/components/Loading/Spinner"
-import showToastify from "@/public/Utilities/Toastify";
+import Loading from "@/app/components/Loading/Spinner";
 
 export default function UserProfile() {
   const router = useRouter();
@@ -90,7 +89,7 @@ export default function UserProfile() {
       );
       if (response.status === 200) {
         showToastify("updated");
-        setIsChangeForm(false)
+        setIsChangeForm(false);
       } else {
         showToastify("error", `Error: ${response.data.error}`);
       }
@@ -160,7 +159,9 @@ export default function UserProfile() {
 
             <div className="flex flex-col gap-2">
               <span
-                className={`${isChangeForm ? "hidden" : "inline-block"} text-primary cursor-pointer dark:text-gray-400`}
+                className={`${
+                  isChangeForm ? "hidden" : "inline-block"
+                } text-primary cursor-pointer dark:text-gray-400`}
                 onClick={() => setIsChangeForm(true)}
               >
                 Change Password
@@ -181,8 +182,8 @@ export default function UserProfile() {
         <div className="flex flex-col gap-4 bg-[#99999910] p-4 cols-1 rounded-lg shadow-lg">
           <div className="flex items-center mr-10 avatar-and-details gap-4 ">
             <span className="flex justify-center text-2xl items-center w-20 h-20 bg-secondary text-white rounded-full shadow-lg">
-                {userData.fullname.slice(0, 1).toUpperCase()}
-              </span>
+              {userData.fullname.slice(0, 1).toUpperCase()}
+            </span>
             <div className="flex-col items-center ">
               <h1 className="font-bold text-2xl">
                 {capitalizeFirstLetter(userData.fullname)}
