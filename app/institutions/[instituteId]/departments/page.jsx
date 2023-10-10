@@ -25,7 +25,7 @@ function Page({params}) {
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/institutiondepartments/${instituteId}`)
+            const {data}=await axiosHandler('GET',`/institutiondepartments/${instituteId}`)
             setDepartments(data)
         }catch(e){setFetchingError(e.message)}
     }
@@ -40,28 +40,28 @@ function Page({params}) {
         {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
                 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     {!isAdding&&<GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>}
     {isAdding&&<AiOutlineClose onClick={()=>{setIsAdding(false)}} className='absolute right-3 top-3 text-lg cursor-pointer text-black'/>}
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Departments ID
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Department Name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Department Head
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Courses
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Students
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     instructors
                 </th>
             </tr>
@@ -69,23 +69,23 @@ function Page({params}) {
         <tbody>
             {departments?.map((department)=>{
                 return(
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th class="px-6 py-4">
+            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th className="px-6 py-4">
                 {department.id}
                 </th>
-                <td scope="row" class="px-6 py-4 ">
+                <td scope="row" className="px-6 py-4 ">
                   {department.name}
                 </td>
-                <td scope="row" class="px-6 py-4 ">
+                <td scope="row" className="px-6 py-4 ">
                   {department.departmentHead?.fullname}
                 </td>
-                <td scope="row" class="px-6 py-4  text-blue-700">
+                <td scope="row" className="px-6 py-4  text-blue-700">
                    <Link href={`/institutions/${instituteId}/departments/${department.id}/courses`}>courses</Link>
                 </td>
-                <td class="px-6 py-4 text-blue-700">
+                <td className="px-6 py-4 text-blue-700">
                     <Link href={`${pathname}/${department.id}/students`}>students</Link>
                 </td>
-                <td class="px-6 py-4 text-blue-700">
+                <td className="px-6 py-4 text-blue-700">
                     <Link href={`${pathname}/${department.id}/instructors`}>instructors</Link>
                 </td>
                 <AiOutlineMinus onClick={()=>{

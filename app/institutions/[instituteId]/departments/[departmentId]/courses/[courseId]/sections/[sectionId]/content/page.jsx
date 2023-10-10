@@ -5,29 +5,25 @@ import Link from 'next/link'
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
-import AddCourse from '@/app/components/Course/AddCourse'
+import AddSection from '@/app/components/section/AddSection'
 
-function Department({params}) {
-  const instituteId = params.instituteId
-  const departmentId = params.departmentId
+function page({params}) {
+  const {instituteId,departmentId,courseId,sectionId} = params
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
-    const [courses,setCourses]=useState([])
+    const [announcements,setAnnouncements]=useState([])
 
-    const handleDelete =  (id)=>{
+    const handleDelete = async (id)=>{
         try{
-            axiosHandler('DELETE',`/course/${id}`)
-            .then((result)=>{
-                fetchData()
-            })
-            
+            await axiosHandler('DELETE',`/section/${id}`)
+            fetchData()
         }catch(e){setFetchingError(e.message)}
     }
     
     const fetchData = async ()=>{
         try{
-            const {data}=await axiosHandler('GET',`/departmentcourses/${departmentId}`)
-            setCourses(data.rows)
+            const data=await axiosHandler('GET',`/sectionAnnouncements/${sectionId}`)
+            setAnnouncements(data)
         }catch(e){setFetchingError(e.message)}
     }
     useEffect(()=>{
@@ -35,7 +31,7 @@ function Department({params}) {
     },[])
   return (
     <div className='page'>
-    {isAdding&&<AddCourse fetchData={fetchData} departmentId={departmentId} setIsAdding={setIsAdding}/>}
+    {isAdding&&<AddSection refreshData={fetchData} courseId={courseId} departmentId={departmentId} setIsAdding={setIsAdding}/>}
         <Navbar/>
         <main className='main'>
         {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
@@ -47,37 +43,25 @@ function Department({params}) {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" className="px-6 py-3">
-                    Course ID
+                    Title
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Description
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Sections
+                    Body
                 </th>
             </tr>
         </thead>
         <tbody>
-            {courses?.map((course)=>{
+            {announcements?.map((announcement)=>{
                 return(
             <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap dark:text-white">
-                   {course.id}
+                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                   {announcement.title}
                 </th>
                 <td className="px-6 py-4">
-                    {course.name}
-                </td>
-                <td className="px-6 py-4">
-                    {course.description}
-                </td>
-                <td className="px-6 py-4 text-blue-700">
-                <Link  href={`/institutions/${instituteId}/departments/${departmentId}/courses/${course.id}/sections`}>Sections</Link>
+                    {announcement.body}
                 </td>
                 <AiOutlineMinus onClick={()=>{
-                    handleDelete(course.id)
+                    handleDelete(announcement.id)
                 }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
             </tr>
                 )
@@ -92,4 +76,4 @@ function Department({params}) {
   )
 }
 
-export default Department
+export default page

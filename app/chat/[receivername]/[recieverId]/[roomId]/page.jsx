@@ -54,12 +54,12 @@ function page({params}) {
           <div className='flex h-full border-2 border-gray-300 rounded-lg overflow-hidden'>
         <div className='w-9/12 h-full bg-white'>
         <h1 className=' font-bold text-2xl mx-6 my-4 pb-5 border-b-2'>{receivername}</h1>
-      <div className='w-full h-5/6 overflow-y-auto'>
+      <div className='w-full h-5/6 overflow-y-auto flex flex-col '>
         <ScrollToBottom>
           {messageList.map((messageContent) => {
             return (
-              <div className='w-full'>
-                <div className={`${messageContent.sender_id==id?'float-right clear-both':''} mx-5 my-2`}>
+              <div className={`flex ${messageContent.sender_id==id?' justify-end':' justify-start'}  mx-5 my-2`}>
+                <div>
                   <div className={`${messageContent.sender_id==id?'bg-blue-600 ':' bg-slate-200'} border-2 border-gray-200 shadow-lg px-8 text-black py-2.5 w-fit rounded-3xl`}>
                     <p className={`${messageContent.sender_id==id?'text-white':'text-black'}`}>{messageContent.message}</p>
                   </div>
@@ -67,7 +67,7 @@ function page({params}) {
                   <div>
                     <p >{messageContent.author}</p>
                   </div>
-                </div>
+                  </div>
                 </div>
             );
           })}

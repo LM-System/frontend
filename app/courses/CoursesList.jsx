@@ -9,13 +9,16 @@ const mockCourses = [
   { id: 4, title: 'css', instructor: 'John Doe', semester: 'winter 2022/2023' }
 ]
 
-export default function CoursesList({id}) {
+export default function CoursesList({id,role,setCourseId}) {
   const [courseList,setCourseList]=useState([])
   const fetchData = async ()=>{
     try{
-        const data=await axiosHandler('GET',`/studentsections/${id}`)
+      const {data}=await axiosHandler('GET',`/${role}sections/${id}`);
+
+      console.log(data);
         if(data){
-          setCourseList(data[0].sections)
+          // console.log(data.sections);
+          setCourseList(data.sections)
         }
     }catch(e){console.log(e.message)}
 }
@@ -28,6 +31,8 @@ useEffect(()=>{
       <div className='grid grid-cols sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-auto gap-4'>
         {courseList.map((e) => (
           <Card
+          setCourseId={setCourseId}
+            courseId={e.courseId}
             key={e.id}
             id={e.id}
             title={e.name}

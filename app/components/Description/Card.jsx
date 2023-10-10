@@ -58,7 +58,7 @@ export default function DescriptionCard({ sectionId }) {
           authorization: `Bearer ${token}`,
         },
       });
-      Console.log(data);
+      // console.log(data);
       setCourseId(data.courseId);
       getDescription(data.courseId);
     };

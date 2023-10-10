@@ -22,9 +22,10 @@ function page({params}) {
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/studentsections/${studentId}`)
+            const {data}=await axiosHandler('GET',`/studentsections/${studentId}`)
             if(data){
-                setSections(data[0].sections)
+                console.log(data)
+                setSections(data.sections)
             }
         }catch(e){setFetchingError(e.message)}
     }

@@ -22,7 +22,7 @@ function Page() {
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/institutions`)
+            const {data}=await axiosHandler('GET',`/institutions`)
                 setInstitutions(data.rows)
         }catch(e){setFetchingError(e.message)}
     }
@@ -37,10 +37,10 @@ function Page() {
         <main className='main'>
                 {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     ID
@@ -54,13 +54,13 @@ function Page() {
                 <th scope="col" class="px-6 py-3">
                    phone number
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                    email 
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                    address
                 </th>
-                {/* <th scope="col" class="px-6 py-3">
+                {/* <th scope="col" className="px-6 py-3">
                     Departments 
                 </th> */}
             </tr>
@@ -81,13 +81,13 @@ function Page() {
                 <td class="px-6 py-4">
                     {institute.phone_number}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {institute.email}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {institute.address}
                 </td>
-                {/* <td class="px-6 py-4">
+                {/* <td className="px-6 py-4">
                     <Link className='text-blue-600' href={`/institutions/${institute.id}/departments`}>Departments</Link>
                 </td> */}
                 <AiOutlineMinus onClick={()=>{
