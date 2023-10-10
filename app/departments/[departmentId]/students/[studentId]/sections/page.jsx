@@ -6,18 +6,25 @@ import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import JoinSection from '@/app/components/student/JoinSection'
+import showToastify from '@/public/Utilities/Toastify'
 
 function page({params}) {
-  const {instituteId,departmentId,studentId} = params
+  const {departmentId,studentId} = params
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
     const [sections,setSections]=useState([])
 
     const handleDelete = async (id)=>{
         try{
-            await axiosHandler('DELETE',`/section/${id}`)
-            fetchData()
-        }catch(e){setFetchingError(e.message)}
+            const data =await axiosHandler('DELETE',`/section/${id}`)
+            if(data){
+                showToastify("deleted")
+                fetchData()
+            }
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
     
     const fetchData = async ()=>{

@@ -1,19 +1,33 @@
 import React, { useState } from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
+import Loading from "../Loading/Spinner";
+import showToastify from "@/public/Utilities/Toastify";
+
+
 
 function AddCourse({setIsAdding,departmentId,fetchData}) {
     const [error,setError]=useState('')
     const [courseData,setCourseData]=useState({})
+    const [isloading,setIsloading]=useState(false)
+
+
     const handleSubmit = async (e)=>{
+        setIsloading(true)
         e.preventDefault()
         try{
             const data =await axiosHandler('POST',`/course`,{...courseData,departmentId:departmentId})
             if(data){
+                showToastify("added")
                 setIsAdding(false)
+                setIsloading(false)
                 fetchData()
             }
-        }catch(e){setError(e.message)}
+        }catch(e){
+            showToastify("error")
+            // setError(e.message)
+            setIsloading(false)
+        }
     }
     const changeHandler =(e)=>{
         const {name,value}= e.target
@@ -22,7 +36,7 @@ function AddCourse({setIsAdding,departmentId,fetchData}) {
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
+      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white max-w-2xl rounded-lg z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
@@ -58,7 +72,7 @@ function AddCourse({setIsAdding,departmentId,fetchData}) {
 
 
     </div> 
-    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{isloading? <Loading dim={6}/> :'Submit'}</button>
 </form>
 
       </div>

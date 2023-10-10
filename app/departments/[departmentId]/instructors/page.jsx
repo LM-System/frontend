@@ -6,6 +6,7 @@ import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddInstructors from '@/app/components/department/AddInstructors'
+import showToastify from '@/public/Utilities/Toastify'
 
 function students({params}) {
   const instituteId = params.instituteId
@@ -18,9 +19,13 @@ function students({params}) {
         try{
             const {data} =await axiosHandler('DELETE',`/deleteinstructor/${id}`)
             if(data){
+                showToastify("deleted")
                 fetchData()
             }
-        }catch(e){setFetchingError(e.message)}
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
     
     const fetchData = async ()=>{
@@ -65,6 +70,8 @@ function students({params}) {
                 </th>
                 <th scope="col" className="px-6 py-3">
                     Address
+                </th>
+                <th scope="col" className="px-6 py-3">
                 </th>
             </tr>
         </thead>

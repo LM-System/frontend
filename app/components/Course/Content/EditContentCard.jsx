@@ -1,11 +1,15 @@
 import React from "react";
 import {AiOutlineClose} from 'react-icons/ai'
+import Loading from "../Loading/Spinner";
+
 
 function EditContentCard({setIsEditing}) {
+  const [isloading,setIsloading]=useState(false)
+
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-4/12 h-4/6 bg-white z-10 ">
+      <div className="absolute max-w-2xl rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-4/12 h-4/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
@@ -73,7 +77,7 @@ function EditContentCard({setIsEditing}) {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Add to content
+           {isloading? <Loading dim={6}/> :'Submit'}
           </button>
         </form>
       </div>
