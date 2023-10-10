@@ -6,7 +6,7 @@ export default function Home() {
     <div className="page">
       <Navbar />
       <div className="grid grid-cols-1 md:grid-cols-3 shadow-md p-4 gap-2 w-full">
-        <Announcment/>
+        <Announcment />
         <TimeDate />
       </div>
     </div>
