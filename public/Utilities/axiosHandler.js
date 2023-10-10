@@ -12,6 +12,6 @@ export async function axiosHandler(method,path,data){
         },
         data:data,
       });
-      return response.data
+      return response
 }
 

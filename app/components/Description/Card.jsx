@@ -14,7 +14,7 @@ export default function DescriptionCard({courseId}) {
         {description}
       </p>} */}
       {/* {role == 'teacher' && isEditingDes && <textarea className="w-full" value={description}></textarea>}
-      {role == 'teacher' && isEditingDes && <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-sm rounded-sm text-sm px-2 py-1.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-right mt-2 mr-2" onClick={handleSaveDes}>Save Changes</button>} */}
+      {role == 'teacher' && isEditingDes && <button type="button" className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-sm rounded-sm text-sm px-2 py-1.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-right mt-2 mr-2" onClick={handleSaveDes}>Save Changes</button>} */}
     </div>
   )
 }

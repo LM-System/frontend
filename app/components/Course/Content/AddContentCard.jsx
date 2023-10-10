@@ -1,9 +1,11 @@
+
+
 "use client"
 import React,{useState} from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from "axios";
 
-function AddContentCard({setIsAdding,courseId}) {
+function AddContentCard({setIsAdding,courseId,fetchData}) {
   const [form,setForm]=useState({
     title:"",
     description:"",
@@ -29,6 +31,7 @@ async function handelSubmit(e) {
       'Content-Type': 'multipart/form-data', // Important for sending files
     },
   })
+  fetchData();
   setIsAdding(false);
 }
 

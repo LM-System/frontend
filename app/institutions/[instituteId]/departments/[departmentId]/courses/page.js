@@ -41,21 +41,21 @@ function Department({params}) {
         {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
                 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     {!isAdding&&<GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>}
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Course ID
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Description
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Sections
                 </th>
             </tr>
@@ -63,17 +63,17 @@ function Department({params}) {
         <tbody>
             {courses?.map((course)=>{
                 return(
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap dark:text-white">
+            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap dark:text-white">
                    {course.id}
                 </th>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {course.name}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {course.description}
                 </td>
-                <td class="px-6 py-4 text-blue-700">
+                <td className="px-6 py-4 text-blue-700">
                 <Link  href={`/institutions/${instituteId}/departments/${departmentId}/courses/${course.id}/sections`}>Sections</Link>
                 </td>
                 <AiOutlineMinus onClick={()=>{

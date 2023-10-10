@@ -11,32 +11,30 @@ function AddAssignmentModal({setIsAdding,courseId}) {
     sectionId:courseId,
     due_date:""
   })
-function handelChange(e) {
-    console.log({[e.target.name]:e.target.value});
-
-setForm({...form,[e.target.name]:e.target.value})
-}
-function handelChangefiles(e) {
-setForm({...form,[e.target.name]:e.target.files[0]})
-}
-async function handelSubmit(e) {
-  e.preventDefault();
-  const formData=new FormData();
-  formData.append('title',form.title)
-  formData.append('description',form.description)
-  formData.append('assignmentFile',form.attachment)
-  formData.append('sectionId',form.sectionId)
-  formData.append('due_date',form.due_date)
-  console.log(formData);
-// https://lms-j2h1.onrender.com/assignment
-// http://localhost:4000/assignment
- await axios.post('http://localhost:4000/assignment', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data', // Important for sending files
-    },
-  })
-  setIsAdding(false);
-}
+  function handelChange(e) {
+    setForm({...form,[e.target.name]:e.target.value})
+    }
+    function handelChangefiles(e) {
+    setForm({...form,[e.target.name]:e.target.files[0]})
+    }
+    async function handelSubmit(e) {
+      e.preventDefault();
+      const formData=new FormData();
+      formData.append('assignmentFile',form.attachment)
+      formData.append('title',form.title)
+      formData.append('description',form.description)
+      formData.append('sectionId',form.sectionId)
+      formData.append('due_date',form.due_date)
+      console.log(formData);
+     await axios.post('https://lms-j2h1.onrender.com/assignment', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Important for sending files
+        },
+      })
+      fetchData();
+      setIsAdding(false);
+    }
+console.log(form);
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
@@ -80,10 +78,10 @@ async function handelSubmit(e) {
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             ></textarea>
           </div>
-          <div class="mb-6">
+          <div className="mb-6">
             <label
               for="Date"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Date on timeline
             </label>
@@ -91,7 +89,7 @@ async function handelSubmit(e) {
               name="due_date"
               type="Date"
               id="Date"
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               required
               onChange={handelChange}
             />
@@ -116,7 +114,7 @@ async function handelSubmit(e) {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Add to content
+            Add to Assignment
           </button>
         </form>
       </div>

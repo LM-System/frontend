@@ -119,9 +119,9 @@ export default function UserProfile({ userId }) {
             <div className="text-xl text-center mt-3">{separatedRole}</div>
           </div>
         </div>
-        <div class="container text-gray-500 sm:text-lg dark:text-gray-400 dark:border-gray-700  mx-auto my-8  ">
-          <div class="w-1/2 p-6 ">
-            <div class=" border-b  rounded-lg shadow-lg p-8">
+        <div className="container text-gray-500 sm:text-lg dark:text-gray-400 dark:border-gray-700  mx-auto my-8  ">
+          <div className="w-1/2 p-6 ">
+            <div className=" border-b  rounded-lg shadow-lg p-8">
               <div className="user-email">
                 <h4>Email</h4>
                 <div className="details">
@@ -239,8 +239,8 @@ export default function UserProfile({ userId }) {
               </div>
             </div>
           </div>
-          <div class="w-1/2 p-6">
-            <div class="border-b text-gray-500 sm:text-lg dark:text-gray-400 dark:border-gray-700 rounded-lg shadow-lg p-8">
+          <div className="w-1/2 p-6">
+            <div className="border-b text-gray-500 sm:text-lg dark:text-gray-400 dark:border-gray-700 rounded-lg shadow-lg p-8">
               <div className="user-gender">
                 <h4>Gender</h4>
                 <div className="details">

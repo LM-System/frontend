@@ -38,30 +38,30 @@ function Page() {
         <main className='main'>
                 {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Instructor ID
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Email
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Gender
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Birth Date
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Phone Number
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Address
                 </th>
             </tr>
@@ -69,29 +69,29 @@ function Page() {
         <tbody>
             {departmentHead?.map((user)=>{
                 return(
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">
+            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">
                    {user.instructor?.id}
                 </th>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {user.instructor?.fullname}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {user.instructor?.userEmail}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {user.instructor?.gender}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {user.instructor?.birth_date?.split('T')[0]}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {user.instructor?.phone_number}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {user.instructor?.address}
                 </td>
-                {/* <td class="px-6 py-4">
+                {/* <td className="px-6 py-4">
                 <Link href={`/institutions/${instituteId}/departments/${departmentId}/instructors/${course.id}`}>Sections</Link>
                 </td> */}
                 <AiOutlineMinus onClick={()=>{
