@@ -20,22 +20,26 @@ export default function Classlist({ params }) {
   const [instructor, setInstructor] = useState({});
   const [isEditing,setIsEditing]= useState(false)
   const [isAdding,setIsAdding]= useState(false)
-  const [instructorRoomId,setInstructorRoomId]= useState(false)
+  const [instructorRoomId,setInstructorRoomId]= useState()
 
   const handleSave = ()=>{
     setIsEditing(false)
   }
   useEffect(() => {
     const fetchClassList = async () => {
-      const data = await axiosHandler('GET', `/classlist/${courseId}`)
+      const {data} = await axiosHandler('GET', `/classlist/${sectionId}`)
       if(data){
-        setClasslist(data.students)
-        setInstructor(data.instructor)
+        setClasslist([...data.students,{...data.instructor,role:'instructor'}])
+        // setInstructor(data.instructor)
         console.log(data)
       }
     }
     fetchClassList()
-  }, [courseId])
+    if(instructor.userEmail){
+      const instructotEmailAscii = convertToAscii(instructor?.userEmail)
+      setInstructorRoomId(emailAscii+instructotEmailAscii)
+    }
+  }, [])
   const role = 'student'
   function convertToAscii (str){
     const arr =str.split('')
@@ -44,11 +48,8 @@ export default function Classlist({ params }) {
     })
     return(arr2.join(''))
   }
+  console.log(classlist)
   const emailAscii = convertToAscii(userEmail)
-  if(instructor?.email){
-    const instructotEmailAscii = convertToAscii(instructor?.userEmail)
-    setInstructorRoomId(emailAscii+instructotEmailAscii)
-  }
   return (
     <div className="page">
       {role =='teacher' &&isAdding&& <AddStudent setIsAdding={setIsAdding}/>}
@@ -80,40 +81,6 @@ export default function Classlist({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {instructor &&
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th
-                    scope="row"
-                    class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {/* <Image class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image"/> */}
-                    <span class="flex flex-col gap pl-3">
-                      <span class="text-base font-semibold">{instructor?.fullname}</span>
-                      <span class="font-normal text-gray-500">
-                        {instructor?.email}
-                      </span>
-                    </span>
-                  </th>
-                  <td class="px-6 py-4">instructor</td>
-                  <td class="px-6 py-4">
-                    <span class="flex items-center">
-                      <span class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></span>{" "}
-                      {instructor?.status}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 w-20">
-                    <a
-                      href={`/chat/${instructor?.fullname}/${instructor?.id}/${instructorRoomId}`}
-                      type="button"
-                      data-modal-target="editUserModal"
-                      data-modal-show="editUserModal"
-                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2 text-center"
-                    >
-                      <BsFillChatSquareTextFill className="w-20 text-lg"/>
-                    </a>
-                  </td>
-                  {role=='teacher'&&<AiOutlineMinus className="absolute right-3 mt-4 cursor-pointer text-lg text-black"/>}
-                </tr>}
                 {
                   classlist?.map((student, i)=>{
                     const studentEmailAscii = convertToAscii(student.userEmail)
@@ -135,7 +102,7 @@ export default function Classlist({ params }) {
                       </span>
                     </span>
                   </th>
-                  <td class="px-6 py-4">student</td>
+                  <td class="px-6 py-4">{student.role?'instructor':'student'}</td>
                   <td class="px-6 py-4">
                     <span class="flex items-center">
                       <span class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></span>{" "}

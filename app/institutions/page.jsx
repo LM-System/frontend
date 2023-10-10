@@ -42,12 +42,6 @@ function Page() {
         <GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-<<<<<<< HEAD
-                <th scope="col" className="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-=======
                 <th scope="col" class="px-6 py-3">
                     ID
                 </th>
@@ -58,7 +52,6 @@ function Page() {
                    Institution Admin
                 </th>
                 <th scope="col" class="px-6 py-3">
->>>>>>> main
                    phone number
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -75,13 +68,6 @@ function Page() {
         <tbody>
             {institutions?.map((institute)=>{
                 return(
-<<<<<<< HEAD
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" className="px-6 py-4 whitespace-nowrap dark:text-white">
-                   {institute.name}
-                </th>
-                <td className="px-6 py-4">
-=======
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 whitespace-nowrap dark:text-white">
                    {institute.id}
@@ -93,7 +79,6 @@ function Page() {
                     {institute.admin?.fullname}
                 </td>
                 <td class="px-6 py-4">
->>>>>>> main
                     {institute.phone_number}
                 </td>
                 <td className="px-6 py-4">

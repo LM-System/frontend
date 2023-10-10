@@ -24,7 +24,7 @@ function PeopleList({recieverId,id}) {
     },[])
     useEffect(()=>{
         console.log(chats);
-        if(typeof chats==Array){
+        if(chats){
             chats?.map((chat)=>{
                 if(!arr.includes(chat.room_id)){
                     arr.push(chat.room_id)

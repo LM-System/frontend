@@ -63,21 +63,12 @@ function Department({params}) {
                 <th scope="col" className="px-6 py-3">
                     capacity
                 </th>
-<<<<<<< HEAD
-                <th scope="col" className="px-6 py-3">
-                    Announcement
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Content
-                </th>
-=======
                 {/* <th scope="col" class="px-6 py-3">
                     Students
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Instructors
                 </th> */}
->>>>>>> main
             </tr>
         </thead>
         <tbody>
@@ -105,21 +96,12 @@ function Department({params}) {
                 <td className="px-6 py-4">
                     {section.capacity}
                 </td>
-<<<<<<< HEAD
-                <td className="px-6 py-4  text-blue-700">
-                    <Link href={`/institutions/${instituteId}/departments/${departmentId}/courses/${courseId}/sections/${section.id}/announcement`}>Announcement</Link>
-                </td>
-                <td className="px-6 py-4  text-blue-700">
-                    <Link href={`/institutions/${instituteId}/departments/${departmentId}/courses/${courseId}/sections/${section.id}/content`}>Content</Link>
-                </td>
-=======
                 {/* <td class="px-6 py-4  text-blue-700">
                     <Link href={`/institutions/${instituteId}/departments/${departmentId}/courses/${courseId}/sections/${section.id}/students`}>students</Link>
                 </td>
                 <td class="px-6 py-4  text-blue-700">
                     <Link href={`/institutions/${instituteId}/departments/${departmentId}/courses/${courseId}/sections/${section.id}/instructors`}>instructors</Link>
                 </td> */}
->>>>>>> main
                 <AiOutlineMinus onClick={()=>{
                     handleDelete(section.id)
                 }} className='text-lg absolute right-4 mt-4 text-black cursor-pointer'/>
