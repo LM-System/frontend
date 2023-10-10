@@ -14,7 +14,6 @@ export default function Navbar() {
   const { fullname } = JSON.parse(Cookies.get("user_info"))
   const [showDropdown, setShowDropdown] = useState(false);
 
-
   const NavLinks = [
     {
       title: "home",
@@ -30,7 +29,7 @@ export default function Navbar() {
       title: "aboutus",
       route: `/aboutus`,
       type: "navlink",
-    }
+    },
   ];
 
   function toggleDropDown() {

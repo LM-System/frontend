@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import AnnouncementCard from "./Card";
-import {useState, useEffect, Suspense} from "react";
+import { useState, useEffect, Suspense } from "react";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
 import Skelton from "../Loading/Skelton";
 
 export default function AnnouncementContainer({ sectionId, wantToEdit }) {
-  const [announcements, setAnnouncements] = useState(null)
+  const [announcements, setAnnouncements] = useState(null);
   useEffect(() => {
     const fetchAnnounements = async (sectionId) => {
       const { data } = await axiosHandler(
@@ -15,7 +15,7 @@ export default function AnnouncementContainer({ sectionId, wantToEdit }) {
       setAnnouncements(data);
     };
     fetchAnnounements(sectionId);
-  })
+  });
 
   return (
     <div className="flex flex-col gap-4 w-full">
