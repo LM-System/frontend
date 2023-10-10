@@ -1,6 +1,6 @@
 "use client";
 import React, {useState} from "react";
-import Loading from "../components/Loading/Loading";
+import Loading from "../components/Loading/Spinner";
 import { LoginHandler } from "@/public/Utilities/UserHandlers";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +19,9 @@ export default function Login() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
     await LoginHandler(formData, setIsLoading, router)
+    setIsLoading(false)
   };
 
   return (
@@ -283,8 +285,8 @@ export default function Login() {
                 </div>
                 <div className="flex -mx-3">
                   <div className="w-full px-3 mb-5">
-                    <button type="submit" className="flex items-center justify-center uppercase w-[50%] max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
-                      {isLoading ? <Loading /> : "Login"}
+                    <button disabled={isLoading} type="submit" className={`flex items-center justify-center uppercase w-[50%] max-w-xs mx-auto bg-indigo-500 ${!isLoading && "hover:bg-indigo-700"} focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold`}>
+                      {isLoading ? <Loading dim={6}/> : "Login"}
                     </button>
                   </div>
                 </div>
