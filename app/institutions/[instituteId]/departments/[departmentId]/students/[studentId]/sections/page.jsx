@@ -5,10 +5,10 @@ import Link from 'next/link'
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
-import AddSection from '@/app/components/section/AddSection'
+import JoinSection from '@/app/components/student/JoinSection'
 
-function Department({params}) {
-  const {instituteId,departmentId,courseId} = params
+function page({params}) {
+  const {instituteId,departmentId,studentId} = params
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
     const [sections,setSections]=useState([])
@@ -22,8 +22,10 @@ function Department({params}) {
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/coursesections/${courseId}`)
-            setSections(data.rows)
+            const data=await axiosHandler('GET',`/studentsections/${studentId}`)
+            if(data){
+                setSections(data[0].sections)
+            }
         }catch(e){setFetchingError(e.message)}
     }
     useEffect(()=>{
@@ -31,12 +33,11 @@ function Department({params}) {
     },[])
   return (
     <div className='page'>
-    {isAdding&&<AddSection refreshData={fetchData} courseId={courseId} departmentId={departmentId} setIsAdding={setIsAdding}/>}
+    {isAdding&&<JoinSection studentId={studentId} refreshData={fetchData} departmentId={departmentId} setIsAdding={setIsAdding}/>}
         <Navbar/>
         <main className='main'>
         {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
-                
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     {!isAdding&&<GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>}
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -118,4 +119,4 @@ function Department({params}) {
   )
 }
 
-export default Department
+export default page
