@@ -9,7 +9,7 @@ export default function Announcements({sectionId}) {
   const { role } = JSON.parse(Cookies.get("user_info"))
   const [wantToEdit, setWantToEdit] = useState(false)
   return (
-    <div className=" mt-8 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
+    <div className=" mt-8 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg w-full">
     {role === 'instructor' &&
       !wantToEdit ?
       <MdEdit

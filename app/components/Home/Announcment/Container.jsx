@@ -2,7 +2,7 @@
 import AnnouncementCard from "./Card";
 import { useState, useEffect, Suspense } from "react";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
-import Skelton from "../../Loading/Skelton";
+import Skelton from "@/app/components/Loading/Skelton";
 import Cookies from "js-cookie";
 
 export default function AnnouncementContainer({ wantToEdit }) {
@@ -44,9 +44,7 @@ export default function AnnouncementContainer({ wantToEdit }) {
           <AnnouncementCard key={e.id} {...e} wantToEdit={wantToEdit} />
         ))
       ) : (
-        <>
-          <Skelton count={0} />
-        </>
+        <Skelton count={0}/>
       )}
     </div>
   );

@@ -18,16 +18,15 @@ export default function AnnouncementContainer({ sectionId, wantToEdit }) {
   });
 
   return (
-    <div className="flex flex-col gap-4">
-      {announcements ? (
-        announcements.map((e) => (
-          <AnnouncementCard key={e.id} {...e} wantToEdit={wantToEdit} />
-        ))
-      ) : (
-        <>
-          <Skelton count={0} />
-        </>
-      )}
+    <div className="flex flex-col gap-4 w-full">
+      {announcements ? announcements.map((e) => (
+        <AnnouncementCard key={e.id} {...e} wantToEdit={wantToEdit}/>
+      ))
+      :
+      <>
+        <Skelton count={0}/>
+      </>
+      }
     </div>
   );
 }

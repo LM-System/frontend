@@ -11,7 +11,7 @@ const toastifyOptions = {
   progress: undefined,
   theme: "light",
 }
-const showToastify = (action) => {
+const showToastify = (action, err) => {
   const msg = `${action.charAt(0).toUpperCase() + action.slice(1)} successfully`
   switch(true) {
     case (action === "added"):
@@ -23,8 +23,8 @@ const showToastify = (action) => {
     case (action === "deleted"):
       toast.error(msg, toastifyOptions);
       break;
-    default:
-      toast.error('Error Occured', toastifyOptions)
+    case (action === "error"):
+      toast.error(err, toastifyOptions)
       break;
   }
 }

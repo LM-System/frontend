@@ -1,21 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
-import { deepPurple } from "@mui/material/colors";
 import AlternateEmailRoundedIcon from "@mui/icons-material/AlternateEmailRounded";
 import MaleRoundedIcon from "@mui/icons-material/MaleRounded";
 import FemaleRoundedIcon from "@mui/icons-material/FemaleRounded";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
-import Loading from "../Loading/Spinner";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import showToastify from "@/public/Utilities/Toastify";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
+import Loading from "@/app/components/Loading/Spinner"
 import showToastify from "@/public/Utilities/Toastify";
 
 export default function UserProfile() {
@@ -91,12 +90,13 @@ export default function UserProfile() {
       );
       if (response.status === 200) {
         showToastify("updated");
+        setIsChangeForm(false)
       } else {
-        showToastify("asdasd");
-        setMessage(`Error: ${response.data.error}`);
+        showToastify("error", `Error: ${response.data.error}`);
       }
     } catch (error) {
       console.error("Error updating bio:", error);
+      showToastify("error", `Error: ${response.data.error}`);
     } finally {
       setIsLoading(false);
     }
@@ -120,7 +120,7 @@ export default function UserProfile() {
       <div className="font-bold text-2xl mb-4 ">
         <h2>Account</h2>
       </div>
-      <div className="grid-2d ml-5 ">
+      <div className="grid-2d">
         {/* Card 1 Start*/}
 
         <div className="details mx-auto p-4 md:col-span-2 rounded-lg shadow-lg w-1/2 ">
@@ -160,13 +160,14 @@ export default function UserProfile() {
 
             <div className="flex flex-col gap-2">
               <span
-                className="text-primary cursor-pointer dark:text-gray-400"
+                className={`${isChangeForm ? "hidden" : "inline-block"} text-primary cursor-pointer dark:text-gray-400`}
                 onClick={() => setIsChangeForm(true)}
               >
                 Change Password
               </span>
               {isChangeForm && (
                 <ChangePasswordForm
+                  isLoading={isLoading}
                   setIsChangeForm={setIsChangeForm}
                   onSubmit={handleChangePassword}
                 />
@@ -178,17 +179,10 @@ export default function UserProfile() {
 
         {/* Card 2 Start*/}
         <div className="flex flex-col gap-4 bg-[#99999910] p-4 cols-1 rounded-lg shadow-lg">
-          <div className="flex mr-10 avatar-and-details gap-4 ">
-            <Avatar
-              style={{
-                width: "75px",
-                height: "75px",
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              }}
-              sx={{ bgcolor: deepPurple[500] }}
-            >
-              {userData.fullname.slice(0, 1)}
-            </Avatar>
+          <div className="flex items-center mr-10 avatar-and-details gap-4 ">
+            <span className="flex justify-center text-2xl items-center w-20 h-20 bg-secondary text-white rounded-full shadow-lg">
+                {userData.fullname.slice(0, 1).toUpperCase()}
+              </span>
             <div className="flex-col items-center ">
               <h1 className="font-bold text-2xl">
                 {capitalizeFirstLetter(userData.fullname)}

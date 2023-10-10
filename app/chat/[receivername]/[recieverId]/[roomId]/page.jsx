@@ -5,6 +5,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { useState,useEffect } from "react";
 import Navbar from '@/app/components/Navbar/Navbar';
 import Cookies from "js-cookie";
+import PeopleList from '@/app/components/chat/PeopleList';
 
 
 
@@ -13,17 +14,16 @@ const socket = io.connect("http://localhost:5000");
 function page({params}) {
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
-    const roomId = params.roomId
-    const userInfo = JSON.parse(Cookies.get("user_info"));
-    const senderId=`${userInfo.id}${userInfo.role == 'student'?'1':'2'}`
-    console.log(userInfo);
-    console.log(senderId);
-
-
+    const {roomId,recieverId,receivername} = params
+    const {id,fullname} = JSON.parse(Cookies.get("user_info"));
+    console.log(receivername)
     const sendMessage = async () => {
         if (currentMessage !== "") {
           const messageData = {
-            sender_id:1,
+            sender_name:fullname,
+            reciever_name:receivername,
+            sender_id:id,
+            reciever_id:recieverId,
             room_id:roomId,
             message: currentMessage,
             time:
@@ -47,41 +47,35 @@ function page({params}) {
             setMessageList((list) => Array.from(new Set([...list, data])));
         });
     },[socket])
-    useEffect(()=>{
-            socket.emit('save_data',[messageList,roomId])
-    },[messageList])
   return (
     <div className='page'>
         <Navbar/>
-        <main className='main'>
-        <div>
-      <div>
-        <p>Live Chat</p>
-      </div>
-      <div>
+        <main className='main bg-gray-100'>
+          <div className='flex h-full border-2 border-gray-300 rounded-lg overflow-hidden'>
+        <div className='w-9/12 h-full bg-white'>
+        <h1 className=' font-bold text-2xl mx-6 my-4 pb-5 border-b-2'>{receivername}</h1>
+      <div className='w-full h-5/6 overflow-y-auto'>
         <ScrollToBottom>
           {messageList.map((messageContent) => {
             return (
-              <div
-                // className="message"
-                // id={username === messageContent.author ? "you" : "other"}
-              >
-                <div>
-                  <div>
-                    <p>{messageContent.message}</p>
+              <div className='w-full'>
+                <div className={`${messageContent.sender_id==id?'float-right clear-both':''} mx-5 my-2`}>
+                  <div className={`${messageContent.sender_id==id?'bg-blue-600 ':' bg-slate-200'} border-2 border-gray-200 shadow-lg px-8 text-black py-2.5 w-fit rounded-3xl`}>
+                    <p className={`${messageContent.sender_id==id?'text-white':'text-black'}`}>{messageContent.message}</p>
                   </div>
+                    <p className={`${messageContent.sender_id==id?'text-right pr-3':' text-left pl-3'} text-sm`}>{messageContent.time}</p>
                   <div>
-                    <p >{messageContent.time}</p>
                     <p >{messageContent.author}</p>
                   </div>
                 </div>
-              </div>
+                </div>
             );
           })}
         </ScrollToBottom>
       </div>
-      <div>
+      <div className='relative mx-6'>
         <input
+          className='w-full h-1/6 py-3 border-t-2 '
           type="text"
           value={currentMessage}
           placeholder="Hey..."
@@ -92,8 +86,12 @@ function page({params}) {
             event.key === "Enter" && sendMessage();
           }}
         />
-        <button onClick={sendMessage}>&#9658;</button>
+        <button className='absolute right-0 bottom-2' onClick={sendMessage}>&#9658;</button>
       </div>
+    </div>
+    <div className='w-3/12 h-full bg-indigo-100'>
+      <PeopleList id={id} recieverId={recieverId} />
+    </div>
     </div>
         </main>
     </div>

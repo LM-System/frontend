@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
+import Loading from "@/app/components/Loading/Spinner"
 
 const ChangePasswordForm = ({ onSubmit, isLoading, setIsChangeForm }) => {
   const [oldPassword, setOldPassword] = useState("");
@@ -75,10 +76,11 @@ const ChangePasswordForm = ({ onSubmit, isLoading, setIsChangeForm }) => {
       <br />
       <div className="flex gap-4">
         <button
-          className=" py-3 px-6 transition duration-300 hover:bg-primary bg-secondary text-white mt-4  font-bold rounded-lg focus:outline-none focus:shadow-outline"
+          className="py-3 px-6 transition duration-300 hover:bg-primary bg-secondary text-white mt-4  font-bold rounded-lg focus:outline-none focus:shadow-outline"
           type="submit"
+          disabled={isLoading}
         >
-          Change Password
+          {isLoading ? <Loading dim={6}/> : "Update"}
         </button>
         <span
           className="py-3 px-6 cursor-pointer flex justify-center items-center transition duration-300 bg-gray-500 hover:bg-gray-600  mt-4 text-white font-bold rounded-lg focus:outline-none focus:shadow-outline"

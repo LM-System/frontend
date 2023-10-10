@@ -20,7 +20,7 @@ export default function ThemeButton() {
     localStorage.setItem("theme", newTheme);
   };
 
-  const SVG = icons[theme || "light"];
+  const SVG = icons[theme || systemTheme || 'light'];
 
   return (
     <>
