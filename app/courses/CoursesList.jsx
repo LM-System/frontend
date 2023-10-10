@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Card from '../components/Course/Card'
 import { axiosHandler } from '@/public/Utilities/axiosHandler';
 
@@ -10,51 +10,18 @@ const mockCourses = [
 ]
 
 export default function CoursesList({id}) {
-  // console.log(id);
-  let courseList=[
-    {
-        "id": 4,
-        "name": "python 1",
-        "section_number": 2,
-        "year": 2009,
-        "semester": "Fall",
-        "room_no": "room 2",
-        "status": "Offline",
-        "building": null,
-        "days": null,
-        "capacity": null,
-        "start_time": null,
-        "end_time": null,
-        "createdAt": "2023-10-08T11:48:14.612Z",
-        "updatedAt": "2023-10-08T11:48:14.612Z",
-        "instructorId": 1,
-        "courseId": 4,
-        "student_section": {
-            "grade": null,
-            "createdAt": "2023-10-08T16:00:55.090Z",
-            "updatedAt": "2023-10-08T16:00:55.090Z",
-            "studentId": 1,
-            "sectionId": 4
-        },
-        "instructor": {
-            "id": 1,
-            "fullname": "helmi",
-            "gender": "male",
-            "birth_date": "1970-01-01T00:00:36.806Z",
-            "phone_number": "789999999",
-            "image": null,
-            "bio": null,
-            "address": null,
-            "createdAt": "2023-10-08T11:33:01.952Z",
-            "updatedAt": "2023-10-08T11:33:01.952Z",
-            "userEmail": "h@h.com",
-            "departmentId": null
+  const [courseList,setCourseList]=useState([])
+  const fetchData = async ()=>{
+    try{
+        const data=await axiosHandler('GET',`/studentsections/${id}`)
+        if(data){
+          setCourseList(data[0].sections)
         }
-    }
-]
-  axiosHandler('GET',`/studentsections/${id}`).then(res=>courseList=res.data[0].sections)
-
-  
+    }catch(e){setFetchingError(e.message)}
+}
+useEffect(()=>{
+    fetchData()
+},[])
   return (
     <>
       <h2 className='font-bold text-2xl mb-4'>Your Courses</h2>
@@ -64,7 +31,7 @@ export default function CoursesList({id}) {
             key={e.id}
             id={e.id}
             title={e.name}
-            instructor={e.instructor.fullname}
+            instructor={e.instructor?.fullname}
             semester={e.semester}
           />
         ))}

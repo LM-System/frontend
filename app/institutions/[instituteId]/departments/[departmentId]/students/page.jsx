@@ -51,7 +51,7 @@ function students({params}) {
                     Name
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    Name
+                    Email
                 </th>
                 <th scope="col" className="px-6 py-3">
                     Gender
@@ -64,6 +64,9 @@ function students({params}) {
                 </th>
                 <th scope="col" className="px-6 py-3">
                     Address
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Sections
                 </th>
             </tr>
         </thead>
@@ -92,9 +95,9 @@ function students({params}) {
                 <td className="px-6 py-4">
                     {student.adderss}
                 </td>
-                {/* <td className="px-6 py-4">
-                <Link href={`/institutions/${instituteId}/departments/${departmentId}/students/${student.id}`}>Sections</Link>
-                </td> */}
+                <td className="px-6 text-blue-600 py-4">
+                <Link href={`/institutions/${instituteId}/departments/${departmentId}/students/${student.id}/sections`}>Sections</Link>
+                </td>
                 <AiOutlineMinus onClick={()=>{
                     handleDelete(student.id)
                 }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
