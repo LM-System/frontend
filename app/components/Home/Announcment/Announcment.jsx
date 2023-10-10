@@ -16,7 +16,7 @@ export default function Announcements({ courseId }) {
   const [wantToEdit, setWantToEdit] = useState(false);
 
   return (
-    <div className=" mt-8 bg-white dark:bg-darkcomp drop-shadow-xl rounded-lg">
+    <div className=" bg-white dark:bg-darkcomp drop-shadow-xl col-span-2 rounded-lg h-full overflow-y-auto">
       {userData.role === "admin" && !wantToEdit ? (
         <MdEdit
           onClick={() => {
