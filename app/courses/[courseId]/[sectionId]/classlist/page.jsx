@@ -15,6 +15,7 @@ export default function Classlist({ params }) {
   const {userEmail,id} = JSON.parse(Cookies.get('user_info'))
   console.log(userEmail)
   const sectionId = params.sectionId;
+  const courseId = params.courseId;
   const [classlist, setClasslist] = useState([]);
   const [instructor, setInstructor] = useState({});
   const [isEditing,setIsEditing]= useState(false)
@@ -26,15 +27,15 @@ export default function Classlist({ params }) {
   }
   useEffect(() => {
     const fetchClassList = async () => {
-      const {data} = await axiosHandler('GET', `/classlist/${sectionId}`)
+      const data = await axiosHandler('GET', `/classlist/${courseId}`)
       if(data){
-        console.log(data)
         setClasslist(data.students)
         setInstructor(data.instructor)
+        console.log(data)
       }
     }
     fetchClassList()
-  }, [sectionId])
+  }, [courseId])
   const role = 'student'
   function convertToAscii (str){
     const arr =str.split('')
@@ -54,7 +55,7 @@ export default function Classlist({ params }) {
       <Navbar/>
       <main className="main bg-gray-200">
     <div className="courseComponent rounded-lg">
-      <CourseBar courseId={courseId} />
+      <CourseBar courseId={courseId} sectionId={sectionId}/>
       <div className="courseFlex">
         <div className='courseLeft'>
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -79,7 +80,7 @@ export default function Classlist({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {typeof instructor==Object &&
+                {instructor &&
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th
                     scope="row"

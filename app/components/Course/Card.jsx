@@ -3,10 +3,11 @@ import Image from 'next/image'
 import React from 'react'
 import images from '@/public/images/index'
 
-export default function Card({ id, title, semester, instructor}) {
-  console.log(id, title, semester, instructor);
+export default function Card({ courseId,id, title, semester, instructor}) {
+  // console.log(courseId);
+  // console.log(id, title, semester, instructor);
   return (
-    <Link href={'/courses/' + id + '/main'}>
+    <Link href={'/courses/'+courseId+ "/"+ id + '/main'}>
       <div className='p-4 shadow-md bg-gray-50 dark:bg-darkcomp rounded-lg'>
         <div className='flex flex-row gap-2 items-center'>
           <Image src={require('@/public/images/SVG/html.svg')} alt={title} width={'50'} height={'50'}/>
