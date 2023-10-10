@@ -25,7 +25,7 @@ function Page({params}) {
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/institutiondepartments/${instituteId}`)
+            const {data}=await axiosHandler('GET',`/institutiondepartments/${instituteId}`)
             setDepartments(data)
         }catch(e){setFetchingError(e.message)}
     }

@@ -13,9 +13,9 @@ export default function CoursesList({id}) {
   const [courseList,setCourseList]=useState([])
   const fetchData = async ()=>{
     try{
-        const data=await axiosHandler('GET',`/studentsections/${id}`)
+        const {data}=await axiosHandler('GET',`/studentsections/${id}`)
         if(data){
-          setCourseList(data[0].sections)
+          setCourseList(data.sections)
         }
     }catch(e){console.log(e.message)}
 }

@@ -22,7 +22,7 @@ function Department({params}) {
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/coursesections/${courseId}`)
+            const {data}=await axiosHandler('GET',`/coursesections/${courseId}`)
             setSections(data.rows)
         }catch(e){setFetchingError(e.message)}
     }

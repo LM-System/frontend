@@ -23,7 +23,7 @@ function Page() {
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/departmenthead`)
+            const {data}=await axiosHandler('GET',`/departmenthead`)
                 setDepartmentHead(data)
         }catch(e){setFetchingError(e.message)}
     }

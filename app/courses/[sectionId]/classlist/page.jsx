@@ -14,7 +14,7 @@ import Cookies from "js-cookie";
 export default function Classlist({ params }) {
   const {userEmail,id} = JSON.parse(Cookies.get('user_info'))
   console.log(userEmail)
-  const courseId = params.courseId;
+  const sectionId = params.sectionId;
   const [classlist, setClasslist] = useState([]);
   const [instructor, setInstructor] = useState({});
   const [isEditing,setIsEditing]= useState(false)
@@ -26,15 +26,15 @@ export default function Classlist({ params }) {
   }
   useEffect(() => {
     const fetchClassList = async () => {
-      const data = await axiosHandler('GET', `/classlist/${courseId}`)
+      const {data} = await axiosHandler('GET', `/classlist/${sectionId}`)
       if(data){
+        console.log(data)
         setClasslist(data.students)
         setInstructor(data.instructor)
-        console.log(data)
       }
     }
     fetchClassList()
-  }, [courseId])
+  }, [sectionId])
   const role = 'student'
   function convertToAscii (str){
     const arr =str.split('')
@@ -79,7 +79,7 @@ export default function Classlist({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {instructor &&
+                {typeof instructor==Object &&
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th
                     scope="row"

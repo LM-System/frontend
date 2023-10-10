@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import Link from 'next/link'
+import axios from 'axios'
 
 function PeopleList({recieverId,id}) {
     const [chats,setChats]=useState([])
@@ -12,7 +13,7 @@ function PeopleList({recieverId,id}) {
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/userchats/${id}`)
+            const {data}=await axios.get(`http://localhost:5000/userchats/${id}`)
             if(data){
                 setChats(data)
             }
@@ -22,14 +23,16 @@ function PeopleList({recieverId,id}) {
         fetchData()
     },[])
     useEffect(()=>{
-        chats.map((chat)=>{
-            if(!arr.includes(chat.room_id)){
-                arr.push(chat.room_id)
-                chatsArr.push(chat)
-            }
-        })
-        setPeoplelist(chatsArr)
-
+        console.log(chats);
+        if(typeof chats==Array){
+            chats?.map((chat)=>{
+                if(!arr.includes(chat.room_id)){
+                    arr.push(chat.room_id)
+                    chatsArr.push(chat)
+                }
+            })
+            setPeoplelist(chatsArr)
+        }
     },[chats])
   return (
     <div className='w-full'>

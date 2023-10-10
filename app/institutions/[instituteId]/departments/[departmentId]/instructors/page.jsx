@@ -16,7 +16,7 @@ function students({params}) {
 
     const handleDelete = async (id)=>{
         try{
-            const data =await axiosHandler('DELETE',`/deleteinstructor/${id}`)
+            const {data} =await axiosHandler('DELETE',`/deleteinstructor/${id}`)
             if(data){
                 fetchData()
             }
@@ -25,7 +25,7 @@ function students({params}) {
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/departmentinstructors/${departmentId}`)
+            const {data}=await axiosHandler('GET',`/departmentinstructors/${departmentId}`)
             setInstructors(data.rows)
         }catch(e){setFetchingError(e.message)}
     }

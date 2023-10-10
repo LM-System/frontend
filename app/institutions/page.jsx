@@ -22,7 +22,7 @@ function Page() {
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/institutions`)
+            const {data}=await axiosHandler('GET',`/institutions`)
                 setInstitutions(data.rows)
         }catch(e){setFetchingError(e.message)}
     }
