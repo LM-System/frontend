@@ -16,6 +16,8 @@ function page({params}) {
     const [messageList, setMessageList] = useState([]);
     const {roomId,recieverId,receivername} = params
     const {id,fullname} = JSON.parse(Cookies.get("user_info"));
+    
+
     console.log(receivername)
     const sendMessage = async () => {
         if (currentMessage !== "") {
@@ -90,7 +92,7 @@ function page({params}) {
       </div>
     </div>
     <div className='w-3/12 h-full bg-indigo-100'>
-      <PeopleList id={id} recieverId={recieverId} />
+      <PeopleList roomId={roomId} messageList={messageList} id={id} recieverId={recieverId} />
     </div>
     </div>
         </main>

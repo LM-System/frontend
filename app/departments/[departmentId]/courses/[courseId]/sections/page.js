@@ -6,6 +6,7 @@ import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddSection from '@/app/components/section/AddSection'
+import showToastify from '@/public/Utilities/Toastify'
 
 function Department({params}) {
   const {instituteId,departmentId,courseId} = params
@@ -15,9 +16,15 @@ function Department({params}) {
 
     const handleDelete = async (id)=>{
         try{
-            await axiosHandler('DELETE',`/section/${id}`)
-            fetchData()
-        }catch(e){setFetchingError(e.message)}
+            const data =await axiosHandler('DELETE',`/section/${id}`)
+            if(data){
+                showToastify("deleted")
+                fetchData()
+            }
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
     
     const fetchData = async ()=>{
@@ -62,6 +69,8 @@ function Department({params}) {
                 </th>
                 <th scope="col" className="px-6 py-3">
                     capacity
+                </th>
+                <th scope="col" className="px-6 py-3">
                 </th>
                 {/* <th scope="col" class="px-6 py-3">
                     Students

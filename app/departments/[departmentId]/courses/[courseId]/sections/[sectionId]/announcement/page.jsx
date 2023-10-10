@@ -6,6 +6,7 @@ import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddAnnouncement from '@/app/components/section/AddAnnouncement'
+import showToastify from '@/public/Utilities/Toastify'
 
 function page({params}) {
   const {instituteId,departmentId,courseId,sectionId} = params
@@ -15,9 +16,15 @@ function page({params}) {
 
     const handleDelete = async (id)=>{
         try{
-            await axiosHandler('DELETE',`/sectionAnnouncement/${id}`)
-            fetchData()
-        }catch(e){setFetchingError(e.message)}
+            const data =await axiosHandler('DELETE',`/sectionAnnouncement/${id}`)
+            if(data){
+                showToastify("deleted")
+                fetchData()
+            }
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
     
     const fetchData = async ()=>{

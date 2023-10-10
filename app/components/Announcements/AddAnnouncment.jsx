@@ -38,7 +38,7 @@ function AddAnnouncement({ setIsAdding }) {
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-3/5 bg-white dark:bg-darkcomp z-10 rounded-lg ">
+      <div className="absolute left-0 max-w-2xl right-0 bottom-0 top-0 m-auto w-6/12 h-3/5 bg-white dark:bg-darkcomp z-10 rounded-lg ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {

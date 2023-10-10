@@ -3,6 +3,10 @@ import React,{useState,useEffect} from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from "axios";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
+import Loading from "../Loading/Spinner";
+import showToastify from "@/public/Utilities/Toastify";
+
+
 
 function AddContentCard({setIsAdding,courseId,fetchData}) {
   const [form,setForm]=useState({
@@ -11,6 +15,9 @@ function AddContentCard({setIsAdding,courseId,fetchData}) {
     file:"",
     courseId:courseId
   })
+  const [isloading,setIsloading]=useState(false)
+
+
 function handelChange(e) {
 setForm({...form,[e.target.name]:e.target.value})
 }
@@ -18,27 +25,35 @@ function handelChangefiles(e) {
 setForm({...form,[e.target.name]:e.target.files[0]})
 }
 async function handelSubmit(e) {
-  e.preventDefault();
-  console.log(form.courseId);
-  const formData=new FormData();
-  formData.append('contentFile',form.file)
-  formData.append('title',form.title)
-  formData.append('description',form.description)
-  formData.append('courseId',form.courseId)
-  console.log(formData);
- await axios.post('https://lms-j2h1.onrender.com/content', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data', // Important for sending files
-    },
-  })
-  fetchData();
-  setIsAdding(false);
+  try{
+    setIsloading(true)
+    e.preventDefault();
+    console.log(form.courseId);
+    const formData=new FormData();
+    formData.append('contentFile',form.file)
+    formData.append('title',form.title)
+    formData.append('description',form.description)
+    formData.append('courseId',form.courseId)
+    console.log(formData);
+   const data =await axios.post('https://lms-j2h1.onrender.com/content', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Important for sending files
+      },
+    })
+    if(data){
+      showToastify("added")
+    }
+    fetchData();
+    setIsAdding(false);
+    setIsloading(false)
+  }
+  catch(e){showToastify("error")}
 }
 
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
+      <div className="absolute max-w-2xl rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
@@ -98,7 +113,7 @@ async function handelSubmit(e) {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Add to content
+            {isloading? <Loading dim={6}/> :'Add To Content'}
           </button>
         </form>
       </div>

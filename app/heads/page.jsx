@@ -7,6 +7,7 @@ import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineMinus} from 'react-icons/ai'
 import AddDepartmentHead from '@/app/components/departmentHead/AddDepartmentHead'
+import showToastify from '@/public/Utilities/Toastify'
 
 function Page() {
     const [fetchingError,setFetchingError]=useState('')
@@ -17,9 +18,13 @@ function Page() {
         try{
             axiosHandler('DELETE',`/deleteinstructor/${id}`)
             .then((result)=>{
+                showToastify("deleted")
                 fetchData()
             })
-        }catch(e){setFetchingError(e.message)}
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
     const fetchData = async ()=>{
         try{

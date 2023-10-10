@@ -23,7 +23,7 @@ export async function LoginHandler(formData, setIsLoading) {
           ...response.data.student,
           role: "student",
         };
-      } else if (response.data.instructor) {
+      } else if (response.data.role == 'instructor') {
         userObject = {
           ...response.data.instructor,
           role: "instructor",
@@ -32,6 +32,11 @@ export async function LoginHandler(formData, setIsLoading) {
         userObject = {
           ...response.data.admin,
           role: "admin",
+        };
+      } else if (response.data.role == 'instructorDepartmentHead') {
+        userObject = {
+          ...response.data.instructor,
+          role: "instructorDepartmentHead",
         };
       }
 
