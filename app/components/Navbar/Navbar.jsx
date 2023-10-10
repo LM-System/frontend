@@ -27,11 +27,6 @@ export default function Navbar() {
       type: "navlink",
     },
     {
-      title: "profile",
-      route: `/profile/`,
-      type: "navlink",
-    },
-    {
       title: "aboutus",
       route: `/aboutus`,
       type: "navlink",
@@ -46,7 +41,7 @@ export default function Navbar() {
     <ThemeProvider attribute="class">
       <nav className="nav">
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col items-center">
+          <div className="hidden md:flex flex-col items-center">
             <Link href={'/profile'}>
               <span className="flex justify-center items-center w-12 h-12 transition duration-300 cursor-pointer hover:bg-sky-700 bg-secondary text-white rounded-full shadow-lg">
                 {fullname.slice(0, 1).toUpperCase()}
@@ -63,10 +58,15 @@ export default function Navbar() {
           <ThemeButton />
           <Logout route={"/login"} />
         </div>
-        <div className="absolute right-2 md:hidden bg-transparent">
-          <span className="flex justify-center items-center bg-transparent hover:bg-gray-800 dark:hover:bg-darkbg hover:cursor-pointer rounded-full p-2">
+        <div className="absolute right-6 md:hidden bg-transparent">
+          <span className="flex gap-1 items-center">
+            <span className="flex justify-center items-center w-10 h-10 transition duration-300 cursor-pointer hover:bg-sky-700 bg-secondary text-white rounded-full shadow-lg">
+                {fullname.slice(0, 1).toUpperCase()}
+            </span>
+            <span className="flex gap-2 items-center bg-transparent hover:bg-gray-800 dark:hover:bg-darkbg hover:cursor-pointer rounded-full p-1">
             <OptionsIcon className="text-white" onClick={toggleDropDown} />
             {showDropdown && <Listbox className="text-white" />}
+            </span>
           </span>
         </div>
       </nav>
