@@ -14,6 +14,7 @@ import Cookies from "js-cookie";
 export default function Classlist({ params }) {
   const {userEmail,id} = JSON.parse(Cookies.get('user_info'))
   console.log(userEmail)
+  const sectionId = params.sectionId;
   const courseId = params.courseId;
   const [classlist, setClasslist] = useState([]);
   const [instructor, setInstructor] = useState({});
@@ -54,7 +55,7 @@ export default function Classlist({ params }) {
       <Navbar/>
       <main className="main bg-gray-200">
     <div className="courseComponent rounded-lg">
-      <CourseBar courseId={courseId} />
+      <CourseBar courseId={courseId} sectionId={sectionId}/>
       <div className="courseFlex">
         <div className='courseLeft'>
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
