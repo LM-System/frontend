@@ -2,7 +2,7 @@
 import AnnouncementCard from "./Card";
 import { useState, useEffect, Suspense } from "react";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
-import Loading from "../../Loading/Loading";
+import Skelton from "../../Loading/Skelton";
 import Cookies from "js-cookie";
 
 export default function AnnouncementContainer({ wantToEdit }) {
@@ -35,7 +35,7 @@ export default function AnnouncementContainer({ wantToEdit }) {
     };
 
     fetchAnnouncements();
-  });
+  }, [announcements]);
 
   return (
     <div className="flex flex-col gap-4 max-h-full  ">
@@ -44,7 +44,9 @@ export default function AnnouncementContainer({ wantToEdit }) {
           <AnnouncementCard key={e.id} {...e} wantToEdit={wantToEdit} />
         ))
       ) : (
-        <Loading />
+        <>
+          <Skelton count={0} />
+        </>
       )}
     </div>
   );

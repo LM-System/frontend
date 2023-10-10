@@ -16,6 +16,7 @@ import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
+import showToastify from "@/public/Utilities/Toastify";
 
 export default function UserProfile() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function UserProfile() {
   if (!userData) {
     router.push("/login");
   }
-  const [message, setMessage] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [isChangeForm, setIsChangeForm] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -37,14 +38,6 @@ export default function UserProfile() {
   }
 
   console.log(userData);
-
-  const showMessage = (text) => {
-    setMessage(text);
-
-    setTimeout(() => {
-      setMessage("");
-    }, 3000);
-  };
 
   function changeHandler(event) {
     setTextArea((prevText) => event.target.value);
@@ -64,15 +57,9 @@ export default function UserProfile() {
           },
         }
       );
-
-      if (response.status === 200) {
-        showMessage("Bio updated successfully");
-      } else {
-        setMessage(`Error: ${response.data.error}`);
-      }
+      showToastify("updated");
     } catch (error) {
       console.error("Error updating bio:", error);
-      showMessage("Error: Something went wrong");
     } finally {
       setIsLoading(false);
       setIsEdit(false);
@@ -102,25 +89,27 @@ export default function UserProfile() {
           }),
         }
       );
-
       if (response.status === 200) {
-        showMessage("Password updated successfully");
+        showToastify("updated");
       } else {
+        showToastify("asdasd");
         setMessage(`Error: ${response.data.error}`);
       }
     } catch (error) {
       console.error("Error updating bio:", error);
-      showMessage("Error: Something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      bio: textArea,
-    }));
+    setUserData(
+      (prevUserData) => ({
+        ...prevUserData,
+        bio: textArea,
+      }),
+      []
+    );
     Cookies.set("user_info", JSON.stringify(userData));
 
     console.log(userData);
@@ -182,7 +171,6 @@ export default function UserProfile() {
                   onSubmit={handleChangePassword}
                 />
               )}
-              {message && <p>{message}</p>}
             </div>
           </div>
         </div>
@@ -239,7 +227,7 @@ export default function UserProfile() {
                       handleBioUpdate();
                     }}
                   >
-                    {isLoading ? <Loading dim={6}/> : "Save"}
+                    {isLoading ? <Loading dim={6} /> : "Save"}
                   </button>
                   <button
                     onClick={() => {
