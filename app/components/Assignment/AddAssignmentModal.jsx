@@ -1,42 +1,42 @@
-"use client"
-import React,{useState} from "react";
-import {AiOutlineClose} from 'react-icons/ai'
+"use client";
+import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 
-function AddAssignmentModal({setIsAdding,courseId}) {
-  const [form,setForm]=useState({
-    title:"",
-    description:"",
-    attachment:"",
-    sectionId:courseId,
-    due_date:""
-  })
-function handelChange(e) {
-    console.log({[e.target.name]:e.target.value});
+function AddAssignmentModal({ setIsAdding, courseId }) {
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    attachment: "",
+    sectionId: courseId,
+    due_date: "",
+  });
+  function handelChange(e) {
+    console.log({ [e.target.name]: e.target.value });
 
-setForm({...form,[e.target.name]:e.target.value})
-}
-function handelChangefiles(e) {
-setForm({...form,[e.target.name]:e.target.files[0]})
-}
-async function handelSubmit(e) {
-  e.preventDefault();
-  const formData=new FormData();
-  formData.append('title',form.title)
-  formData.append('description',form.description)
-  formData.append('assignmentFile',form.attachment)
-  formData.append('sectionId',form.sectionId)
-  formData.append('due_date',form.due_date)
-  console.log(formData);
-// https://lms-j2h1.onrender.com/assignment
-// http://localhost:4000/assignment
- await axios.post('http://localhost:4000/assignment', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data', // Important for sending files
-    },
-  })
-  setIsAdding(false);
-}
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+  function handelChangefiles(e) {
+    setForm({ ...form, [e.target.name]: e.target.files[0] });
+  }
+  async function handelSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("assignmentFile", form.attachment);
+    formData.append("sectionId", form.sectionId);
+    formData.append("due_date", form.due_date);
+    console.log(formData);
+    // https://lms-j2h1.onrender.com/assignment
+    // http://localhost:4000/assignment
+    await axios.post("https://lms-j2h1.onrender.com/assignment", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Important for sending files
+      },
+    });
+    setIsAdding(false);
+  }
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
@@ -47,7 +47,7 @@ async function handelSubmit(e) {
             setIsAdding(false);
           }}
         />
-        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Assignment</h1> 
+        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Assignment</h1>
         <form className="mx-10 mt-5" onSubmit={handelSubmit}>
           <div className="mb-6">
             <label
@@ -73,7 +73,7 @@ async function handelSubmit(e) {
               Description
             </label>
             <textarea
-            onChange={handelChange}
+              onChange={handelChange}
               name="description"
               id="description"
               rows="4"
