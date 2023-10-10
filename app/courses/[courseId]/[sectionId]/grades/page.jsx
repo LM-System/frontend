@@ -19,13 +19,13 @@ function Grades({ params }) {
 
     const role = 'student'
     const grades = [{ name: 'ahmad', subject: 'math', first: 30, second: 20, final: 40 }, { subject: 'math', first: 30, second: 20, final: 40 }, { subject: 'math', first: 18, second: 10, final: 20 }]
-    const courseId = params.courseId
-    return (
+    const sectionId = params.sectionId;
+    const courseId = params.courseId;    return (
         <div className="page">
             <Navbar />
             <main className="main bg-gray-200">
                 <div className='courseComponent'>
-                    <CourseBar courseId={courseId} />
+                    <CourseBar courseId={courseId} sectionId={sectionId}/>
                     <div className='courseFlex'>
                         <div className='courseLeft'>
 

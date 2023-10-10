@@ -1,14 +1,17 @@
-"use client"
-import React,{useState} from "react";
-import {AiOutlineClose} from 'react-icons/ai'
+"use client";
+import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-function AddAssignmentModal({setIsAdding,courseId}) {
+function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
+  const token = Cookies.get("user_token");
+
   const [form,setForm]=useState({
     title:"",
     description:"",
     attachment:"",
-    sectionId:courseId,
+    sectionId:sectionId,
     due_date:""
   })
   function handelChange(e) {
@@ -29,6 +32,7 @@ function AddAssignmentModal({setIsAdding,courseId}) {
      await axios.post('https://lms-j2h1.onrender.com/assignment', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Important for sending files
+          authorization: `Bearer ${token}`,
         },
       })
       fetchData();
@@ -45,7 +49,7 @@ console.log(form);
             setIsAdding(false);
           }}
         />
-        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Assignment</h1> 
+        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Assignment</h1>
         <form className="mx-10 mt-5" onSubmit={handelSubmit}>
           <div className="mb-6">
             <label
@@ -71,7 +75,7 @@ console.log(form);
               Description
             </label>
             <textarea
-            onChange={handelChange}
+              onChange={handelChange}
               name="description"
               id="description"
               rows="4"

@@ -12,13 +12,14 @@ import Cookies from "js-cookie";
 function Assignment({ params }) {
   const role = 'teacher'
   var token2 = Cookies.get("user_info");
+  const sectionId = params.sectionId;
   const courseId = params.courseId;
   const [isAdding,setIsAdding]=useState(false)
   const [assignmentList,setAssignmentList]=useState([])
 
   const fetchData = async ()=>{
     try{
-        const {data}=await axiosHandler('GET',`/assignments/${courseId}`)
+        const {data}=await axiosHandler('GET',`/assignments/${sectionId}`)
         console.log(data);
         setAssignmentList(data)
     }catch(e){setFetchingError(e.message)}
@@ -26,17 +27,16 @@ function Assignment({ params }) {
 
 
   
-  // const sectionStudent =[{},{},{}]
   useEffect(()=>{
     fetchData()
 },[])
   return (
     <div className="page">
-    {role=='teacher'&&isAdding&&<AddAssignmentModal courseId={courseId} setIsAdding={setIsAdding} /> }
+    {role=='teacher'&&isAdding&&<AddAssignmentModal sectionId={sectionId} fetchData={fetchData} setIsAdding={setIsAdding} /> }
       <Navbar/>
       <main className="main bg-gray-200">
     <div className="courseComponent rounded-lg">
-      <CourseBar courseId={courseId} />
+      <CourseBar courseId={courseId} sectionId={sectionId} />
       <div className="courseFlex">
         <div className="courseLeft">
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -63,7 +63,7 @@ function Assignment({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {assignmentList&&assignmentList.map((assignment, i)=>{
+                {assignmentList.map((assignment, i)=>{
                   return(
                 <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
@@ -100,7 +100,7 @@ function Assignment({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {assignmentList && assignmentList.map((assignment, i)=>{
+                {assignmentList.map((assignment, i)=>{
                   return(
                 <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
@@ -110,7 +110,7 @@ function Assignment({ params }) {
                     {assignment.title}
                     </Link>
                   </th>
-                  <td className="px-6 text-center py-4">{assignment.no}/{assignment}</td>
+                  <td className="px-6 text-center py-4">{assignment.no}/{assignment.studentAssignmentSubmissions.length}</td>
                   <td className="px-6 text-center py-4">{assignment.evaluated} / {assignment.no}</td>
                   <td className="px-6 text-center py-4">{new Date(assignment.due_date).toDateString()}</td>
                 </tr>

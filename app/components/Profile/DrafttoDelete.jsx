@@ -9,7 +9,7 @@ import FemaleRoundedIcon from "@mui/icons-material/FemaleRounded";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
-import Loading from "../Loading/Loading";
+import Loading from "../Loading/Spinner";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 

@@ -19,15 +19,16 @@ function Content({ params }) {
   const [isEditing,setIsEditing]=useState(false)
   const [contentList,setContentList]=useState([])
   const role = 'teacher'
-  const courseId = params.courseId; 
-  console.log(courseId); 
-  const fetchData = async ()=>{
+  const sectionId = params.sectionId;
+  const courseId = params.courseId;
+    const fetchData = async ()=>{
     try{
+      // console.log(section);
         const {data}=await axiosHandler('GET',`/sectioncontents/${courseId}`)
-        console.log(data);
         setContentList(data.contents)
-    }catch(e){setFetchingError(e.message)}
-}
+      }catch(e){setFetchingError(e.message)}
+    }
+    console.log(contentList);
 
 
 async function handelDelete(id) {
@@ -41,21 +42,20 @@ async function handelDelete(id) {
     setIsAdding(true)
   }
   
-  // const contentList = [{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''},{title:'Flowbite Application UI v2.0.0',date:'January 13th, 2022',description:'Get access to over 20+ pages including a dashboard layout,charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.',docLink:''}]
-  // console.log(contentList.contents);
   useEffect(()=>{
     fetchData()
 },[])
 
-console.log(contentList)
+
+// console.log(contentList)
   return (
     <div className="page">
       {role=='teacher'&&isAdding&&<AddContentCard fetchData={fetchData} courseId={courseId} setIsAdding={setIsAdding} /> }
-      {role=='teacher'&&isEditing&&<EditContentCard courseId={courseId} setIsEditing={setIsEditing} /> }
+      {role=='teacher'&&isEditing&&<EditContentCard sectionId={sectionId} setIsEditing={setIsEditing} /> }
       <Navbar/>
       <main className="main bg-gray-200">
     <div className="courseComponent">
-      <CourseBar courseId={courseId} />
+      <CourseBar sectionId={sectionId} courseId={courseId} />
       <div className="courseFlex">
         <div className="courseLeft">
             {role == 'teacher'&& <GrAdd onClick={handleAdd} className="absolute right-2 top-2 cursor-pointer text-lg"/>}

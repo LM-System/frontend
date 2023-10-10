@@ -1,29 +1,31 @@
-"use client"
+"use client";
 import AnnouncementCard from "./Card";
-import {useState, useEffect, Suspense} from "react";
+import { useState, useEffect, Suspense } from "react";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
-import Loading from "../Loading/Loading";
+import Skelton from "../Loading/Skelton";
 
-export default function AnnouncementContainer({ courseId, wantToEdit }) {
-  const [announcements, setAnnouncements] = useState(null)
+export default function AnnouncementContainer({ sectionId, wantToEdit }) {
+  const [announcements, setAnnouncements] = useState(null);
   useEffect(() => {
-    const fetchAnnounements = async (courseId) => {
+    const fetchAnnounements = async (sectionId) => {
       const { data } = await axiosHandler(
         "GET",
-        `/sectionAnnouncements/${courseId}`
+        `/sectionAnnouncements/${sectionId}`
       );
       setAnnouncements(data);
     };
-    fetchAnnounements(courseId);
-  })
+    fetchAnnounements(sectionId);
+  });
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       {announcements ? announcements.map((e) => (
         <AnnouncementCard key={e.id} {...e} wantToEdit={wantToEdit}/>
       ))
       :
-      <Loading />
+      <>
+        <Skelton count={0}/>
+      </>
       }
     </div>
   );
