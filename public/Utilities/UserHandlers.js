@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import axios from "axios";
 
-export async function LoginHandler(formData, setIsLoading, router) {
+export async function LoginHandler(formData, setIsLoading) {
   const url = "https://lms-j2h1.onrender.com";
   const { email, password } = formData;
   const encodedData = btoa(`${email}:${password}`);
@@ -16,7 +16,6 @@ export async function LoginHandler(formData, setIsLoading, router) {
 
     if(response.status === 200) {
       Cookies.set("user_token", response.data.token);
-
       let userObject = {};
 
       if (response.data.student) {
@@ -38,13 +37,12 @@ export async function LoginHandler(formData, setIsLoading, router) {
 
       if (Object.keys(userObject).length > 0) {
         Cookies.set("user_info", JSON.stringify(userObject));
-        console.log(userObject)
       }
-
-      router.push("/");
+      
     } else {
       setIsLoading(false);
     }
+    return response;
   } catch (error) {
     console.error("Login failed:", error);
     setIsLoading(false);
