@@ -14,6 +14,9 @@ const toastifyOptions = {
 const showToastify = (action, err) => {
   const msg = `${action.charAt(0).toUpperCase() + action.slice(1)} successfully`
   switch(true) {
+    case (action === "login"):
+      toast('Welcome', toastifyOptions)
+      break;
     case (action === "added"):
       toast.success(msg, toastifyOptions)
       break;
