@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Cookies from "js-cookie";
 import Option from "./Option";
 import Listbox from "./Listbox";
@@ -11,35 +11,99 @@ import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+
 export default function Navbar() {
   const router = useRouter();
-  // const { fullname } = JSON.parse(Cookies.get("user_info"));
+  const { role,departmentId } = JSON.parse(Cookies.get("user_info"));
   const userDataCookie = Cookies.get("user_info");
   const [userData, setUserData] = useState(
     userDataCookie ? JSON.parse(userDataCookie) : null
   );
+  const [NavLinks,setNavLinks]=useState([])
   if (!userData) {
     router.push("/login");
   }
   const [showDropdown, setShowDropdown] = useState(false);
+  console.log(role)
 
-  const NavLinks = [
-    {
-      title: "home",
-      route: "/",
-      type: "navlink",
-    },
-    {
-      title: "courses",
-      route: "/courses",
-      type: "navlink",
-    },
-    {
-      title: "aboutus",
-      route: `/aboutus`,
-      type: "navlink",
-    },
-  ];
+  useEffect(()=>{
+
+    if(role == 'student'|| role == 'instructor'){
+      setNavLinks([
+        {
+          title: "home",
+          route: "/",
+          type: "navlink",
+        },
+        {
+          title: "courses",
+          route: "/courses",
+          type: "navlink",
+        },
+        {
+          title: "chat",
+          route: "/chat",
+          type: "navlink",
+        },
+        {
+          title: "aboutus",
+          route: `/aboutus`,
+          type: "navlink",
+        },
+      ]);
+    } else if(role=='admin'){
+      setNavLinks([
+        {
+          title: "home",
+          route: "/",
+          type: "navlink",
+        },
+        {
+          title: "departments",
+          route: "/departments",
+          type: "navlink",
+        },
+        {
+          title: "heads",
+          route: "/heads",
+          type: "navlink",
+        },
+        {
+          title: "aboutus",
+          route: `/aboutus`,
+          type: "navlink",
+        },
+      ])
+    } else if(role=='instructorDepartmentHead'){
+      setNavLinks([
+        {
+          title: "home",
+          route: "/",
+          type: "navlink",
+        },
+        {
+          title: "courses",
+          route: `/departments/${departmentId}/courses`,
+          type: "navlink",
+        },
+        {
+          title: "instructors",
+          route: `/departments/${departmentId}/instructors`,
+          type: "navlink",
+        },
+        {
+          title: "students",
+          route: `/departments/${departmentId}/students`,
+          type: "navlink",
+        },
+        {
+          title: "aboutus",
+          route: `/aboutus`,
+          type: "navlink",
+        },
+      ])
+    }
+  },[])
 
   function toggleDropDown() {
     setShowDropdown((oldState) => !oldState);

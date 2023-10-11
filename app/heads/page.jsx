@@ -1,48 +1,51 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Navbar from '@/app/components/Navbar/Navbar'
 import Link from 'next/link'
-import {GrAdd} from 'react-icons/gr'
-import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
-import AddInstructors from '@/app/components/department/AddInstructors'
+import {MdEdit} from 'react-icons/md'
+import {GrAdd} from 'react-icons/gr'
+import {AiOutlineMinus} from 'react-icons/ai'
+import AddDepartmentHead from '@/app/components/departmentHead/AddDepartmentHead'
+import showToastify from '@/public/Utilities/Toastify'
 
-function students({params}) {
-  const instituteId = params.instituteId
-  const departmentId = params.departmentId
+function Page() {
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
-    const [instructors,setInstructors]=useState([])
+    const [departmentHead,setDepartmentHead]=useState([])
 
-    const handleDelete = async (id)=>{
+    const handleDelete =  (id)=>{
         try{
-            const data =await axiosHandler('DELETE',`/deleteinstructor/${id}`)
-            if(data){
+            axiosHandler('DELETE',`/deleteinstructor/${id}`)
+            .then((result)=>{
+                showToastify("deleted")
                 fetchData()
-            }
-        }catch(e){setFetchingError(e.message)}
+            })
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
-    
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/departmentinstructors/${departmentId}`)
-            setInstructors(data.rows)
+            const {data}=await axiosHandler('GET',`/departmenthead`)
+                setDepartmentHead(data)
         }catch(e){setFetchingError(e.message)}
     }
     useEffect(()=>{
         fetchData()
     },[])
+
   return (
     <div className='page'>
-    {isAdding&&<AddInstructors departmentId={departmentId} fetchData={fetchData} setIsAdding={setIsAdding}/>}
+        {isAdding && <AddDepartmentHead fetchData={fetchData} setIsAdding={setIsAdding}/>}
         <Navbar/>
         <main className='main'>
-        {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
+                {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
-                
 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    {!isAdding&&<GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>}
+        <GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" className="px-6 py-3">
@@ -69,35 +72,35 @@ function students({params}) {
             </tr>
         </thead>
         <tbody>
-            {instructors?.map((instructor)=>{
+            {departmentHead?.map((user)=>{
                 return(
             <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">
-                   {instructor.id}
+                   {user.instructor?.id}
                 </th>
                 <td className="px-6 py-4">
-                    {instructor.fullname}
+                    {user.instructor?.fullname}
                 </td>
                 <td className="px-6 py-4">
-                    {instructor.userEmail}
+                    {user.instructor?.userEmail}
                 </td>
                 <td className="px-6 py-4">
-                    {instructor.gender}
+                    {user.instructor?.gender}
                 </td>
                 <td className="px-6 py-4">
-                    {instructor.birth_date.split('T')[0]}
+                    {user.instructor?.birth_date?.split('T')[0]}
                 </td>
                 <td className="px-6 py-4">
-                    {instructor.phone_number}
+                    {user.instructor?.phone_number}
                 </td>
                 <td className="px-6 py-4">
-                    {instructor.address}
+                    {user.instructor?.address}
                 </td>
                 {/* <td className="px-6 py-4">
                 <Link href={`/institutions/${instituteId}/departments/${departmentId}/instructors/${course.id}`}>Sections</Link>
                 </td> */}
                 <AiOutlineMinus onClick={()=>{
-                    handleDelete(instructor.id)
+                    handleDelete(user.instructor?.id)
                 }} className='text-lg absolute right-4 mt-3 text-black cursor-pointer'/>
             </tr>
                 )
@@ -108,8 +111,8 @@ function students({params}) {
 
             </div>
         </main>
-        </div>
+    </div>
   )
 }
 
-export default students
+export default Page

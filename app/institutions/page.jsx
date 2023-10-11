@@ -7,6 +7,7 @@ import {MdEdit} from 'react-icons/md'
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineMinus} from 'react-icons/ai'
 import AddInstitution from '../components/institution/AddInstitution'
+import showToastify from '@/public/Utilities/Toastify'
 function Page() {
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
@@ -16,13 +17,17 @@ function Page() {
         try{
             axiosHandler('DELETE',`/institution/${id}`)
             .then((result)=>{
+                showToastify("deleted")
                 fetchData()
             })
-        }catch(e){setFetchingError(e.message)}
+        }catch(e){
+            showToastify("error")
+            // setFetchingError(e.message)
+        }
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/institutions`)
+            const {data}=await axiosHandler('GET',`/institutions`)
                 setInstitutions(data.rows)
         }catch(e){setFetchingError(e.message)}
     }
@@ -38,16 +43,10 @@ function Page() {
                 {fetchingError&& <p className='text-lg text-red-600 bottom-1/2 left-1/4 font-bold absolute text-center z-10'>{fetchingError}, Please refresh the page</p>}
             <div>
 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <GrAdd onClick={()=>{setIsAdding(true)}} className='absolute right-3 top-3 text-lg cursor-pointer'/>
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-<<<<<<< HEAD
-                <th scope="col" className="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-=======
                 <th scope="col" class="px-6 py-3">
                     ID
                 </th>
@@ -58,7 +57,6 @@ function Page() {
                    Institution Admin
                 </th>
                 <th scope="col" class="px-6 py-3">
->>>>>>> main
                    phone number
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -66,6 +64,9 @@ function Page() {
                 </th>
                 <th scope="col" className="px-6 py-3">
                    address
+                </th>
+                <th scope="col" className="px-6 py-3">
+                   
                 </th>
                 {/* <th scope="col" className="px-6 py-3">
                     Departments 
@@ -75,13 +76,6 @@ function Page() {
         <tbody>
             {institutions?.map((institute)=>{
                 return(
-<<<<<<< HEAD
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" className="px-6 py-4 whitespace-nowrap dark:text-white">
-                   {institute.name}
-                </th>
-                <td className="px-6 py-4">
-=======
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 whitespace-nowrap dark:text-white">
                    {institute.id}
@@ -93,7 +87,6 @@ function Page() {
                     {institute.admin?.fullname}
                 </td>
                 <td class="px-6 py-4">
->>>>>>> main
                     {institute.phone_number}
                 </td>
                 <td className="px-6 py-4">

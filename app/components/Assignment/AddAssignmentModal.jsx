@@ -3,9 +3,13 @@ import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Loading from "../Loading/Spinner";
+import showToastify from "@/public/Utilities/Toastify";
+
 
 function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
   const token = Cookies.get("user_token");
+  const [isloading,setIsloading]=useState(false)
 
   const [form,setForm]=useState({
     title:"",
@@ -22,27 +26,36 @@ function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
     setForm({...form,[e.target.name]:e.target.files[0]})
     }
     async function handelSubmit(e) {
-      e.preventDefault();
-      const formData=new FormData();
-      formData.append('assignmentFile',form.attachment)
-      formData.append('title',form.title)
-      formData.append('description',form.description)
-      formData.append('sectionId',form.sectionId)
-      formData.append('due_date',form.due_date)
-     await axios.post('https://lms-j2h1.onrender.com/assignment', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Important for sending files
-          authorization: `Bearer ${token}`,
-        },
-      })
-      fetchData();
-      showToastify('added')
-      setIsAdding(false);
-    }
+      try{
+        setIsloading(true)
+        e.preventDefault();
+        const formData=new FormData();
+        formData.append('assignmentFile',form.attachment)
+        formData.append('title',form.title)
+        formData.append('description',form.description)
+        formData.append('sectionId',form.sectionId)
+        formData.append('due_date',form.due_date)
+        console.log(formData);
+       const data =await axios.post('https://lms-j2h1.onrender.com/assignment', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Important for sending files
+            authorization: `Bearer ${token}`,
+          },
+        })
+        if (data){
+          showToastify("added")
+          fetchData();
+          setIsAdding(false);
+        }
+          setIsloading(false)
+      }
+      catch(e){showToastify("error")}
+      } 
+console.log(form);
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
+      <div className="absolute max-w-2xl rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
@@ -118,7 +131,7 @@ function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Add to Assignment
+            {isloading? <Loading dim={6}/> :'Add To Assignment'}
           </button>
         </form>
       </div>

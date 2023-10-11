@@ -6,6 +6,7 @@ import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddCourse from '@/app/components/Course/AddCourse'
+import showToastify from '@/public/Utilities/Toastify'
 
 function Department({params}) {
   const instituteId = params.instituteId
@@ -18,15 +19,19 @@ function Department({params}) {
         try{
             axiosHandler('DELETE',`/course/${id}`)
             .then((result)=>{
+                showToastify("deleted")
                 fetchData()
             })
             
-        }catch(e){setFetchingError(e.message)}
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/departmentcourses/${departmentId}`)
+            const {data}=await axiosHandler('GET',`/departmentcourses/${departmentId}`)
             setCourses(data.rows)
         }catch(e){setFetchingError(e.message)}
     }
@@ -58,6 +63,8 @@ function Department({params}) {
                 <th scope="col" className="px-6 py-3">
                     Sections
                 </th>
+                <th scope="col" className="px-6 py-3">
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -74,7 +81,7 @@ function Department({params}) {
                     {course.description}
                 </td>
                 <td className="px-6 py-4 text-blue-700">
-                <Link  href={`/institutions/${instituteId}/departments/${departmentId}/courses/${course.id}/sections`}>Sections</Link>
+                <Link  href={`/departments/${departmentId}/courses/${course.id}/sections`}>Sections</Link>
                 </td>
                 <AiOutlineMinus onClick={()=>{
                     handleDelete(course.id)

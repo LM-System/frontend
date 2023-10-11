@@ -3,9 +3,9 @@ import React, {useState} from "react";
 import Loading from "../components/Loading/Spinner";
 import { LoginHandler } from "@/public/Utilities/UserHandlers";
 import { useRouter } from "next/navigation";
-
+import showToastify from "@/public/Utilities/Toastify";
 export default function Login() {
-  const router = useRouter()
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -20,7 +20,11 @@ export default function Login() {
   const submitHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true)
-    await LoginHandler(formData, setIsLoading, router)
+    const response = await LoginHandler(formData, setIsLoading);
+    if(response.status === 200) {
+      showToastify("login")
+      router.push("/")
+    } else showToastify("error", "Invalid email/password")
     setIsLoading(false)
   };
 

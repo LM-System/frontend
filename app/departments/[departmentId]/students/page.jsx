@@ -6,6 +6,8 @@ import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddStudents from '@/app/components/department/AddStudents'
+import showToastify from '@/public/Utilities/Toastify'
+
 function students({params}) {
   const instituteId = params.instituteId
   const departmentId = params.departmentId
@@ -15,16 +17,20 @@ function students({params}) {
 
     const handleDelete = async (id)=>{
         try{
-            const data =await axiosHandler('DELETE',`/deletestudent/${id}`)
+            const {data} =await axiosHandler('DELETE',`/deletestudent/${id}`)
             if(data){
+                showToastify("deleted")
                 fetchData()
             }
-        }catch(e){setFetchingError(e.message)}
+        }catch(e){
+            // setFetchingError(e.message)
+            showToastify("error")
+        }
     }
     
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/departmentstudents/${departmentId}`)
+            const {data}=await axiosHandler('GET',`/departmentstudents/${departmentId}`)
             setStudents(data.rows)
         }catch(e){setFetchingError(e.message)}
     }
@@ -68,6 +74,8 @@ function students({params}) {
                 <th scope="col" className="px-6 py-3">
                     Sections
                 </th>
+                <th scope="col" className="px-6 py-3">
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -96,7 +104,7 @@ function students({params}) {
                     {student.adderss}
                 </td>
                 <td className="px-6 text-blue-600 py-4">
-                <Link href={`/institutions/${instituteId}/departments/${departmentId}/students/${student.id}/sections`}>Sections</Link>
+                <Link href={`/departments/${departmentId}/students/${student.id}/sections`}>Sections</Link>
                 </td>
                 <AiOutlineMinus onClick={()=>{
                     handleDelete(student.id)

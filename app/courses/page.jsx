@@ -3,7 +3,7 @@ import React,{useState} from "react";
 import Cookies from "js-cookie";
 import Navbar from "../components/Navbar/Navbar";
 import CoursesList from "./CoursesList";
-
+import { useRouter } from "next/navigation";
 export default function Courses() {
   const [courseId,setCourseId]=useState()
   const userInfo=JSON.parse(Cookies.get('user_info'))

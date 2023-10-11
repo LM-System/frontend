@@ -1,17 +1,21 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import Navbar from '../../../components/Navbar/Navbar'
+import Navbar from '@/app/components/Navbar/Navbar'
 import Link from 'next/link'
+import Cookies from "js-cookie";
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddDepartment from '@/app/components/department/AddDepartment'
 import { usePathname } from 'next/navigation'
+import showToastify from '@/public/Utilities/Toastify'
 
 
 function Page({params}) {
     const pathname = usePathname()
-    const instituteId = params.instituteId
+    const { role,institution } = JSON.parse(Cookies.get("user_info"));
+    const instituteId = institution.id
+    // const instituteId = params.instituteId
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
     const [departments,setDepartments]=useState([])
@@ -19,16 +23,21 @@ function Page({params}) {
         try{
             axiosHandler('DELETE',`/department/${id}`)
             .then((result)=>{
+                showToastify("deleted")
                 fetchData()
             })
-        }catch(e){setFetchingError(e.message)}
+        }catch(e){
+            showToastify("error")
+            // setFetchingError(e.message)
+        }
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/institutiondepartments/${instituteId}`)
+            const {data}=await axiosHandler('GET',`/institutiondepartments/${instituteId}`)
             setDepartments(data)
         }catch(e){setFetchingError(e.message)}
     }
+    console.log(departments)
     useEffect(()=>{
         fetchData()
     },[])
@@ -64,6 +73,8 @@ function Page({params}) {
                 <th scope="col" className="px-6 py-3">
                     instructors
                 </th>
+                <th scope="col" className="px-6 py-3">
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -80,7 +91,7 @@ function Page({params}) {
                   {department.departmentHead?.fullname}
                 </td>
                 <td scope="row" className="px-6 py-4  text-blue-700">
-                   <Link href={`/institutions/${instituteId}/departments/${department.id}/courses`}>courses</Link>
+                   <Link href={`/departments/${department.id}/courses`}>courses</Link>
                 </td>
                 <td className="px-6 py-4 text-blue-700">
                     <Link href={`${pathname}/${department.id}/students`}>students</Link>
