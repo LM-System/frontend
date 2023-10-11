@@ -1,54 +1,56 @@
-"use client"
-import React,{useState,useEffect} from "react";
-import {AiOutlineClose} from 'react-icons/ai'
+"use client";
+import React, { useState, useEffect } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
-import Loading from "../Loading/Spinner";
+import Loading from "@/app/components/Loading/Spinner";
 import showToastify from "@/public/Utilities/Toastify";
 
+function AddContentCard({ setIsAdding, courseId, fetchData }) {
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    file: "",
+    courseId: courseId,
+  });
+  const [isloading, setIsloading] = useState(false);
 
-
-function AddContentCard({setIsAdding,courseId,fetchData}) {
-  const [form,setForm]=useState({
-    title:"",
-    description:"",
-    file:"",
-    courseId:courseId
-  })
-  const [isloading,setIsloading]=useState(false)
-
-
-function handelChange(e) {
-setForm({...form,[e.target.name]:e.target.value})
-}
-function handelChangefiles(e) {
-setForm({...form,[e.target.name]:e.target.files[0]})
-}
-async function handelSubmit(e) {
-  try{
-    setIsloading(true)
-    e.preventDefault();
-    console.log(form.courseId);
-    const formData=new FormData();
-    formData.append('contentFile',form.file)
-    formData.append('title',form.title)
-    formData.append('description',form.description)
-    formData.append('courseId',form.courseId)
-    console.log(formData);
-   const data =await axios.post('https://lms-j2h1.onrender.com/content', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data', // Important for sending files
-      },
-    })
-    if(data){
-      showToastify("added")
-    }
-    fetchData();
-    setIsAdding(false);
-    setIsloading(false)
+  function handelChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
-  catch(e){showToastify("error")}
-}
+  function handelChangefiles(e) {
+    setForm({ ...form, [e.target.name]: e.target.files[0] });
+  }
+  async function handelSubmit(e) {
+    try {
+      setIsloading(true);
+      e.preventDefault();
+      console.log(form.courseId);
+      const formData = new FormData();
+      formData.append("contentFile", form.file);
+      formData.append("title", form.title);
+      formData.append("description", form.description);
+      formData.append("courseId", form.courseId);
+      console.log(formData);
+      const data = await axios.post(
+        "https://lms-j2h1.onrender.com/content",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Important for sending files
+          },
+        }
+      );
+      if (data) {
+        showToastify("added");
+      }
+      fetchData();
+      setIsAdding(false);
+      setIsloading(false);
+    } catch (e) {
+      showToastify("error");
+    }
+  }
 
   return (
     <div>
@@ -60,7 +62,7 @@ async function handelSubmit(e) {
             setIsAdding(false);
           }}
         />
-        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Content</h1> 
+        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Content</h1>
         <form className="mx-10 mt-5" onSubmit={handelSubmit}>
           <div className="mb-6">
             <label
@@ -86,7 +88,7 @@ async function handelSubmit(e) {
               Description
             </label>
             <textarea
-            onChange={handelChange}
+              onChange={handelChange}
               name="description"
               id="description"
               rows="4"
@@ -113,7 +115,7 @@ async function handelSubmit(e) {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            {isloading? <Loading dim={6}/> :'Add To Content'}
+            {isloading ? <Loading dim={6} /> : "Add To Content"}
           </button>
         </form>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import {AiOutlineClose} from 'react-icons/ai'
-import Loading from "../Loading/Spinner";
+import Loading from "@/app/components/Loading/Spinner";
 
 
 function EditContentCard({setIsEditing}) {
