@@ -5,7 +5,7 @@ function EditContentCard({setIsEditing}) {
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-4/12 h-4/6 bg-white z-10 ">
+      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {

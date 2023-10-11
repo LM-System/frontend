@@ -35,7 +35,7 @@ export default function UserProfile() {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  console.log(userData);
+  // console.log(userData);
 
   function changeHandler(event) {
     setTextArea((prevText) => event.target.value);
@@ -111,7 +111,7 @@ export default function UserProfile() {
     );
     Cookies.set("user_info", JSON.stringify(userData));
 
-    console.log(userData);
+    // console.log(userData);
   }, [textArea, userData]);
 
   return (

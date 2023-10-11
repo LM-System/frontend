@@ -14,6 +14,7 @@ function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
     sectionId:sectionId,
     due_date:""
   })
+  
   function handelChange(e) {
     setForm({...form,[e.target.name]:e.target.value})
     }
@@ -28,7 +29,6 @@ function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
       formData.append('description',form.description)
       formData.append('sectionId',form.sectionId)
       formData.append('due_date',form.due_date)
-      console.log(formData);
      await axios.post('https://lms-j2h1.onrender.com/assignment', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Important for sending files
@@ -36,9 +36,9 @@ function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
         },
       })
       fetchData();
+      showToastify('added')
       setIsAdding(false);
     }
-console.log(form);
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
