@@ -20,7 +20,6 @@ function Assignment({ params }) {
   const fetchData = async ()=>{
     try{
         const {data}=await axiosHandler('GET',`/assignments/${sectionId}`)
-        console.log(data);
         setAssignmentList(data)
     }catch(e){setFetchingError(e.message)}
 }
@@ -106,7 +105,7 @@ function Assignment({ params }) {
                   <th
                     scope="row"
                     className="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  > <Link className="text-blue-300" href={`/courses/${courseId}/assignment/${assignment.id}`}>
+                  > <Link className="text-blue-300" href={`/courses/${courseId}/${sectionId}/assignment/${assignment.id}`}>
                     {assignment.title}
                     </Link>
                   </th>

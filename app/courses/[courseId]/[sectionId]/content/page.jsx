@@ -1,5 +1,3 @@
-
-
 "use client";
 import React, { useState ,useEffect} from "react";
 import CourseBar from "@/app/components/Course/Bar";
@@ -11,6 +9,7 @@ import {GrAdd} from 'react-icons/gr'
 import {BsTrash} from 'react-icons/bs'
 import axios from 'axios'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
+import  showToastify  from "@/public/Utilities/Toastify";
 
 
 
@@ -23,19 +22,15 @@ function Content({ params }) {
   const courseId = params.courseId;
     const fetchData = async ()=>{
     try{
-      // console.log(section);
         const {data}=await axiosHandler('GET',`/sectioncontents/${courseId}`)
         setContentList(data.contents)
       }catch(e){setFetchingError(e.message)}
     }
-    console.log(contentList);
 
 
 async function handelDelete(id) {
-  console.log(id);
   await axiosHandler('DELETE',`/content/${id}`)
-  // axios.delete(`http://localhost:4000/content/${id}`)
-  .then(res=>console.log("hi"))
+    showToastify("deleted")
   fetchData()
 }
   const handleAdd = ()=>{
@@ -47,7 +42,6 @@ async function handelDelete(id) {
 },[])
 
 
-// console.log(contentList)
   return (
     <div className="page">
       {role=='teacher'&&isAdding&&<AddContentCard fetchData={fetchData} courseId={courseId} setIsAdding={setIsAdding} /> }

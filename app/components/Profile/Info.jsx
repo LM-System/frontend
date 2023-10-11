@@ -14,7 +14,9 @@ import showToastify from "@/public/Utilities/Toastify";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
-import Loading from "@/app/components/Loading/Spinner"
+import Loading from "@/app/components/Loading/Spinner";
+
+const apiUrl = "https://lms-j2h1.onrender.com";
 
 export default function UserProfile() {
   const router = useRouter();
@@ -23,31 +25,25 @@ export default function UserProfile() {
     userDataCookie ? JSON.parse(userDataCookie) : null
   );
   const token = Cookies.get("user_token");
-  if (!userData) {
-    router.push("/login");
-  }
 
   const [isLoading, setIsLoading] = useState(false);
   const [isChangeForm, setIsChangeForm] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [textArea, setTextArea] = useState(userData.bio);
+  const [textArea, setTextArea] = useState(userData?.bio || "");
+
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  console.log(userData);
-
-  function changeHandler(event) {
-    setTextArea((prevText) => event.target.value);
-  }
+  const changeHandler = (event) => {
+    setTextArea(event.target.value);
+  };
 
   const handleBioUpdate = async () => {
     setIsLoading(true);
     try {
       const response = await axios.put(
-        `https://lms-j2h1.onrender.com/update${userData.role.toLowerCase()}/${
-          userData.id
-        }`,
+        `${apiUrl}/update${userData.role.toLowerCase()}/${userData.id}`,
         { bio: textArea },
         {
           headers: {
@@ -64,29 +60,26 @@ export default function UserProfile() {
     }
   };
 
-  function cancleHandlerBio() {
+  const cancelHandlerBio = () => {
     setTextArea(userData.bio);
     setIsEdit(false);
-  }
+  };
 
   const handleChangePassword = async ({ oldPassword, newPassword }) => {
     try {
       setIsLoading(true);
 
-      const response = await fetch(
-        "https://lms-j2h1.onrender.com/changepassword",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: userData.userEmail,
-            oldPassword,
-            newPassword,
-          }),
-        }
-      );
+      const response = await fetch(`${apiUrl}/changepassword`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userData.userEmail,
+          oldPassword,
+          newPassword,
+        }),
+      });
       if (response.status === 200) {
         showToastify("updated");
         setIsChangeForm(false);
@@ -102,17 +95,22 @@ export default function UserProfile() {
   };
 
   useEffect(() => {
-    setUserData(
-      (prevUserData) => ({
-        ...prevUserData,
-        bio: textArea,
-      }),
-      []
-    );
-    Cookies.set("user_info", JSON.stringify(userData));
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      bio: textArea,
+    }));
+  }, [textArea]);
 
-    console.log(userData);
-  }, [textArea, userData]);
+  useEffect(() => {
+    if (userData) {
+      Cookies.set("user_info", JSON.stringify(userData));
+    }
+  }, [userData]);
+
+  if (!userData) {
+    router.push("/login");
+    return null; // or loading spinner or something
+  }
 
   return (
     <>

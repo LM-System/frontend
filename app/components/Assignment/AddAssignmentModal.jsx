@@ -18,6 +18,7 @@ function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
     sectionId:sectionId,
     due_date:""
   })
+  
   function handelChange(e) {
     setForm({...form,[e.target.name]:e.target.value})
     }
