@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState } from "react";
 import {AiOutlineClose} from 'react-icons/ai'
 import Loading from "@/app/components/Loading/Spinner";
 
@@ -20,7 +20,7 @@ function EditContentCard({setIsEditing}) {
         <form className="mx-10 mt-5">
           <div className="mb-6">
             <label
-              for="title"
+              htmlFor="title"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               title
@@ -34,7 +34,7 @@ function EditContentCard({setIsEditing}) {
           </div>
           <div className="mb-6">
             <label
-              for="Date"
+              htmlFor="Date"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Date on timeline
@@ -48,7 +48,7 @@ function EditContentCard({setIsEditing}) {
           </div>
           <div className="mb-6">
             <label
-              for="description"
+              htmlFor="description"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Description
@@ -62,7 +62,7 @@ function EditContentCard({setIsEditing}) {
           <div className="mb-6">
             <label
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              for="multiple_files"
+              htmlFor="multiple_files"
             >
               Upload multiple files
             </label>

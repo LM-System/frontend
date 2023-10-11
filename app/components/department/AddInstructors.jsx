@@ -56,7 +56,7 @@ function AddInstructors({setIsAdding,fetchData}) {
 </a>
 
 <div className="my-10">
-<label className="block mb-2 text-lg font-bold text-gray-900 dark:text-white" for="file_input">Upload file</label>
+<label className="block mb-2 text-lg font-bold text-gray-900 dark:text-white" htmlFor="file_input">Upload file</label>
 <input onChange={handleFileChange} className="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"/>
 </div>   
 <button onClick={handleFileUpload} className="float-right text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-lg font-bold w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{isloading? <Loading dim={6}/> :'Submit'}</button>

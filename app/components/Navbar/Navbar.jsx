@@ -14,7 +14,8 @@ import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const router = useRouter();
-  const { role,departmentId } = JSON.parse(Cookies.get("user_info"));
+  const { role,departmentId } = JSON?.parse(Cookies?.get("user_info"))||'';
+  
   const userDataCookie = Cookies.get("user_info");
   const [userData, setUserData] = useState(
     userDataCookie ? JSON.parse(userDataCookie) : null
@@ -59,7 +60,7 @@ export default function Navbar() {
           type: "navlink",
         },
         {
-          title: "departments",
+          title: "departs",
           route: "/departments",
           type: "navlink",
         },
@@ -94,6 +95,29 @@ export default function Navbar() {
         {
           title: "students",
           route: `/departments/${departmentId}/students`,
+          type: "navlink",
+        },
+        {
+          title: "aboutus",
+          route: `/aboutus`,
+          type: "navlink",
+        },
+      ])
+    } else if(role=='superAdmin'){
+      setNavLinks([
+        {
+          title: "home",
+          route: "/",
+          type: "navlink",
+        },
+        {
+          title: "institutions",
+          route: `/institutions`,
+          type: "navlink",
+        },
+        {
+          title: "admins",
+          route: `/admins`,
           type: "navlink",
         },
         {

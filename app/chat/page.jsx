@@ -7,7 +7,7 @@ import PeopleList from '@/app/components/chat/PeopleList';
 
 
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("http://localhost:4000");
 function page() {
     const {id,fullname} = JSON.parse(Cookies.get("user_info"));
   return (

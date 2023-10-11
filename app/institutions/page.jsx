@@ -47,16 +47,16 @@ function Page() {
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     ID
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                    Institution Admin
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                    phone number
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -76,17 +76,17 @@ function Page() {
         <tbody>
             {institutions?.map((institute)=>{
                 return(
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 whitespace-nowrap dark:text-white">
+            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 whitespace-nowrap dark:text-white">
                    {institute.id}
                 </th>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {institute.name}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {institute.admin?.fullname}
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                     {institute.phone_number}
                 </td>
                 <td className="px-6 py-4">

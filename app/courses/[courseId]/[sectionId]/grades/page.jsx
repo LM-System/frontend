@@ -4,6 +4,8 @@ import Navbar from '@/app/components/Navbar/Navbar'
 import CourseBar from '@/app/components/Course/Bar'
 import { MdEdit } from 'react-icons/md'
 import { AiOutlineClose } from 'react-icons/ai'
+import Cookies from 'js-cookie'
+
 function Grades({ params }) {
     const [changedGrades, setChangedGrades] = useState([])
     const [ischanging, setIschanging] = useState(false)
@@ -17,8 +19,8 @@ function Grades({ params }) {
         setIschanging(false)
     }
 
-    const role = 'student'
-    const grades = [{ name: 'ahmad', subject: 'math', first: 30, second: 20, final: 40 }, { subject: 'math', first: 30, second: 20, final: 40 }, { subject: 'math', first: 18, second: 10, final: 20 }]
+    const {role} = JSON.parse(Cookies.get("user_info"))
+    const grades = [{ name: 'ahmad', subject: 'math', first: 30, second: 20, final: 40 }]
     const sectionId = params.sectionId;
     const courseId = params.courseId;    return (
         <div className="page">
@@ -30,17 +32,17 @@ function Grades({ params }) {
                         <div className='courseLeft'>
 
                             <div className="relative overflow-x-auto rounded-lg">
-                                {role == 'teacher' && !ischanging && <MdEdit onClick={() => {
+                                {role == 'instructor' && !ischanging && <MdEdit onClick={() => {
                                     setIschanging(true)
                                 }} className='absolute top-3 right-3 cursor-pointer text-lg' />}
-                                {role == 'teacher' && ischanging && <AiOutlineClose onClick={() => {
+                                {role == 'instructor' && ischanging && <AiOutlineClose onClick={() => {
                                     setIschanging(false)
                                 }} className='absolute top-3 right-3 cursor-pointer text-lg' />}
                                 {!ischanging && <table className="w-full text-sm text-left rounded-lg text-gray-500 dark:text-gray-400">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
-                                                {role == 'teacher' ? 'Student Name' : 'Subject'}
+                                                {role == 'instructor' ? 'Student Name' : 'Subject'}
                                             </th>
                                             <th scope="col" className="px-6 py-3">
                                                 First
@@ -62,7 +64,7 @@ function Grades({ params }) {
                                             return (
                                                 <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {role == 'teacher' ? grade.name : grade.subject}
+                                                        {role == 'instructor' ? grade.name : grade.subject}
                                                     </th>
                                                     <td className="px-6 py-4" >
                                                         {grade.first} / 30
@@ -85,7 +87,7 @@ function Grades({ params }) {
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
-                                                {role == 'teacher' ? 'Student Name' : 'Subject'}
+                                                {role == 'instructor' ? 'Student Name' : 'Subject'}
                                             </th>
                                             <th scope="col" className="px-6 py-3">
                                                 First
@@ -107,7 +109,7 @@ function Grades({ params }) {
                                             return (
                                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {role == 'teacher' ? grade.name : grade.subject}
+                                                        {role == 'instructor' ? grade.name : grade.subject}
                                                     </th>
                                                     <td className="px-6 py-4" >
                                                         <input name='firse' onChange={(e) => handleChange(e, grade.name)} placeholder={grade.first} className='w-7' /> / 30

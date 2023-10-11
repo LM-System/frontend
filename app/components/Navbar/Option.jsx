@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react'
 
 export default function Option({ id, route, title, icon, type }) {
   const pathname = usePathname().split('/')[1]
-  const active = `/${pathname}` === route
+  const pathname2 =usePathname().split('/')[3]
+  const active = `/${pathname}` === route || pathname2 == title 
   const SVG = icons[title];
   return (
         <Link

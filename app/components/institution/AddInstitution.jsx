@@ -16,7 +16,7 @@ function AddInstitution({setIsAdding,fetchData}) {
         e.preventDefault()
         try{
             console.log(JSON.stringify(institutionData))
-            const data =await axiosHandler('POST',`/institution`,institutionData)
+            const {data} =await axiosHandler('POST',`/institution`,institutionData)
             if(data){
                 showToastify("added")
                 setIsAdding(false)
@@ -36,7 +36,7 @@ function AddInstitution({setIsAdding,fetchData}) {
 
     const fetchAdminsData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/getadmins`)
+            const {data}=await axiosHandler('GET',`/getadmins`)
             setAdmins(data)
         }catch(e){setError(e.message)}
     }
@@ -58,11 +58,11 @@ function AddInstitution({setIsAdding,fetchData}) {
 <form className="mx-10 mb-6" onSubmit={handleSubmit}>
     {/* <div className="grid gap-6 mb-6 md:grid-cols-2"> */}
         <div className="mb-4">
-            <label for="Institution Name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Institution Name</label>
+            <label htmlFor="Institution Name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Institution Name</label>
             <input onChange={changeHandler} type="text" name="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="company" required/>
         </div>
     <div className="mb-4">
-        <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
         <input onChange={changeHandler} type="email" name="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required/>
     </div> 
         <div className="mb-4">
@@ -75,7 +75,7 @@ function AddInstitution({setIsAdding,fetchData}) {
             </select>
         </div>
         <div className="mb-4">
-            <label for="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+            <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
             <input onChange={changeHandler} type="text" name="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
         </div>  
         <div className="mb-5">

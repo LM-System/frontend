@@ -9,7 +9,7 @@ import PeopleList from '@/app/components/chat/PeopleList';
 
 
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("http://localhost:4000");
 
 function page({params}) {
     const [currentMessage, setCurrentMessage] = useState("");
@@ -55,7 +55,7 @@ function page({params}) {
         <main className='main bg-gray-100'>
           <div className='flex h-full border-2 border-gray-300 rounded-lg overflow-hidden'>
         <div className='w-9/12 h-full bg-white'>
-        <h1 className=' font-bold text-2xl mx-6 my-4 pb-5 border-b-2'>{receivername}</h1>
+        <h1 className=' font-bold text-2xl mx-6 my-4 pb-5 border-b-2'>{decodeURIComponent(receivername)}</h1>
       <div className='w-full h-5/6 overflow-y-auto flex flex-col '>
         <ScrollToBottom>
           {messageList.map((messageContent) => {

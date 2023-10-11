@@ -23,7 +23,7 @@ function Page() {
     }
     const fetchData = async ()=>{
         try{
-            const data=await axiosHandler('GET',`/getadmins`)
+            const {data}=await axiosHandler('GET',`/getadmins`)
                 setAdmins(data)
         }catch(e){setFetchingError(e.message)}
     }
@@ -67,7 +67,7 @@ function Page() {
             </tr>
         </thead>
         <tbody>
-            {admins?.map((admin)=>{
+            {admins&& admins.map((admin)=>{
                 return(
             <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">

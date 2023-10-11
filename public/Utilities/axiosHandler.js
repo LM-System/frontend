@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 
 export async function axiosHandler(method, path, data) {
-  const url = "https://lms-j2h1.onrender.com" + path;
+  const url = "http://localhost:4000" + path;
   const token = Cookies.get("user_token");
   const response = await axios({
     method: method,

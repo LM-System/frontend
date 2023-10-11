@@ -16,7 +16,7 @@ export default function AnnouncementCard({ title, body, id, wantToEdit }) {
   async function deleteAnnouncement(id) {
     const token = Cookies.get("user_token");
     await axios({
-      url: `https://lms-j2h1.onrender.com/sectionAnnouncement/${id}`,
+      url: `http://localhost:4000/sectionAnnouncement/${id}`,
       method: "DELETE",
       headers: {
         authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export default function AnnouncementCard({ title, body, id, wantToEdit }) {
   async function updateAnnouncement(id) {
     const token = Cookies.get("user_token");
     await axios({
-      url: `https://lms-j2h1.onrender.com/sectionAnnouncement/${id}`,
+      url: `http://localhost:4000/sectionAnnouncement/${id}`,
       method: "PUT",
       headers: {
         authorization: `Bearer ${token}`,

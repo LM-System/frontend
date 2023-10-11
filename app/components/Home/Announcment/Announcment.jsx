@@ -9,13 +9,13 @@ import { BsPlusLg } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import AddAnnouncement from "../../Announcements/AddAnnouncment";
 
-export default function Announcements() {
+export default function Announcements({setIsAdding}) {
   const router = useRouter();
   const userDataCookie = Cookies.get("user_info");
   const [userInfo, setUserInfo] = useState(
     userDataCookie ? JSON.parse(userDataCookie) : null
   );
-  const [isAdding, setIsAdding] = useState(false);
+ 
 
   if (!userInfo) {
     router.push("/login");
@@ -27,9 +27,6 @@ export default function Announcements() {
   };
   return (
     <div className=" bg-white dark:bg-darkcomp drop-shadow-xl col-span-2 rounded-lg h-full overflow-y-auto">
-      {userInfo.role === "admin" && isAdding && (
-        <AddAnnouncement setIsAdding={setIsAdding} />
-      )}
       {userInfo.role === "admin" && (
         <BsPlusLg
           onClick={handleAdd}

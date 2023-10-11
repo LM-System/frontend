@@ -36,7 +36,7 @@ function AddAssignmentModal({sectionId,setIsAdding,fetchData}) {
         formData.append('sectionId',form.sectionId)
         formData.append('due_date',form.due_date)
         console.log(formData);
-       const data =await axios.post('https://lms-j2h1.onrender.com/assignment', formData, {
+       const data =await axios.post('http://localhost:4000/assignment', formData, {
           headers: {
             'Content-Type': 'multipart/form-data', // Important for sending files
             authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ console.log(form);
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute max-w-2xl rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
+      <div className="absolute max-w-2xl rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-4/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
@@ -97,7 +97,7 @@ console.log(form);
           </div>
           <div className="mb-6">
             <label
-              for="Date"
+              htmlFor="Date"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Date on timeline

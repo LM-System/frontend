@@ -32,6 +32,7 @@ const fetchSubData = async ()=>{
     fetchData();
   }catch(e){setFetchingError(e.message)}
 }
+console.log(submissions)
 useEffect(()=>{
   fetchData()
   fetchSubData()
@@ -61,10 +62,7 @@ useEffect(()=>{
                   <p className="p-3">{assignment.description}</p>
                 
                     {!isEditing&&<div>
-                      {role==="student" &&  <MdEdit onClick={()=>{
-                        setIsEditing(true)
-                    }} className="absolute top-4 right-4 cursor-pointer text-lg"/>}
-                   { <button
+                   {role=='student'&& <button
                    onClick={()=>setIsOpen(true)}
                   type="submit"
                   className="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 mr-7 focus:outline-none focus:ring-blue-300 font-medium  text-md px-10 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -83,25 +81,25 @@ useEffect(()=>{
                             Submission
                           </th>
                           <th scope="col" className="px-6 py-3">
-                            grade
-                          </th>
-                          <th scope="col" className="px-6 py-3">
                             Submitted At
                           </th>
                         </tr>
                       </thead>
                       <tbody>
+                        {submissions.map((submission)=>{
+                          return(
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                           <th
                             scope="row"
                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
-                            {submissions.content}
+                            {submission.content}
                           </th>
-                          <td className="px-6 py-4">{submissions.status}</td>
-                          <td className="px-6 py-4">10</td>
-                          <td className="px-6 py-4">{new Date(submissions.createdAt).toDateString()}</td>
+                          <td className="px-6 py-4">{submission.status}</td>
+                          <td className="px-6 py-4">{new Date(submission.createdAt).toDateString()}</td>
                         </tr>
+                          )
+                        })}
                       </tbody>
                     </table>
                   </div>

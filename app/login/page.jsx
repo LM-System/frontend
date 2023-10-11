@@ -24,8 +24,8 @@ export default function Login() {
     if(response.status === 200) {
       showToastify("login")
       router.push("/")
-    } else showToastify("error", "Invalid email/password")
-    setIsLoading(false)
+    } else {showToastify("error", "Invalid email/password")
+    setIsLoading(false)}
   };
 
   return (

@@ -27,7 +27,7 @@ function AssignmentSubmissionModal({fetchSubData,sectionId,setIsOpen,assignmentI
       formData.append('studentId',form.studentId)
       formData.append('assignmentId',form.assignmentId)
       console.log(formData);
-     await axios.post('https://lms-j2h1.onrender.com/assignmentSubmittion', formData, {
+     await axios.post('http://localhost:4000/assignmentSubmittion', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Important for sending files
           authorization: `Bearer ${token}`,
@@ -41,14 +41,14 @@ function AssignmentSubmissionModal({fetchSubData,sectionId,setIsOpen,assignmentI
   return (
     <div className="overflow-x-hidden">
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
+      <div className="absolute rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-4/12 h-2/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
             setIsOpen(false);
           }}
         />
-        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Assignment</h1>
+        <h1 className="mt-14 text-2xl font-bold mx-10 ">Add Assignment</h1>
         <form className="mx-10 mt-5" onSubmit={handelSubmit}>
           <div className="mb-6">
             <label

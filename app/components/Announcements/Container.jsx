@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
 import Skelton from "../Loading/Skelton";
 
-export default function AnnouncementContainer({ sectionId, wantToEdit }) {
+export default function AnnouncementContainer({ sectionId, wantToEdit,isAdding }) {
   const [announcements, setAnnouncements] = useState(null);
   useEffect(() => {
     const fetchAnnounements = async (sectionId) => {
@@ -12,10 +12,10 @@ export default function AnnouncementContainer({ sectionId, wantToEdit }) {
         "GET",
         `/sectionAnnouncements/${sectionId}`
       );
-      setAnnouncements(data);
+      setAnnouncements(data.reverse());
     };
     fetchAnnounements(sectionId);
-  });
+  },[isAdding,wantToEdit]);
 
   return (
     <div className="flex flex-col gap-4 w-full">

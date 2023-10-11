@@ -11,7 +11,7 @@ function PeopleList({recieverId,id,messageList,roomId}) {
     
     const fetchData = async ()=>{
         try{
-            const {data}=await axios.get(`http://localhost:5000/userchats/${id}`)
+            const {data}=await axios.get(`http://localhost:4000/userchats/${id}`)
             if(data){
                 setChats(data)
             }
@@ -42,7 +42,7 @@ function PeopleList({recieverId,id,messageList,roomId}) {
             return(
                 <Link href={link}>
                 <div className={`${item.room_id == roomId ?'bg-indigo-200 z-10':''}text-lg p-4 font-bold border-b border-gray-400`}>
-                    <h2 className='pb-0'>{item.reciever_id==id?item.sender_name:item.reciever_name}</h2>
+                    <h2 className='pb-0'>{item.reciever_id==id?decodeURIComponent(item.sender_name):decodeURIComponent(item.reciever_name)}</h2>
                     <span className='text-sm font-thin pt-0'>{item.message}</span>
                 </div>
                 </Link>

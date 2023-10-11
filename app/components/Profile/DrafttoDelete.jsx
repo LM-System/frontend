@@ -74,7 +74,7 @@ export default function UserProfile({ userId }) {
     if (newPassword === confirmPassword) {
       try {
         const response = await axios.put(
-          `${process.env.REACT_APP_SERVER_URL}users/${userId}/change-password`,
+          `http://localhost:4000/users/${userId}/change-password`,
           { password: newPassword }
         );
 
@@ -150,7 +150,7 @@ export default function UserProfile({ userId }) {
               </div>
               <div className="change-container">
                 <button
-                  className="bg-primary text-white  mt-4 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                  className="bg-primary  mt-4 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
                   onClick={() => setChangePassword(true)}
                 >
                   Change Password

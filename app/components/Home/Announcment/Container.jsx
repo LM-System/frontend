@@ -19,7 +19,7 @@ export default function AnnouncementContainer({ wantToEdit }) {
         "GET",
         `/announcements`
       );
-      setAnnouncements(data);
+      setAnnouncements(data.reverse());
     };
     fetchAnnounements();
   });

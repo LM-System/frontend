@@ -22,7 +22,7 @@ function AddAnnouncement({ setIsAdding }) {
     try {
       console.log(form);
       const token = Cookies.get("user_token");
-      await axios.post("https://lms-j2h1.onrender.com/announcement", form, {
+      await axios.post("http://localhost:4000/announcement", form, {
         headers: {
           authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -38,14 +38,14 @@ function AddAnnouncement({ setIsAdding }) {
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute left-0 max-w-2xl right-0 bottom-0 top-0 m-auto w-6/12 h-3/5 bg-white dark:bg-darkcomp z-10 rounded-lg ">
+      <div className="absolute left-0 max-w-2xl right-0 bottom-0 top-0 m-auto w-5/12 h-3/6 bg-white dark:bg-darkcomp z-10 rounded-lg ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
             setIsAdding(false);
           }}
         />
-        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Announcement</h1>
+        <h1 className="mt-12 text-2xl font-bold mx-10 ">Add Announcement</h1>
         <form className="mx-10 mt-5" onSubmit={handleSubmit}>
           <div className="mb-6">
             <label

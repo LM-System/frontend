@@ -33,7 +33,7 @@ function AddContentCard({ setIsAdding, courseId, fetchData }) {
       formData.append("courseId", form.courseId);
       console.log(formData);
       const data = await axios.post(
-        "https://lms-j2h1.onrender.com/content",
+        "http://localhost:4000/content",
         formData,
         {
           headers: {
@@ -55,16 +55,16 @@ function AddContentCard({ setIsAdding, courseId, fetchData }) {
   return (
     <div>
       <div className="absolute w-full h-full bg-black z-10 opacity-40"></div>
-      <div className="absolute max-w-2xl rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-5/6 bg-white z-10 ">
+      <div className="absolute max-w-2xl rounded-lg left-0 right-0 bottom-0 top-0 m-auto w-6/12 h-4/6 bg-white z-10 ">
         <AiOutlineClose
           className=" float-right text-xl m-2 cursor-pointer"
           onClick={() => {
             setIsAdding(false);
           }}
         />
-        <h1 className="mt-10 text-2xl font-bold mx-10 ">Add Content</h1>
-        <form className="mx-10 mt-5" onSubmit={handelSubmit}>
-          <div className="mb-6">
+        <h1 className="mt-12 text-2xl font-bold mx-10 ">Add Content</h1>
+        <form className="mx-10 mt-10" onSubmit={handelSubmit}>
+          <div className="mb-7">
             <label
               htmlFor="title"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -80,7 +80,7 @@ function AddContentCard({ setIsAdding, courseId, fetchData }) {
               required
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-7">
             <label
               htmlFor="description"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -95,7 +95,7 @@ function AddContentCard({ setIsAdding, courseId, fetchData }) {
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             ></textarea>
           </div>
-          <div className="mb-6">
+          <div className="mb-7">
             <label
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               htmlFor="multiple_files"

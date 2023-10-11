@@ -72,10 +72,10 @@ function Department({params}) {
                 </th>
                 <th scope="col" className="px-6 py-3">
                 </th>
-                {/* <th scope="col" class="px-6 py-3">
+                {/* <th scope="col" className="px-6 py-3">
                     Students
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Instructors
                 </th> */}
             </tr>
@@ -105,10 +105,10 @@ function Department({params}) {
                 <td className="px-6 py-4">
                     {section.capacity}
                 </td>
-                {/* <td class="px-6 py-4  text-blue-700">
+                {/* <td className="px-6 py-4  text-blue-700">
                     <Link href={`/institutions/${instituteId}/departments/${departmentId}/courses/${courseId}/sections/${section.id}/students`}>students</Link>
                 </td>
-                <td class="px-6 py-4  text-blue-700">
+                <td className="px-6 py-4  text-blue-700">
                     <Link href={`/institutions/${instituteId}/departments/${departmentId}/courses/${courseId}/sections/${section.id}/instructors`}>instructors</Link>
                 </td> */}
                 <AiOutlineMinus onClick={()=>{

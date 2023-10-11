@@ -24,7 +24,7 @@ export default function DescriptionCard({ sectionId }) {
     setDidUpdate(true);
     const token = Cookies.get("user_token");
     const { data } = await axios({
-      url: `https://lms-j2h1.onrender.com/course/${courseId}`,
+      url: `http://localhost:4000/course/${courseId}`,
       method: "PUT",
       headers: {
         authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ export default function DescriptionCard({ sectionId }) {
     const getDescription = async (id) => {
       const token = Cookies.get("user_token");
       const { data } = await axios({
-        url: `https://lms-j2h1.onrender.com/course/${id}`,
+        url: `http://localhost:4000/course/${id}`,
         method: "GET",
         headers: {
           authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ export default function DescriptionCard({ sectionId }) {
     const getSectionDetails = async (id) => {
       const token = Cookies.get("user_token");
       const { data } = await axios({
-        url: `https://lms-j2h1.onrender.com/section/${id}`,
+        url: `http://localhost:4000/section/${id}`,
         method: "GET",
         headers: {
           authorization: `Bearer ${token}`,
@@ -68,21 +68,21 @@ export default function DescriptionCard({ sectionId }) {
 
   return (
     <div className="bg-white drop-shadow-xl dark:bg-darkcomp p-5 overflow-y-auto rounded-lg">
-      {role === "instructor" && !isEdit ? (
+      {role === "instructor" && !isEdit && 
         <MdEdit
           onClick={() => {
             setIsEdit(true);
           }}
           className="absolute right-4 top-4 cursor-pointer text-lg dark:text-white"
-        />
-      ) : (
+        />}
+       {role === "instructor" && isEdit &&
         <GrClose
           onClick={() => {
             setIsEdit(false);
           }}
           className="absolute right-4 top-4 cursor-pointer text-lg dark:text-white"
         />
-      )}
+      }
       <h2 className="text-xl mb-2">Description</h2>
       <hr />
       {description ? (

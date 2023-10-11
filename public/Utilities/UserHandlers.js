@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 export async function LoginHandler(formData, setIsLoading) {
-  const url = "https://lms-j2h1.onrender.com";
+  const url = "http://localhost:4000";
   const { email, password } = formData;
   const encodedData = btoa(`${email}:${password}`);
   try {
@@ -28,10 +28,16 @@ export async function LoginHandler(formData, setIsLoading) {
           ...response.data.instructor,
           role: "instructor",
         };
-      } else if (response.data.admin) {
+      } else if (response.data.role == 'admin') {
         userObject = {
           ...response.data.admin,
           role: "admin",
+        };
+      }
+      else if (response.data.role == 'superAdmin') {
+        userObject = {
+          ...response.data.admin,
+          role: "superAdmin",
         };
       } else if (response.data.role == 'instructorDepartmentHead') {
         userObject = {

@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import ChangePasswordForm from "@/app/components/Profile/ChangePasswordForm";
 import Loading from "@/app/components/Loading/Spinner";
 
-const apiUrl = "https://lms-j2h1.onrender.com";
+const apiUrl = "http://localhost:4000";
 
 export default function UserProfile() {
   const router = useRouter();

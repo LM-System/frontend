@@ -10,14 +10,14 @@ import {BsTrash} from 'react-icons/bs'
 import axios from 'axios'
 import { axiosHandler } from "@/public/Utilities/axiosHandler";
 import  showToastify  from "@/public/Utilities/Toastify";
-
+import Cookies from "js-cookie";
 
 
 function Content({ params }) {
   const [isAdding,setIsAdding]=useState(false)
   const [isEditing,setIsEditing]=useState(false)
   const [contentList,setContentList]=useState([])
-  const role = 'teacher'
+  const {role} = JSON.parse(Cookies.get("user_info"))
   const sectionId = params.sectionId;
   const courseId = params.courseId;
     const fetchData = async ()=>{
@@ -44,15 +44,15 @@ async function handelDelete(id) {
 
   return (
     <div className="page">
-      {role=='teacher'&&isAdding&&<AddContentCard fetchData={fetchData} courseId={courseId} setIsAdding={setIsAdding} /> }
-      {role=='teacher'&&isEditing&&<EditContentCard sectionId={sectionId} setIsEditing={setIsEditing} /> }
+      {role=='instructor'&&isAdding&&<AddContentCard fetchData={fetchData} courseId={courseId} setIsAdding={setIsAdding} /> }
+      {role=='instructor'&&isEditing&&<EditContentCard sectionId={sectionId} setIsEditing={setIsEditing} /> }
       <Navbar/>
       <main className="main bg-gray-200">
     <div className="courseComponent">
       <CourseBar sectionId={sectionId} courseId={courseId} />
       <div className="courseFlex">
         <div className="courseLeft">
-            {role == 'teacher'&& <GrAdd onClick={handleAdd} className="absolute right-2 top-2 cursor-pointer text-lg"/>}
+            {role == 'instructor'&& <GrAdd onClick={handleAdd} className="absolute right-2 top-2 cursor-pointer text-lg"/>}
           <ol className="relative border-l border-gray-200 dark:border-gray-700 mt-5">
             { contentList.map((chapter, i)=>{
               return(
@@ -73,8 +73,8 @@ async function handelDelete(id) {
                     <span className="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">
                       Latest
                     </span>
-                    {role == 'teacher'&& <MdEdit onClick={()=>{setIsEditing(true)}} className="ml-6 cursor-pointer text-lg"/>}
-                    {role == 'teacher'&& <BsTrash className="ml-4 cursor-pointer text-lg" onClick={()=>handelDelete(chapter.id)}/>}
+                    {role == 'instructor'&& <MdEdit onClick={()=>{setIsEditing(true)}} className="ml-6 cursor-pointer text-lg"/>}
+                    {role == 'instructor'&& <BsTrash className="ml-4 cursor-pointer text-lg" onClick={()=>handelDelete(chapter.id)}/>}
                   </h3>
                   <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                     {chapter.due_date}
