@@ -7,7 +7,7 @@ import {AiOutlineClose,AiOutlineMinus} from 'react-icons/ai'
 import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddSection from '@/app/components/section/AddSection'
 
-function page({params}) {
+function Page({params}) {
   const {instituteId,departmentId,courseId,sectionId} = params
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
@@ -53,7 +53,7 @@ function page({params}) {
         <tbody>
             {announcements?.map((announcement)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={announcement.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
                    {announcement.title}
                 </th>
@@ -76,4 +76,4 @@ function page({params}) {
   )
 }
 
-export default page
+export default Page

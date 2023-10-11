@@ -70,7 +70,7 @@ function Department({params}) {
         <tbody>
             {courses?.map((course)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={course.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap dark:text-white">
                    {course.id}
                 </th>

@@ -8,7 +8,7 @@ import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import JoinSection from '@/app/components/student/JoinSection'
 import showToastify from '@/public/Utilities/Toastify'
 
-function page({params}) {
+function Page({params}) {
   const {departmentId,studentId} = params
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
@@ -83,7 +83,7 @@ function page({params}) {
         <tbody>
             {sections?.map((section)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={section.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
                    {section.id}
                 </th>
@@ -127,4 +127,4 @@ function page({params}) {
   )
 }
 
-export default page
+export default Page

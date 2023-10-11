@@ -8,7 +8,7 @@ import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddAnnouncement from '@/app/components/section/AddAnnouncement'
 import showToastify from '@/public/Utilities/Toastify'
 
-function page({params}) {
+function Page({params}) {
   const {instituteId,departmentId,courseId,sectionId} = params
     const [fetchingError,setFetchingError]=useState('')
     const [isAdding,setIsAdding] = useState(false)
@@ -60,7 +60,7 @@ function page({params}) {
         <tbody>
             {announcements?.map((announcement)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={announcement.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
                    {announcement.title}
                 </th>
@@ -83,4 +83,4 @@ function page({params}) {
   )
 }
 
-export default page
+export default Page

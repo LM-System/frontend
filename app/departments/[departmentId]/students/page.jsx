@@ -8,7 +8,7 @@ import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddStudents from '@/app/components/department/AddStudents'
 import showToastify from '@/public/Utilities/Toastify'
 
-function students({params}) {
+function Students({params}) {
   const instituteId = params.instituteId
   const departmentId = params.departmentId
     const [fetchingError,setFetchingError]=useState('')
@@ -122,4 +122,4 @@ function students({params}) {
   )
 }
 
-export default students
+export default Students

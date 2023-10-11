@@ -11,7 +11,7 @@ import PeopleList from '@/app/components/chat/PeopleList';
 
 const socket = io.connect("http://localhost:4000");
 
-function page({params}) {
+function Page({params}) {
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
     const {roomId,recieverId,receivername} = params
@@ -100,4 +100,4 @@ function page({params}) {
   )
 }
 
-export default page
+export default Page

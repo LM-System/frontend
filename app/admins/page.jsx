@@ -69,7 +69,7 @@ function Page() {
         <tbody>
             {admins&& admins.map((admin)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={admin.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">
                    {admin.id}
                 </th>

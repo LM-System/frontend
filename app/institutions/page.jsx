@@ -76,7 +76,7 @@ function Page() {
         <tbody>
             {institutions?.map((institute)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={institute.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 whitespace-nowrap dark:text-white">
                    {institute.id}
                 </th>

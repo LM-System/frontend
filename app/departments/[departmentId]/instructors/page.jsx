@@ -8,7 +8,7 @@ import { axiosHandler } from '@/public/Utilities/axiosHandler'
 import AddInstructors from '@/app/components/department/AddInstructors'
 import showToastify from '@/public/Utilities/Toastify'
 
-function students({params}) {
+function Students({params}) {
   const instituteId = params.instituteId
   const departmentId = params.departmentId
     const [fetchingError,setFetchingError]=useState('')
@@ -78,7 +78,7 @@ function students({params}) {
         <tbody>
             {instructors?.map((instructor)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={instructor.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium text-blue-700 whitespace-nowrap dark:text-white">
                    {instructor.id}
                 </th>
@@ -119,4 +119,4 @@ function students({params}) {
   )
 }
 
-export default students
+export default Students

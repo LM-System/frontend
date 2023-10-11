@@ -80,7 +80,7 @@ function Page({params}) {
         <tbody>
             {departments?.map((department)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={department.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th className="px-6 py-4">
                 {department.id}
                 </th>

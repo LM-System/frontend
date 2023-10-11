@@ -83,7 +83,7 @@ function Department({params}) {
         <tbody>
             {sections?.map((section)=>{
                 return(
-            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={section.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
                    {section.id}
                 </th>

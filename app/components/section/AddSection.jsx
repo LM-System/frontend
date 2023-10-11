@@ -97,7 +97,7 @@ function AddSection({setIsAdding,courseId,departmentId,refreshData}) {
                     <option></option>
                 {instructors.map((instructor)=>{
 
-                    return(<option value={instructor.id}>{instructor.fullname}</option>)
+                    return(<option key={instructor.id} value={instructor.id}>{instructor.fullname}</option>)
                 })}
             </select>
         </div>

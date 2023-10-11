@@ -66,7 +66,7 @@ function JoinSection({setIsAdding,departmentId,refreshData,studentId}) {
         <select name="coursesId" onChange={selectHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option></option>
                 {courses?.map((course)=>{
-                    return(<option  value={course.id}>{course.name}</option>)
+                    return(<option key={course.id} value={course.id}>{course.name}</option>)
                 })}
             </select>
     </div> 
@@ -75,7 +75,7 @@ function JoinSection({setIsAdding,departmentId,refreshData,studentId}) {
         <select name="coursesId" onChange={changeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option></option>
                 {sections?.map((section)=>{
-                    return(<option  value={section.id}>{section.name}</option>)
+                    return(<option key={section.id} value={section.id}>{section.name}</option>)
                 })}
             </select>
     </div> 

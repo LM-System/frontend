@@ -36,11 +36,10 @@ function PeopleList({recieverId,id,messageList,roomId}) {
   return (
     <div className='w-full'>
         <div className='p-5 text-lg font-bold bg-gray-800 text-white'>Chat</div>
-        {peoplelist.map((item)=>{
+        {peoplelist.map((item,idx)=>{
             const link = `/chat/${item.reciever_id==id?item.sender_name:item.reciever_name}/${item.reciever_id==id?item.sender_id:item.reciever_id}/${item.room_id}`
-            console.log(link)
             return(
-                <Link href={link}>
+                <Link key={idx} href={link}>
                 <div className={`${item.room_id == roomId ?'bg-indigo-200 z-10':''}text-lg p-4 font-bold border-b border-gray-400`}>
                     <h2 className='pb-0'>{item.reciever_id==id?decodeURIComponent(item.sender_name):decodeURIComponent(item.reciever_name)}</h2>
                     <span className='text-sm font-thin pt-0'>{item.message}</span>
