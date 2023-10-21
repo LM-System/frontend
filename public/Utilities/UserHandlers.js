@@ -13,8 +13,8 @@ export async function LoginHandler(formData, setIsLoading) {
         authorization: `Basic ${encodedData}`,
       },
     });
-
-    if(response.status === 200) {
+    console.log(response.data);
+    if (response.status === 200) {
       Cookies.set("user_token", response.data.token);
       let userObject = {};
 
@@ -23,23 +23,22 @@ export async function LoginHandler(formData, setIsLoading) {
           ...response.data.student,
           role: "student",
         };
-      } else if (response.data.role == 'instructor') {
+      } else if (response.data.role == "instructor") {
         userObject = {
           ...response.data.instructor,
           role: "instructor",
         };
-      } else if (response.data.role == 'admin') {
+      } else if (response.data.role == "admin") {
         userObject = {
           ...response.data.admin,
           role: "admin",
         };
-      }
-      else if (response.data.role == 'superAdmin') {
+      } else if (response.data.role == "superAdmin") {
         userObject = {
           ...response.data.admin,
           role: "superAdmin",
         };
-      } else if (response.data.role == 'instructorDepartmentHead') {
+      } else if (response.data.role == "instructorDepartmentHead") {
         userObject = {
           ...response.data.instructor,
           role: "instructorDepartmentHead",
@@ -49,7 +48,6 @@ export async function LoginHandler(formData, setIsLoading) {
       if (Object.keys(userObject).length > 0) {
         Cookies.set("user_info", JSON.stringify(userObject));
       }
-      
     } else {
       setIsLoading(false);
     }
