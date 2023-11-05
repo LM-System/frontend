@@ -5,6 +5,7 @@
 ## Backend Repository
 Link: <https://github.com/LM-System/frontend>
 
+## Frontend Images
 Here are some images showcasing our project:
 
 ![Project Image 1](./public/images/aboutwebsite/1.png)
