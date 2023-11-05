@@ -2,7 +2,9 @@
 
 [![Video Thumbnail](https://img.youtube.com/vi/r-1dLIWoebM/0.jpg)](https://youtu.be/r-1dLIWoebM)
 
-Backend Repo: <https://github.com/LM-System/frontend>
+## Backend Repository
+Link: <https://github.com/LM-System/frontend>
+
 Here are some images showcasing our project:
 
 ![Project Image 1](./public/images/aboutwebsite/1.png)
